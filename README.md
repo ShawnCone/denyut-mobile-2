@@ -4,6 +4,8 @@
 
 Denyut mobile 2 is an android-first client side app
 
+TBD: Mental model image here
+
 ## Stack and Notable Packages
 
 - React native (Expo)
