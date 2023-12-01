@@ -87,6 +87,7 @@ export function useAuth(): AuthContextValues {
 // Guarantee user is present, otherwise redirect to login
 export type ProtectedAuthContextValues = {
   user: User
+  signOut: () => void
 }
 
 const ProtectedAuthContext = createContext<ProtectedAuthContextValues>({
@@ -99,6 +100,7 @@ const ProtectedAuthContext = createContext<ProtectedAuthContextValues>({
     id: '',
     user_metadata: {},
   },
+  signOut: () => {},
 })
 
 type ProtectedAuthContextProviderProps = {
