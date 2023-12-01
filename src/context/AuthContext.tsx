@@ -50,10 +50,6 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   useEffect(() => {
     const { data: listener } = supabaseClient.auth.onAuthStateChange(
       (_event, session) => {
-        console.log({
-          _event,
-          session,
-        })
         setSession(session)
         setUser(session?.user ?? null)
         setLoading(false)
@@ -89,9 +85,8 @@ export function useAuth(): AuthContextValues {
 }
 
 // Guarantee user is present, otherwise redirect to login
-type ProtectedAuthContextValues = {
+export type ProtectedAuthContextValues = {
   user: User
-  signOut: () => void
 }
 
 const ProtectedAuthContext = createContext<ProtectedAuthContextValues>({
@@ -104,31 +99,24 @@ const ProtectedAuthContext = createContext<ProtectedAuthContextValues>({
     id: '',
     user_metadata: {},
   },
-  signOut: () => {},
 })
 
 type ProtectedAuthContextProviderProps = {
   children: ReactNode
+  value: ProtectedAuthContextValues
 }
 
 export const ProtectedAuthContextProvider = ({
   children,
+  value,
 }: ProtectedAuthContextProviderProps) => {
-  const { user, signOut } = useAuth()
-
-  if (user === null || typeof user === 'undefined') {
-    console.log('user is null or undefined, reroute to login page')
-    throw 'You must be logged in to access this page'
-  }
-
   return (
-    <ProtectedAuthContext.Provider value={{ user, signOut }}>
+    <ProtectedAuthContext.Provider value={value}>
       {children}
     </ProtectedAuthContext.Provider>
   )
 }
 
 export function useProtectedAuth(): ProtectedAuthContextValues {
-  // Note: Reroute can happen here as well if rerouting in provider does not work
   return useContext(ProtectedAuthContext)
 }
