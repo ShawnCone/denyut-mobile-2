@@ -1,25 +1,38 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Button, Text, TextInput, View } from 'react-native'
-import { LoginFormValues, loginFormSchema, useSendOTP } from './utils'
+import { RootStackParamsList } from '../root-stack'
+import {
+  LoginFormValues,
+  getCleanPhoneNumber,
+  loginFormSchema,
+  useSendOTP,
+} from './utils'
 
-function LoginScreen() {
+type LoginScreenProps = NativeStackScreenProps<RootStackParamsList, 'Login'>
+function LoginScreen({ navigation }: LoginScreenProps) {
   const { control, handleSubmit } = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
   })
 
-  const { mutate: sendOTP, isPending } = useSendOTP({
-    onSuccess: () => {
-      // Navigate to verify screen if successful
+  const { mutate, isPending } = useSendOTP({
+    onSuccess: phoneNumber => {
+      navigation.push('Verify', {
+        phoneNumber: phoneNumber,
+      })
     },
     onError: () => {
       // Show error message or toast?
+      console.error("Couldn't send OTP")
     },
   })
 
   const onSubmit = ({ phoneNumber }: LoginFormValues) => {
-    sendOTP(phoneNumber)
+    mutate({
+      phoneNumber: getCleanPhoneNumber(phoneNumber),
+    })
   }
 
   // Ref for auto focus when screen is open
@@ -47,8 +60,14 @@ function LoginScreen() {
           />
         )}
       />
-      {/* Error text here */}
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      {/* Form error display here */}
+      <Button
+        title="Submit"
+        onPress={handleSubmit(onSubmit)}
+        disabled={isPending}
+      />
+      {/* Submission error here */}
+      {isPending && <Text>Sending OTP...</Text>}
     </View>
   )
 }

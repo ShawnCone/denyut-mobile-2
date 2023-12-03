@@ -8,10 +8,18 @@ export const loginFormSchema = z.object({
 
 export type LoginFormValues = z.infer<typeof loginFormSchema>
 
-// Make this env variable for dev and prod environment
-const COUNTRY_CODE = '+62'
+export const verifyFormSchema = z.object({
+  otp: z.string().min(1).regex(/^\d+$/),
+})
 
-function getCleanPhoneNumber(phoneNumber: string) {
+export type VerifyFormValues = z.infer<typeof verifyFormSchema>
+
+// Make this env variable for dev and prod environment
+// const COUNTRY_CODE = '+62'
+const COUNTRY_CODE = '+1'
+
+// Clean phone number before doing any calls, the responsibility to clean is on the caller
+export function getCleanPhoneNumber(phoneNumber: string) {
   // Strip first zero
   if (phoneNumber.startsWith('0')) {
     return phoneNumber.slice(1)
@@ -26,9 +34,9 @@ function getCleanPhoneNumber(phoneNumber: string) {
   return `${COUNTRY_CODE}${phoneNumber}`
 }
 
-async function sendOTP(phoneNumber: string) {
+async function sendOTP({ phoneNumber }: { phoneNumber: string }) {
   const { data, error } = await supabaseClient.auth.signInWithOtp({
-    phone: getCleanPhoneNumber(phoneNumber),
+    phone: phoneNumber,
     options: {
       channel: 'whatsapp',
     },
@@ -42,13 +50,48 @@ async function sendOTP(phoneNumber: string) {
 }
 
 type useSendOTPParams = {
-  onSuccess?: () => void
+  onSuccess?: (phoneNumber: string) => void
   onError?: () => void
 }
 
 export function useSendOTP({ onSuccess, onError }: useSendOTPParams) {
   return useMutation({
     mutationFn: sendOTP,
+    onSuccess: (_, { phoneNumber }) => {
+      onSuccess?.(phoneNumber)
+    },
+    onError,
+  })
+}
+
+async function verifyOTP({
+  phoneNumber,
+  otp,
+}: {
+  phoneNumber: string
+  otp: string
+}) {
+  const { data, error } = await supabaseClient.auth.verifyOtp({
+    phone: phoneNumber,
+    token: otp,
+    type: 'sms',
+  })
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}
+
+type useVerifyOTPParams = {
+  onSuccess?: () => void
+  onError?: () => void
+}
+
+export function useVerifyOTP({ onSuccess, onError }: useVerifyOTPParams) {
+  return useMutation({
+    mutationFn: verifyOTP,
     onSuccess,
     onError,
   })
