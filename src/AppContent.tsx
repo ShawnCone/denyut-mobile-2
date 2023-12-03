@@ -1,23 +1,48 @@
-import LoginButton from '@/components/LoginButton'
-import { AuthContextProvider } from '@/context/AuthContext'
-import { Text, View } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import {
+  ProtectedAuthContextProvider,
+  ProtectedAuthContextValues,
+  useAuth,
+} from './context/AuthContext'
+import SplashScreen from './screens/SplashScreen'
+import LoginScreen from './screens/auth-screens/LoginScreen'
+import { MainTabContent } from './screens/main-tab/main-tab-stack'
+import { RootStack } from './screens/root-stack'
 
 function AppContent() {
+  const { loading, user, signOut } = useAuth()
+
+  if (loading) {
+    return <SplashScreen />
+  }
+
+  const protectedRouteValues: ProtectedAuthContextValues | null = user
+    ? {
+        user,
+        signOut,
+      }
+    : null
+
   return (
-    <AuthContextProvider>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          display: 'flex',
-          height: '100%',
-          justifyContent: 'center',
-        }}
-      >
-        <Text>App Content</Text>
-        <LoginButton />
-      </View>
-    </AuthContextProvider>
+    <NavigationContainer>
+      <RootStack.Navigator>
+        {protectedRouteValues === null ? (
+          <>
+            <RootStack.Screen name="Login" component={LoginScreen} />
+          </>
+        ) : (
+          <>
+            <RootStack.Screen name="Main">
+              {props => (
+                <ProtectedAuthContextProvider value={protectedRouteValues}>
+                  <MainTabContent {...props} />
+                </ProtectedAuthContextProvider>
+              )}
+            </RootStack.Screen>
+          </>
+        )}
+      </RootStack.Navigator>
+    </NavigationContainer>
   )
 }
 
