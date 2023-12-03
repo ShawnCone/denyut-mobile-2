@@ -4,8 +4,8 @@ import {
   ProtectedAuthContextValues,
   useAuth,
 } from './context/AuthContext'
-import LoginScreen from './screens/LoginScreen'
 import SplashScreen from './screens/SplashScreen'
+import LoginScreen from './screens/auth-screens/LoginScreen'
 import { MainTabContent } from './screens/main-tab/main-tab-stack'
 import { RootStack } from './screens/root-stack'
 
