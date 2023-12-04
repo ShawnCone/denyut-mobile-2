@@ -86,7 +86,7 @@ export function useAuth(): AuthContextValues {
 
 // Guarantee user is present, otherwise redirect to login
 export type ProtectedAuthContextValues = {
-  user: User
+  user: User // This user the "user" from supabase auth, need to get the user info from the database
   signOut: () => void
 }
 
