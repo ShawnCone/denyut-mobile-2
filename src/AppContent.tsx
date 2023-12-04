@@ -7,7 +7,7 @@ import {
 import SplashScreen from './screens/SplashScreen'
 import LoginScreen from './screens/auth-screens/LoginScreen'
 import VerifyScreen from './screens/auth-screens/VerifyScreen'
-import { MainTabContent } from './screens/main-tab/main-tab-stack'
+import { MainTabContent } from './screens/main-tab/main-tab-content'
 import { RootStack } from './screens/root-stack'
 
 function AppContent() {
