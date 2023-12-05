@@ -1,14 +1,13 @@
-import { useAuth, useProtectedAuth } from '@/context/AuthContext'
-import {
-  UserInfoContextProvider,
-  useCreateUserInfo,
-  useUserInfo,
-} from '@/context/UserInfoContext'
+import { useProtectedAuth } from '@/context/AuthContext'
+import { UserInfoContextProvider, useUserInfo } from '@/context/UserInfoContext'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Button, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { RootStackParamsList } from '../root-stack'
+import CreateUserInfoScreen from './CreateUserInfoScreen'
 import HomeScreen from './HomeScreen'
+import PosyanduScreen from './PosyanduScreen'
+import ProfileScreen from './ProfileScreen'
 
 const MainTab = createBottomTabNavigator()
 
@@ -21,54 +20,28 @@ type MainTabProps = NativeStackScreenProps<
 export function MainTabContent(_props: MainTabProps) {
   const { user } = useProtectedAuth()
   const { data: userInfo, isLoading: isLoadingUserInfo } = useUserInfo(user)
-  const { mutate: createUserInfo, isPending: isCreatingUserInfo } =
-    useCreateUserInfo()
 
   if (isLoadingUserInfo) {
     // Loading screen
     return (
       <View>
-        <Text>Loading...</Text>
+        <Text>Loading user info...</Text>
       </View>
     )
   }
 
   if (userInfo === null || typeof userInfo === 'undefined') {
     // Return the form for setting up user info
-    return (
-      <View>
-        <Text>Fill in the form</Text>
-        <Button
-          title="Create User Info"
-          onPress={() =>
-            createUserInfo({
-              id: user.id,
-              sex: 'female',
-              name: 'test',
-            })
-          }
-        />
-        {isCreatingUserInfo && <Text>Creating user info...</Text>}
-      </View>
-    )
+    return <CreateUserInfoScreen user={user} />
   }
 
   return (
     <UserInfoContextProvider value={{ userInfo }}>
       <MainTab.Navigator>
         <MainTab.Screen name="Home" component={HomeScreen} />
-        <MainTab.Screen name="Profile" component={LogoutButton} />
+        <MainTab.Screen name="Posyandu" component={PosyanduScreen} />
+        <MainTab.Screen name="Profile" component={ProfileScreen} />
       </MainTab.Navigator>
     </UserInfoContextProvider>
   )
-}
-
-function LogoutButton() {
-  const { signOut } = useAuth()
-
-  async function handleSignOut() {
-    signOut()
-  }
-
-  return <Button title="Sign out" onPress={handleSignOut} />
 }
