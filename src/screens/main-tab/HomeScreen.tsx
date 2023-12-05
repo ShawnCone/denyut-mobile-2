@@ -5,7 +5,7 @@ function HomeScreen() {
   const { userInfo } = useUserInfoContext()
 
   return (
-    <View>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen for {userInfo.name}</Text>
     </View>
   )

@@ -7,15 +7,16 @@ import { RootStackParamsList } from '../root-stack'
 import CreateUserInfoScreen from './CreateUserInfoScreen'
 import HomeScreen from './HomeScreen'
 import PosyanduScreen from './PosyanduScreen'
-import ProfileScreen from './ProfileScreen'
+import ProfileStackContent from './profile-stack/profile-stack-content'
 
-const MainTab = createBottomTabNavigator()
+type MainTabParamsList = {
+  Home: undefined
+  Posyandu: undefined
+  Profile: undefined
+}
+const MainTab = createBottomTabNavigator<MainTabParamsList>()
 
-type MainTabProps = NativeStackScreenProps<
-  RootStackParamsList,
-  'Main',
-  'RootStack'
->
+type MainTabProps = NativeStackScreenProps<RootStackParamsList, 'Main'>
 
 export function MainTabContent(_props: MainTabProps) {
   const { user } = useProtectedAuth()
@@ -24,7 +25,7 @@ export function MainTabContent(_props: MainTabProps) {
   if (isLoadingUserInfo) {
     // Loading screen
     return (
-      <View>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Loading user info...</Text>
       </View>
     )
@@ -40,7 +41,7 @@ export function MainTabContent(_props: MainTabProps) {
       <MainTab.Navigator>
         <MainTab.Screen name="Home" component={HomeScreen} />
         <MainTab.Screen name="Posyandu" component={PosyanduScreen} />
-        <MainTab.Screen name="Profile" component={ProfileScreen} />
+        <MainTab.Screen name="Profile" component={ProfileStackContent} />
       </MainTab.Navigator>
     </UserInfoContextProvider>
   )

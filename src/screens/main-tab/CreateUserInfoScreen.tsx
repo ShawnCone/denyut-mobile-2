@@ -10,7 +10,8 @@ function CreateUserInfoScreen({ user }: CreateUserInfoScreenProps) {
   const { mutate: createUserInfo, isPending: isCreatingUserInfo } =
     useCreateUserInfo()
   return (
-    <View>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      {' '}
       <Text>Fill in the form</Text>
       <Button
         title="Create User Info"
