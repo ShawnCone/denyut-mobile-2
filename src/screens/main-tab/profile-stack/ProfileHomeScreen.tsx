@@ -4,12 +4,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Button, Text, View } from 'react-native'
 import { ProfileStackParamsList } from './profile-stack'
 
-type ProfileHomeScreen = NativeStackScreenProps<
+type ProfileHomeScreenProps = NativeStackScreenProps<
   ProfileStackParamsList,
   'ProfileHome'
 >
 
-function ProfileHomeScreen({ navigation }: ProfileHomeScreen) {
+function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
   const { userInfo } = useUserInfoContext()
   const { signOut } = useAuth()
 
