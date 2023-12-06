@@ -1,11 +1,12 @@
+import { User } from '@supabase/supabase-js'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { ReactNode, createContext, useContext } from 'react'
+
 import {
   UserInfo,
   createUserInfo,
   getUserInfo,
 } from '@/client/supabase/queries/userInfo'
-import { User } from '@supabase/supabase-js'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { ReactNode, createContext, useContext } from 'react'
 import { useProtectedAuth } from './AuthContext'
 
 export function getUseUserInfoQueryKey(inAuthUser: User) {

@@ -1,14 +1,16 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Button, Text, View } from 'react-native'
+
 import { useAuth, useProtectedAuth } from '@/context/AuthContext'
+import { RootStackParamsList } from '../root-stack'
+import HomeScreen from './HomeScreen'
+
 import {
   UserInfoContextProvider,
   useCreateUserInfo,
   useUserInfo,
 } from '@/context/UserInfoContext'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Button, Text, View } from 'react-native'
-import { RootStackParamsList } from '../root-stack'
-import HomeScreen from './HomeScreen'
 
 const MainTab = createBottomTabNavigator()
 
