@@ -26,7 +26,13 @@ TBD: Info about backend for denyut mobile, link to repo
 
 ## CI / CD
 
-TBD: Linting, formatting, and other checks using github actions
+Linting:
+Linting uses eslint with [expo configuration](https://github.com/expo/expo/tree/main/packages/eslint-config-universe#customizing-prettier) as base, then customization are added, check `.eslintrc.json`
+
+Formatting:
+Uses [prettier](https://prettier.io/), config is available in `.prettierrc`
+
+TBD: Workflow checks for PR are not in place yet.
 
 ## Development
 
