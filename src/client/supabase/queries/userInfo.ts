@@ -29,3 +29,23 @@ export async function createUserInfo(newUserInfo: CreateUserInfoType) {
   }
   return data
 }
+
+export type UpdateUserInfoType =
+  Database['public']['Tables']['AccountInfo']['Update']
+
+export async function updateUserInfo({
+  userIdToUpdate,
+  newUserInfo,
+}: {
+  userIdToUpdate: User['id']
+  newUserInfo: UpdateUserInfoType
+}) {
+  const { data, error } = await supabaseClient
+    .from('AccountInfo')
+    .update(newUserInfo)
+    .eq('id', userIdToUpdate)
+  if (error) {
+    throw error
+  }
+  return data
+}
