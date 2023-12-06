@@ -23,7 +23,7 @@ function UpdateProfileScreen() {
   const onSubmit = ({ name }: UpdateProfileFormValues) => {
     mutate({
       newUserInfo: {
-        name: name,
+        name,
       },
     })
   }
