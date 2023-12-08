@@ -1,4 +1,4 @@
-import { StyleProp, Text, TextProps, TextStyle } from 'react-native'
+import { StyleProp, StyleSheet, Text, TextProps, TextStyle } from 'react-native'
 import { fontFamilyNameEnum, fontFamilyNameType } from './tokens/font-families'
 import { fontSizing } from './tokens/font-sizing'
 
@@ -150,10 +150,10 @@ function Typography({ variant, style, ...rest }: TypographyProps) {
   const variantToUse = variant ? variant.name : DEFAULT_VARIANT
   const variantStyle: StyleProp<TextStyle> = getVariantStyle(variantToUse)
 
-  const finalStyle = {
-    ...variantStyle,
+  const finalStyle: StyleProp<TextStyle> = StyleSheet.flatten([
+    variantStyle,
     style,
-  }
+  ])
 
   return <Text style={finalStyle} {...rest} />
 }

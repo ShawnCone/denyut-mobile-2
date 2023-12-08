@@ -2,8 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Button, Text, TextInput, View } from 'react-native'
+import { Button, TextInput, View } from 'react-native'
 
+import Typography from '@/design-system/Typography'
 import { RootStackParamsList } from '../root-stack'
 import {
   VerifyFormValues,
@@ -71,8 +72,8 @@ function VerifyScreen({ route }: VerifyScreenProps) {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Verify Screen</Text>
-      <Text>PhoneNumber to verify: {phoneNumber}</Text>
+      <Typography>Verify Screen</Typography>
+      <Typography>PhoneNumber to verify: {phoneNumber}</Typography>
       <Controller
         control={control}
         name="otp"
@@ -94,14 +95,14 @@ function VerifyScreen({ route }: VerifyScreenProps) {
         disabled={isVerifyingOTP}
       />
       {/* Submission error here */}
-      {isVerifyingOTP && <Text>Verifying...</Text>}
+      {isVerifyingOTP && <Typography>Verifying...</Typography>}
 
       <Button
         title="Resend OTP"
         onPress={handleResendOTP}
         disabled={isResendingOTP}
       />
-      {isResendingOTP && <Text>Resending OTP...</Text>}
+      {isResendingOTP && <Typography>Resending OTP...</Typography>}
     </View>
   )
 }

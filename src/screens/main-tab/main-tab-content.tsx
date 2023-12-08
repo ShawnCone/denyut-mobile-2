@@ -1,8 +1,9 @@
 import { useProtectedAuth } from '@/context/AuthContext'
 import { UserInfoContextProvider, useUserInfo } from '@/context/UserInfoContext'
+import Typography from '@/design-system/Typography'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { RootStackParamsList } from '../root-stack'
 import CreateUserInfoScreen from './CreateUserInfoScreen'
 import HomeScreen from './HomeScreen'
@@ -26,7 +27,7 @@ export function MainTabContent(_props: MainTabProps) {
     // Loading screen
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Loading user info...</Text>
+        <Typography>Loading user info...</Typography>
       </View>
     )
   }

@@ -1,7 +1,8 @@
 import { useUserInfoContext } from '@/context/UserInfoContext'
+import Typography from '@/design-system/Typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
-import { Button, Text, TextInput, View } from 'react-native'
+import { Button, TextInput, View } from 'react-native'
 import {
   UpdateProfileFormSchema,
   UpdateProfileFormValues,
@@ -30,7 +31,7 @@ function UpdateProfileScreen() {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Update Profile Screen</Text>
+      <Typography>Update Profile Screen</Typography>
       <Controller
         control={control}
         name="name"

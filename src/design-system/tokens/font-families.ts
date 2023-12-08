@@ -23,4 +23,4 @@ export const fontFamilies: Record<fontFamilyNameType, any> = {
   'Lato-regularItalic': require('../../../assets/fonts/Lato-Italic.ttf'),
   'Lato-bold': require('../../../assets/fonts/Lato-Bold.ttf'),
   'Lato-boldItalic': require('../../../assets/fonts/Lato-BoldItalic.ttf'),
-}
+} as const

@@ -1,7 +1,8 @@
 import { useAuth } from '@/context/AuthContext'
 import { useUserInfoContext } from '@/context/UserInfoContext'
+import Typography from '@/design-system/Typography'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Button, Text, View } from 'react-native'
+import { Button, View } from 'react-native'
 import { ProfileStackParamsList } from './profile-stack'
 
 type ProfileHomeScreenProps = NativeStackScreenProps<
@@ -19,7 +20,7 @@ function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Profile Screen for: {userInfo.name}</Text>
+      <Typography>Profile Screen for: {userInfo.name}</Typography>
       <Button
         title="Update Profile"
         onPress={() => {

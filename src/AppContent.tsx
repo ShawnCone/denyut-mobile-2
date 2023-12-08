@@ -6,7 +6,6 @@ import {
   ProtectedAuthContextValues,
   useAuth,
 } from './context/AuthContext'
-import { tokens } from './design-system/tokens/tokens'
 import SplashScreen from './screens/SplashScreen'
 import LoginScreen from './screens/auth-screens/LoginScreen'
 import VerifyScreen from './screens/auth-screens/VerifyScreen'
@@ -15,11 +14,15 @@ import { RootStack } from './screens/root-stack'
 
 function AppContent() {
   const { loading, user, signOut } = useAuth()
-  const [fontsLoaded] = useFonts(tokens['fontFamilies'])
-
-  if (loading || !fontsLoaded) {
-    return <SplashScreen />
-  }
+  const [fontsLoaded] = useFonts({
+    'Lato-thin': require('../assets/fonts/Lato-Thin.ttf'),
+    'Lato-light': require('../assets/fonts/Lato-Light.ttf'),
+    'Lato-lightItalic': require('../assets/fonts/Lato-LightItalic.ttf'),
+    'Lato-regular': require('../assets/fonts/Lato-Regular.ttf'),
+    'Lato-regularItalic': require('../assets/fonts/Lato-Italic.ttf'),
+    'Lato-bold': require('../assets/fonts/Lato-Bold.ttf'),
+    'Lato-boldItalic': require('../assets/fonts/Lato-BoldItalic.ttf'),
+  })
 
   const protectedRouteValues: ProtectedAuthContextValues | null = user
     ? {
@@ -27,6 +30,10 @@ function AppContent() {
         signOut,
       }
     : null
+
+  if (loading || !fontsLoaded) {
+    return <SplashScreen />
+  }
 
   return (
     <NavigationContainer>
