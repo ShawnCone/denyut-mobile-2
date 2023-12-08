@@ -2,8 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Button, Text, TextInput, View } from 'react-native'
+import { Button, TextInput, View } from 'react-native'
 
+import Typography from '@/design-system/Typography'
 import { RootStackParamsList } from '../root-stack'
 import {
   LoginFormValues,
@@ -46,7 +47,7 @@ function LoginScreen({ navigation }: LoginScreenProps) {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Login Screen</Text>
+      <Typography>Login Screen</Typography>
       <Controller
         control={control}
         name="phoneNumber"
@@ -68,7 +69,7 @@ function LoginScreen({ navigation }: LoginScreenProps) {
         disabled={isPending}
       />
       {/* Submission error here */}
-      {isPending && <Text>Sending OTP...</Text>}
+      {isPending && <Typography>Sending OTP...</Typography>}
     </View>
   )
 }

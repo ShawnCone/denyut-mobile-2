@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 
+import { useFonts } from 'expo-font'
 import {
   ProtectedAuthContextProvider,
   ProtectedAuthContextValues,
@@ -13,10 +14,15 @@ import { RootStack } from './screens/root-stack'
 
 function AppContent() {
   const { loading, user, signOut } = useAuth()
-
-  if (loading) {
-    return <SplashScreen />
-  }
+  const [fontsLoaded] = useFonts({
+    'Lato-thin': require('../assets/fonts/Lato-Thin.ttf'),
+    'Lato-light': require('../assets/fonts/Lato-Light.ttf'),
+    'Lato-lightItalic': require('../assets/fonts/Lato-LightItalic.ttf'),
+    'Lato-regular': require('../assets/fonts/Lato-Regular.ttf'),
+    'Lato-regularItalic': require('../assets/fonts/Lato-Italic.ttf'),
+    'Lato-bold': require('../assets/fonts/Lato-Bold.ttf'),
+    'Lato-boldItalic': require('../assets/fonts/Lato-BoldItalic.ttf'),
+  })
 
   const protectedRouteValues: ProtectedAuthContextValues | null = user
     ? {
@@ -24,6 +30,10 @@ function AppContent() {
         signOut,
       }
     : null
+
+  if (loading || !fontsLoaded) {
+    return <SplashScreen />
+  }
 
   return (
     <NavigationContainer>

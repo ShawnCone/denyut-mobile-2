@@ -1,3 +1,4 @@
+import ProfileHomeScreen from './ProfileHomeScreen'
 import UpdateProfileScreen from './UpdateProfile/UpdateProfileScreen'
 import { ProfileStack } from './profile-stack'
 

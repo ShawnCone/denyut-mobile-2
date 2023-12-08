@@ -1,6 +1,7 @@
 import { useCreateUserInfo } from '@/context/UserInfoContext'
+import Typography from '@/design-system/Typography'
 import { User } from '@supabase/supabase-js'
-import { Button, Text, View } from 'react-native'
+import { Button, View } from 'react-native'
 
 type CreateUserInfoScreenProps = {
   user: User
@@ -12,7 +13,7 @@ function CreateUserInfoScreen({ user }: CreateUserInfoScreenProps) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {' '}
-      <Text>Fill in the form</Text>
+      <Typography>Fill in the form</Typography>
       <Button
         title="Create User Info"
         onPress={() =>
@@ -23,7 +24,7 @@ function CreateUserInfoScreen({ user }: CreateUserInfoScreenProps) {
           })
         }
       />
-      {isCreatingUserInfo && <Text>Creating user info...</Text>}
+      {isCreatingUserInfo && <Typography>Creating user info...</Typography>}
     </View>
   )
 }
