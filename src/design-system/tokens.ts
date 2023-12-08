@@ -1,8 +1,8 @@
 // Design system tokens
 
 import { colors } from './colors'
+import { fontFamilies } from './font-families'
 import { fontSizing } from './font-sizing'
-import { fontWeight } from './font-weight'
 
 export const tokens = {
   // Margin tokens
@@ -53,6 +53,6 @@ export const tokens = {
     HIGH: 0.8,
   },
 
-  fontWeight,
   fontSizing,
+  fontFamilies,
 }

@@ -1,10 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native'
 
+import { useFonts } from 'expo-font'
 import {
   ProtectedAuthContextProvider,
   ProtectedAuthContextValues,
   useAuth,
 } from './context/AuthContext'
+import { tokens } from './design-system/tokens'
 import SplashScreen from './screens/SplashScreen'
 import LoginScreen from './screens/auth-screens/LoginScreen'
 import VerifyScreen from './screens/auth-screens/VerifyScreen'
@@ -13,8 +15,9 @@ import { RootStack } from './screens/root-stack'
 
 function AppContent() {
   const { loading, user, signOut } = useAuth()
+  const [fontsLoaded] = useFonts(tokens['fontFamilies'])
 
-  if (loading) {
+  if (loading || !fontsLoaded) {
     return <SplashScreen />
   }
 
