@@ -12,7 +12,7 @@
     "format": "prettier --write .",
     "generate-type": "supabase gen types typescript --project-id 'mncmkeesizmphvqylfqr' --schema public > src/client/supabase/types.ts",
     "lint": "eslint .",
-    "tidy": "npm run format && npm run lint"
+    "check": "npm run ts:check && npm run format && npm run lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",

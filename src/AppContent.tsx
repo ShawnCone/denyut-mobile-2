@@ -6,7 +6,7 @@ import {
   ProtectedAuthContextValues,
   useAuth,
 } from './context/AuthContext'
-import { tokens } from './design-system/tokens'
+import { tokens } from './design-system/tokens/tokens'
 import SplashScreen from './screens/SplashScreen'
 import LoginScreen from './screens/auth-screens/LoginScreen'
 import VerifyScreen from './screens/auth-screens/VerifyScreen'

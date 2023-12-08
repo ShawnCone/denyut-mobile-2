@@ -35,4 +35,8 @@ export const fontSizing = {
     fontSize: 48,
     lineHeight: 48,
   },
+  '6XL': {
+    fontSize: 64,
+    lineHeight: 64,
+  },
 }
