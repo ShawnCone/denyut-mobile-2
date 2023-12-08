@@ -141,13 +141,11 @@ const DEFAULT_VARIANT: TypographyVariants = {
 }
 
 type TypographyProps = TextProps & {
-  variant?: {
-    name: TypographyVariants
-  }
+  variant?: TypographyVariants
 }
 
 function Typography({ variant, style, ...rest }: TypographyProps) {
-  const variantToUse = variant ? variant.name : DEFAULT_VARIANT
+  const variantToUse = variant ? variant : DEFAULT_VARIANT
   const variantStyle: StyleProp<TextStyle> = getVariantStyle(variantToUse)
 
   const finalStyle: StyleProp<TextStyle> = StyleSheet.flatten([

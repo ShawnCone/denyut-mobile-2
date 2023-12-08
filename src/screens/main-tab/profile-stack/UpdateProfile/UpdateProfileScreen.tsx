@@ -31,7 +31,13 @@ function UpdateProfileScreen() {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Typography>Update Profile Screen</Typography>
+      <Typography
+        variant={{
+          size: 'Heading2',
+        }}
+      >
+        Update Profile Screen
+      </Typography>
       <Controller
         control={control}
         name="name"
