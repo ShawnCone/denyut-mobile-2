@@ -2,11 +2,11 @@
 // Most of these colors are taken from https://tailwindcss.com/docs/customizing-colors
 export const colors = {
   primary: {
-    extraLight: '#d1fae5',
-    light: '#6ee7b7',
-    normal: '#10b981',
-    dark: '#047857',
-    extraDark: '#064e3b',
+    extraLight: '#CFE5E3',
+    light: '#87BDBA',
+    normal: '#107C75',
+    dark: '#0D6761',
+    extraDark: '#083E3A',
   },
   destructive: {
     extraLight: '#fee2e2',
