@@ -64,8 +64,16 @@ function LoginScreen({ navigation }: LoginScreenProps) {
         )}
       />
       {/* Form error display here */}
-      <DenyutButton title="Submit" />
+      <DenyutButton title="Submit" onPress={handleSubmit(onSubmit)} />
       <DenyutButton title="Submit" disabled />
+
+      <DenyutButton
+        title="Submit"
+        onPress={handleSubmit(onSubmit)}
+        size="small"
+      />
+
+      <DenyutButton title="Submit" disabled size="small" />
 
       <DenyutButton title="Submit" variant="secondary" />
       <DenyutButton title="Submit" variant="secondary" disabled />

@@ -3,17 +3,18 @@ import {
   PressableProps,
   StyleProp,
   StyleSheet,
+  TextStyle,
   ViewProps,
   ViewStyle,
 } from 'react-native'
-import Typography from './Typography'
+import Typography, { TypographyVariants } from './Typography'
 import { tokens } from './tokens/tokens'
 
 type ButtonVariants = 'primary' | 'secondary' | 'destructive'
 const DEFAULT_BUTTON_VARIANT: ButtonVariants = 'primary'
 
-type ButtonSizes = 'small' | 'medium' | 'large' | 'responsive'
-const DEFAULT_BUTTON_SIZE: ButtonSizes = 'responsive'
+type ButtonSizes = 'small' | 'medium'
+const DEFAULT_BUTTON_SIZE: ButtonSizes = 'medium'
 
 type DenyutButtonProps = PressableProps & {
   variant?: ButtonVariants
@@ -32,36 +33,39 @@ function getButtonTextColor(variant: ButtonVariants): string {
   }
 }
 
+const OUTLINE_BUTTON_BORDER_WIDTH = 1.5
+
 function getPressableStyle(
   variant: ButtonVariants,
+  size: ButtonSizes,
   isDisabled: boolean,
 ): StyleProp<ViewStyle> {
-  const baseStyle: StyleProp<ViewStyle> = {
-    paddingVertical: tokens.padding.M,
-    paddingHorizontal: tokens.padding.L,
+  const sizeStyle: StyleProp<ViewStyle> = {
+    paddingVertical: size === 'small' ? tokens.padding.S : tokens.padding.M,
+    paddingHorizontal: size === 'small' ? tokens.padding.M : tokens.padding.L,
     borderRadius: tokens.borderRadius.M,
   }
 
   switch (variant) {
     case 'primary':
       return {
-        ...baseStyle,
+        ...sizeStyle,
         backgroundColor: isDisabled
           ? tokens.colors.primary.light
           : tokens.colors.primary.dark,
       }
     case 'secondary':
       return {
-        ...baseStyle,
+        ...sizeStyle,
         backgroundColor: isDisabled
           ? tokens.colors.primary.light
           : tokens.colors.primary.extraLight,
         borderColor: tokens.colors.primary.dark,
-        borderWidth: 1.5,
+        borderWidth: OUTLINE_BUTTON_BORDER_WIDTH,
       }
     case 'destructive':
       return {
-        ...baseStyle,
+        ...sizeStyle,
         backgroundColor: tokens.colors.destructive.dark,
       }
   }
@@ -76,23 +80,23 @@ function DenyutButton({
   ...rest
 }: DenyutButtonProps) {
   const variantToUse = variant ? variant : DEFAULT_BUTTON_VARIANT
-  //   const sizeToUse = size ? size : DEFAULT_BUTTON_SIZE // Not yet, control padding and width with this
+  const sizeToUse = size ? size : DEFAULT_BUTTON_SIZE // Not yet, control padding and width with this
 
   const pressableStyle: StyleProp<ViewProps> = StyleSheet.flatten([
-    getPressableStyle(variantToUse, disabled || false),
+    getPressableStyle(variantToUse, sizeToUse, disabled || false),
     typeof style === 'function' ? {} : style, // Ignore if function type
   ])
 
+  const typographyVariant: TypographyVariants =
+    sizeToUse === 'small' ? { size: 'paragraphS' } : { size: 'paragraph' }
+
+  const typographyStyle: StyleProp<TextStyle> = {
+    color: getButtonTextColor(variantToUse),
+  }
+
   return (
     <Pressable style={pressableStyle} {...rest}>
-      <Typography
-        variant={{
-          size: 'paragraph', // might change with the different sizes
-        }}
-        style={{
-          color: getButtonTextColor(variantToUse),
-        }}
-      >
+      <Typography variant={typographyVariant} style={typographyStyle}>
         {title}
       </Typography>
     </Pressable>
