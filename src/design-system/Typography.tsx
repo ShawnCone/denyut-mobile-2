@@ -19,7 +19,7 @@ type TypographyStyling =
       italic: TypographyItalic
     }
 
-type TypographyVariants =
+export type TypographyVariants =
   | {
       size:
         | 'Heading1'

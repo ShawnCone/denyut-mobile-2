@@ -2,8 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Button, TextInput, View } from 'react-native'
+import { TextInput, View } from 'react-native'
 
+import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
 import { RootStackParamsList } from '../root-stack'
 import {
@@ -41,7 +42,7 @@ function LoginScreen({ navigation }: LoginScreenProps) {
   const phoneNumberInputRef = useRef<TextInput>(null)
   useEffect(() => {
     if (phoneNumberInputRef.current) {
-      phoneNumberInputRef.current.focus()
+      // phoneNumberInputRef.current.focus()
     }
   }, [])
 
@@ -63,11 +64,22 @@ function LoginScreen({ navigation }: LoginScreenProps) {
         )}
       />
       {/* Form error display here */}
-      <Button
+      <DenyutButton title="Submit" onPress={handleSubmit(onSubmit)} />
+      <DenyutButton title="Submit" disabled />
+
+      <DenyutButton
         title="Submit"
         onPress={handleSubmit(onSubmit)}
-        disabled={isPending}
+        size="small"
       />
+
+      <DenyutButton title="Submit" disabled size="small" />
+
+      <DenyutButton title="Submit" variant="secondary" />
+      <DenyutButton title="Submit" variant="secondary" disabled />
+      <DenyutButton title="Delete" variant="destructive" />
+      <DenyutButton title="Delete" variant="destructive" disabled />
+
       {/* Submission error here */}
       {isPending && <Typography>Sending OTP...</Typography>}
     </View>
