@@ -1,9 +1,15 @@
 import { supabaseClient } from '@/client/supabase/supabase'
+import { CANNOT_BE_EMPTY } from '@/forms/error-messages'
 import { useMutation } from '@tanstack/react-query'
 import * as z from 'zod'
 
 export const loginFormSchema = z.object({
-  phoneNumber: z.string().min(1).regex(/^\d+$/),
+  phoneNumber: z
+    .string()
+    .min(1, {
+      message: CANNOT_BE_EMPTY,
+    })
+    .regex(/^\d+$/),
 })
 
 export type LoginFormValues = z.infer<typeof loginFormSchema>

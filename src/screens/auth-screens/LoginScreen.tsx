@@ -1,11 +1,20 @@
+import DenyutButton from '@/design-system/DenyutButton'
+import DenyutTextfield from '@/design-system/DenyutTextfield'
+import Typography from '@/design-system/Typography'
+import { tokens } from '@/design-system/tokens/tokens'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { TextInput, View } from 'react-native'
-
-import DenyutButton from '@/design-system/DenyutButton'
-import Typography from '@/design-system/Typography'
+import {
+  Image,
+  Keyboard,
+  Linking,
+  Pressable,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native'
 import { RootStackParamsList } from '../root-stack'
 import {
   LoginFormValues,
@@ -13,6 +22,8 @@ import {
   loginFormSchema,
   useSendOTP,
 } from './utils'
+
+export const DENYUT_MOMEN_LINK = 'https://denyut.app'
 
 type LoginScreenProps = NativeStackScreenProps<RootStackParamsList, 'Login'>
 function LoginScreen({ navigation }: LoginScreenProps) {
@@ -42,47 +53,146 @@ function LoginScreen({ navigation }: LoginScreenProps) {
   const phoneNumberInputRef = useRef<TextInput>(null)
   useEffect(() => {
     if (phoneNumberInputRef.current) {
-      // phoneNumberInputRef.current.focus()
+      phoneNumberInputRef.current.focus()
     }
   }, [])
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Typography>Login Screen</Typography>
-      <Controller
-        control={control}
-        name="phoneNumber"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={{ width: 200, height: 40 }}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            ref={phoneNumberInputRef}
-            keyboardType="number-pad"
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View
+        style={{ flex: 1, backgroundColor: tokens.colors.neutral.extraLight }}
+      >
+        <View
+          style={{
+            height: 300,
+            marginTop: tokens.margin.XL,
+          }}
+        >
+          <Image
+            source={require('@/../assets/images/poster.png')}
+            style={{
+              flex: 1,
+              height: null,
+              width: null,
+              resizeMode: 'cover',
+            }}
           />
-        )}
-      />
-      {/* Form error display here */}
-      <DenyutButton title="Submit" onPress={handleSubmit(onSubmit)} />
-      <DenyutButton title="Submit" disabled />
+        </View>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'white',
+            borderTopRightRadius: 70,
+            elevation: 1,
+            marginTop: -1 * tokens.margin.XXL,
+          }}
+        >
+          <View
+            style={{
+              padding: tokens.padding.L,
+            }}
+          >
+            <Typography
+              variant={{
+                size: 'Heading3',
+              }}
+            >
+              Masuk
+            </Typography>
+            <Typography
+              variant={{
+                size: 'caption',
+              }}
+              style={{
+                color: tokens.colors.neutral.normal,
+              }}
+            >
+              Silahkan masuk untuk melanjutkan
+            </Typography>
+            <Controller
+              control={control}
+              name="phoneNumber"
+              render={({
+                field: { onChange, onBlur, value },
+                fieldState: { error },
+              }) => (
+                <View
+                  style={{
+                    marginTop: tokens.margin.XL,
+                  }}
+                >
+                  <DenyutTextfield
+                    label="Nomor Handphone"
+                    leftChildren={
+                      <Image
+                        source={require('@/../assets/icons/indonesian-flag.png')}
+                        style={{ width: 24, height: 24, marginTop: 6 }}
+                      />
+                    }
+                    errorMessage={error?.message}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    ref={phoneNumberInputRef}
+                    keyboardType="number-pad"
+                  />
+                </View>
+              )}
+            />
+            {/* Form error display here */}
+            <View
+              style={{
+                marginTop: tokens.margin.L,
+              }}
+            >
+              <DenyutButton
+                title="Masuk"
+                onPress={handleSubmit(onSubmit)}
+                disabled={isPending}
+              />
+            </View>
+            {/* Denyut momen section */}
 
-      <DenyutButton
-        title="Submit"
-        onPress={handleSubmit(onSubmit)}
-        size="small"
-      />
-
-      <DenyutButton title="Submit" disabled size="small" />
-
-      <DenyutButton title="Submit" variant="secondary" />
-      <DenyutButton title="Submit" variant="secondary" disabled />
-      <DenyutButton title="Delete" variant="destructive" />
-      <DenyutButton title="Delete" variant="destructive" disabled />
-
-      {/* Submission error here */}
-      {isPending && <Typography>Sending OTP...</Typography>}
-    </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: tokens.margin.XL,
+              }}
+            >
+              <Typography
+                variant={{
+                  size: 'caption',
+                }}
+              >
+                Mencari Denyut Momen?
+              </Typography>
+              <Pressable
+                onPress={() => {
+                  Linking.openURL(DENYUT_MOMEN_LINK)
+                }}
+              >
+                <Typography
+                  variant={{
+                    size: 'caption',
+                    textStyling: {
+                      weight: 'bold',
+                    },
+                  }}
+                  style={{
+                    color: tokens.colors.primary.dark,
+                  }}
+                >
+                  {' '}
+                  Klik disini
+                </Typography>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 

@@ -29,6 +29,12 @@ export const tokens = {
     S: 4,
     M: 8,
   },
+  // Border width tokens
+  borderWidth: {
+    M: 1.5,
+    L: 2,
+  },
+
   // Icon size tokens
   iconSize: {
     S: 16,

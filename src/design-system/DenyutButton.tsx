@@ -33,8 +33,6 @@ function getButtonTextColor(variant: ButtonVariants): string {
   }
 }
 
-const OUTLINE_BUTTON_BORDER_WIDTH = 1.5
-
 function getPressableStyle(
   variant: ButtonVariants,
   size: ButtonSizes,
@@ -43,7 +41,7 @@ function getPressableStyle(
   const sizeStyle: StyleProp<ViewStyle> = {
     paddingVertical: size === 'small' ? tokens.padding.S : tokens.padding.M,
     paddingHorizontal: size === 'small' ? tokens.padding.M : tokens.padding.L,
-    borderRadius: tokens.borderRadius.M,
+    borderRadius: tokens.borderRadius.S,
   }
 
   switch (variant) {
@@ -61,7 +59,7 @@ function getPressableStyle(
           ? tokens.colors.primary.light
           : tokens.colors.primary.extraLight,
         borderColor: tokens.colors.primary.dark,
-        borderWidth: OUTLINE_BUTTON_BORDER_WIDTH,
+        borderWidth: tokens.borderWidth.M,
       }
     case 'destructive':
       return {
@@ -92,6 +90,7 @@ function DenyutButton({
 
   const typographyStyle: StyleProp<TextStyle> = {
     color: getButtonTextColor(variantToUse),
+    textAlign: 'center',
   }
 
   return (
