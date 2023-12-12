@@ -28,7 +28,7 @@ export const DENYUT_MOMEN_LINK = 'https://denyut.app'
 
 type LoginScreenProps = NativeStackScreenProps<RootStackParamsList, 'Login'>
 function LoginScreen({ navigation }: LoginScreenProps) {
-  const { control, handleSubmit } = useForm<LoginFormValues>({
+  const { control, handleSubmit, formState } = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
   })
 
@@ -169,7 +169,7 @@ function LoginScreen({ navigation }: LoginScreenProps) {
               <DenyutButton
                 title="Masuk"
                 onPress={handleSubmit(onSubmit)}
-                disabled={isPending}
+                disabled={isPending || !formState.isValid}
               />
             </View>
             {/* Denyut momen section */}

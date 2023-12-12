@@ -18,12 +18,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./icons/app-icon.png",
+        "foregroundImage": "./assets/icons/app-icon.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./icons/app-icon.png"
+      "favicon": "./assets/icons/app-icon.png"
     },
     "extra": {
       "eas": {
