@@ -40,7 +40,13 @@ function AppContent() {
       <RootStack.Navigator>
         {protectedRouteValues === null ? (
           <>
-            <RootStack.Screen name="Login" component={LoginScreen} />
+            <RootStack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
             <RootStack.Screen name="Verify" component={VerifyScreen} />
           </>
         ) : (
