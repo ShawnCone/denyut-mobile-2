@@ -1,9 +1,12 @@
-import { Text, View } from 'react-native'
+import { Image, View } from 'react-native'
 
 function SplashScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Splash Screen</Text>
+      <Image
+        source={require('@/../assets/images/splash.png')}
+        style={{ width: 200, height: 230 }}
+      />
     </View>
   )
 }

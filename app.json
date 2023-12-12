@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "denyut-mobile-2",
-    "slug": "denyut-mobile-2",
-    "version": "1.0.0",
+    "name": "Denyut Mobile",
+    "slug": "denyut-mobile",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash-app.png",
       "resizeMode": "contain",
+
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
@@ -17,12 +18,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./icons/app-icon.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./icons/app-icon.png"
     },
     "extra": {
       "eas": {
