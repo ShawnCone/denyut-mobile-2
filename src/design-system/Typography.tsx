@@ -79,13 +79,13 @@ function getVariantStyle(
       }
     case 'Heading3':
       return {
-        fontFamily: fontFamilyNameEnum['Lato-regular'],
+        fontFamily: fontFamilyNameEnum['Lato-bold'],
         fontSize: fontSizing['4XL'].fontSize,
         lineHeight: fontSizing['4XL'].lineHeight,
       }
     case 'Heading4':
       return {
-        fontFamily: fontFamilyNameEnum['Lato-regular'],
+        fontFamily: fontFamilyNameEnum['Lato-bold'],
         fontSize: fontSizing['3XL'].fontSize,
         lineHeight: fontSizing['3XL'].lineHeight,
       }

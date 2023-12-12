@@ -17,6 +17,7 @@ import {
 } from 'react-native'
 import { RootStackParamsList } from '../root-stack'
 import {
+  COUNTRY_CODE,
   LoginFormValues,
   getCleanPhoneNumber,
   loginFormSchema,
@@ -94,7 +95,7 @@ function LoginScreen({ navigation }: LoginScreenProps) {
           >
             <Typography
               variant={{
-                size: 'Heading3',
+                size: 'Heading4',
               }}
             >
               Masuk
@@ -124,10 +125,29 @@ function LoginScreen({ navigation }: LoginScreenProps) {
                   <DenyutTextfield
                     label="Nomor Handphone"
                     leftChildren={
-                      <Image
-                        source={require('@/../assets/icons/indonesian-flag.png')}
-                        style={{ width: 24, height: 24, marginTop: 6 }}
-                      />
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          marginTop: 4,
+                        }}
+                      >
+                        <Image
+                          source={require('@/../assets/icons/indonesian-flag.png')}
+                          style={{ width: 24, height: 24 }}
+                        />
+                        <Typography
+                          variant={{
+                            size: 'caption',
+                          }}
+                          style={{
+                            marginLeft: tokens.margin.M,
+                            color: tokens.colors.neutral.normal,
+                          }}
+                        >
+                          {COUNTRY_CODE}
+                        </Typography>
+                      </View>
                     }
                     errorMessage={error?.message}
                     onBlur={onBlur}
@@ -135,6 +155,7 @@ function LoginScreen({ navigation }: LoginScreenProps) {
                     value={value}
                     ref={phoneNumberInputRef}
                     keyboardType="number-pad"
+                    editable={!isPending}
                   />
                 </View>
               )}
@@ -152,13 +173,12 @@ function LoginScreen({ navigation }: LoginScreenProps) {
               />
             </View>
             {/* Denyut momen section */}
-
             <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginTop: tokens.margin.XL,
+                marginTop: tokens.margin.XXL,
               }}
             >
               <Typography

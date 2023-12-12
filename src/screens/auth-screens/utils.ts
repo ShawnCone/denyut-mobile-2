@@ -21,8 +21,7 @@ export const verifyFormSchema = z.object({
 export type VerifyFormValues = z.infer<typeof verifyFormSchema>
 
 // Make this env variable for dev and prod environment
-// const COUNTRY_CODE = '+62'
-const COUNTRY_CODE = '+1'
+export const COUNTRY_CODE = '+1'
 
 // Clean phone number before doing any calls, the responsibility to clean is on the caller
 export function getCleanPhoneNumber(phoneNumber: string) {
