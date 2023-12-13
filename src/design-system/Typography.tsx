@@ -140,7 +140,7 @@ const DEFAULT_VARIANT: TypographyVariants = {
   size: 'paragraph',
 }
 
-type TypographyProps = TextProps & {
+export type TypographyProps = TextProps & {
   variant?: TypographyVariants
 }
 

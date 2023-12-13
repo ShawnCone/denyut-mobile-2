@@ -8,7 +8,7 @@ import {
 } from './context/AuthContext'
 import SplashScreen from './screens/SplashScreen'
 import LoginScreen from './screens/auth-screens/LoginScreen'
-import VerifyScreen from './screens/auth-screens/VerifyScreen'
+import VerifyScreen from './screens/auth-screens/verify-screen/VerifyScreen'
 import { MainTabContent } from './screens/main-tab/main-tab-content'
 import { RootStack } from './screens/root-stack'
 
@@ -41,13 +41,20 @@ function AppContent() {
         {protectedRouteValues === null ? (
           <>
             <RootStack.Screen
+              name="Verify"
+              component={VerifyScreen}
+              initialParams={{
+                phoneNumber: '+12179791776',
+              }}
+            />
+
+            <RootStack.Screen
               name="Login"
               component={LoginScreen}
               options={{
                 headerShown: false,
               }}
             />
-            <RootStack.Screen name="Verify" component={VerifyScreen} />
           </>
         ) : (
           <>
