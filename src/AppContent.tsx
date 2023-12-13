@@ -6,23 +6,20 @@ import {
   ProtectedAuthContextValues,
   useAuth,
 } from './context/AuthContext'
+import {
+  fontFamilies,
+  fontFamilyNameEnum,
+} from './design-system/tokens/font-families'
+import { tokens } from './design-system/tokens/tokens'
 import SplashScreen from './screens/SplashScreen'
 import LoginScreen from './screens/auth-screens/LoginScreen'
-import VerifyScreen from './screens/auth-screens/VerifyScreen'
+import VerifyScreen from './screens/auth-screens/verify-screen/VerifyScreen'
 import { MainTabContent } from './screens/main-tab/main-tab-content'
 import { RootStack } from './screens/root-stack'
 
 function AppContent() {
   const { loading, user, signOut } = useAuth()
-  const [fontsLoaded] = useFonts({
-    'Lato-thin': require('../assets/fonts/Lato-Thin.ttf'),
-    'Lato-light': require('../assets/fonts/Lato-Light.ttf'),
-    'Lato-lightItalic': require('../assets/fonts/Lato-LightItalic.ttf'),
-    'Lato-regular': require('../assets/fonts/Lato-Regular.ttf'),
-    'Lato-regularItalic': require('../assets/fonts/Lato-Italic.ttf'),
-    'Lato-bold': require('../assets/fonts/Lato-Bold.ttf'),
-    'Lato-boldItalic': require('../assets/fonts/Lato-BoldItalic.ttf'),
-  })
+  const [fontsLoaded] = useFonts(fontFamilies)
 
   const protectedRouteValues: ProtectedAuthContextValues | null = user
     ? {
@@ -37,7 +34,17 @@ function AppContent() {
 
   return (
     <NavigationContainer>
-      <RootStack.Navigator>
+      <RootStack.Navigator
+        initialRouteName="Login"
+        screenOptions={() => ({
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontFamily: fontFamilyNameEnum['Lato-bold'],
+            fontSize: tokens.fontSizing['L'].fontSize,
+          },
+          headerBackVisible: true,
+        })}
+      >
         {protectedRouteValues === null ? (
           <>
             <RootStack.Screen
@@ -47,7 +54,13 @@ function AppContent() {
                 headerShown: false,
               }}
             />
-            <RootStack.Screen name="Verify" component={VerifyScreen} />
+            <RootStack.Screen
+              name="Verify"
+              component={VerifyScreen}
+              initialParams={{
+                phoneNumber: '+12179791776',
+              }}
+            />
           </>
         ) : (
           <>

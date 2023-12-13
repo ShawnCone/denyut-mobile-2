@@ -4,18 +4,17 @@ import { useMutation } from '@tanstack/react-query'
 import * as z from 'zod'
 
 export const loginFormSchema = z.object({
-  phoneNumber: z
-    .string()
-    .min(1, {
-      message: CANNOT_BE_EMPTY,
-    })
-    .regex(/^\d+$/),
+  phoneNumber: z.string().min(1, {
+    message: CANNOT_BE_EMPTY,
+  }),
 })
+
+export const OTP_LENGTH = 4
 
 export type LoginFormValues = z.infer<typeof loginFormSchema>
 
 export const verifyFormSchema = z.object({
-  otp: z.string().min(1).regex(/^\d+$/),
+  otp: z.string().min(OTP_LENGTH).max(OTP_LENGTH),
 })
 
 export type VerifyFormValues = z.infer<typeof verifyFormSchema>
@@ -65,39 +64,6 @@ export function useSendOTP({ onSuccess, onError }: useSendOTPParams) {
     onSuccess: (_, { phoneNumber }) => {
       onSuccess?.(phoneNumber)
     },
-    onError,
-  })
-}
-
-async function verifyOTP({
-  phoneNumber,
-  otp,
-}: {
-  phoneNumber: string
-  otp: string
-}) {
-  const { data, error } = await supabaseClient.auth.verifyOtp({
-    phone: phoneNumber,
-    token: otp,
-    type: 'sms',
-  })
-
-  if (error) {
-    throw error
-  }
-
-  return data
-}
-
-type useVerifyOTPParams = {
-  onSuccess?: () => void
-  onError?: () => void
-}
-
-export function useVerifyOTP({ onSuccess, onError }: useVerifyOTPParams) {
-  return useMutation({
-    mutationFn: verifyOTP,
-    onSuccess,
     onError,
   })
 }
