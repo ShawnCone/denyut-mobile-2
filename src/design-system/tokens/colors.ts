@@ -37,6 +37,7 @@ export const colors = {
     extraDark: '#0c4a6e',
   },
   neutral: {
+    white: 'white',
     extraLight: '#f1f5f9',
     light: '#cbd5e1',
     normal: '#64748b',

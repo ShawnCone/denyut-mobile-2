@@ -59,9 +59,9 @@ function VerifyScreen({ route }: VerifyScreenProps) {
   })
   function handleResendOTP() {
     resetResendTimer()
-    // resendOTP({
-    //   phoneNumber,
-    // })
+    resendOTP({
+      phoneNumber,
+    })
   }
 
   // Ref for auto focus when screen is open
@@ -78,9 +78,7 @@ function VerifyScreen({ route }: VerifyScreenProps) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <FormProvider {...formMethods}>
-        <View
-          style={{ flex: 1, backgroundColor: tokens.colors.neutral.extraLight }}
-        >
+        <View style={{ flex: 1, backgroundColor: tokens.colors.neutral.white }}>
           <View
             style={{
               paddingHorizontal: tokens.padding.L,
@@ -135,9 +133,6 @@ function VerifyScreen({ route }: VerifyScreenProps) {
                 typographyProps={{
                   variant: {
                     size: 'caption',
-                    textStyling: {
-                      weight: 'bold',
-                    },
                   },
                   style: {
                     color: isReadyToResend

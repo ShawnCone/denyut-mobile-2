@@ -82,7 +82,7 @@ function LoginScreen({ navigation }: LoginScreenProps) {
         <View
           style={{
             flex: 1,
-            backgroundColor: 'white',
+            backgroundColor: tokens.colors.neutral.white,
             borderTopRightRadius: 70,
             elevation: 1,
             marginTop: -1 * tokens.margin.XXL,
