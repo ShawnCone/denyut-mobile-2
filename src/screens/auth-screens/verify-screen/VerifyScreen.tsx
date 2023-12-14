@@ -78,86 +78,86 @@ function VerifyScreen({ route }: VerifyScreenProps) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <FormProvider {...formMethods}>
-        <View style={{ flex: 1, backgroundColor: tokens.colors.neutral.white }}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: tokens.colors.neutral.white,
+            paddingHorizontal: tokens.padding.L,
+            paddingTop: tokens.padding.L,
+          }}
+        >
+          <Typography
+            variant={{
+              size: 'paragraphS',
+            }}
+          >
+            Masukan kode verifikasi yang telah kami kirimkan melalui nomor
+            handphone
+            <Typography
+              variant={{
+                size: 'paragraphS',
+                textStyling: {
+                  weight: 'bold',
+                },
+              }}
+            >
+              {' '}
+              {phoneNumber}
+            </Typography>
+          </Typography>
           <View
             style={{
-              paddingHorizontal: tokens.padding.L,
-              paddingTop: tokens.padding.L,
+              marginTop: tokens.margin.L,
+            }}
+          >
+            <OTPInput isError={isError} onSubmit={handleSubmit(onSubmit)} />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: tokens.margin.L,
             }}
           >
             <Typography
               variant={{
-                size: 'paragraphS',
+                size: 'caption',
               }}
             >
-              Masukan kode verifikasi yang telah kami kirimkan melalui nomor
-              handphone
-              <Typography
-                variant={{
-                  size: 'paragraphS',
-                  textStyling: {
-                    weight: 'bold',
-                  },
-                }}
-              >
-                {' '}
-                {phoneNumber}
-              </Typography>
+              Belum mendapatkan OTP?
             </Typography>
-            <View
-              style={{
-                marginTop: tokens.margin.L,
+            <ClickableTypography
+              pressableProps={{
+                onPress: handleResendOTP,
+                disabled: !isReadyToResend,
               }}
-            >
-              <OTPInput isError={isError} onSubmit={handleSubmit(onSubmit)} />
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: tokens.margin.L,
-              }}
-            >
-              <Typography
-                variant={{
+              typographyProps={{
+                variant: {
                   size: 'caption',
-                }}
-              >
-                Belum mendapatkan OTP?
-              </Typography>
-              <ClickableTypography
-                pressableProps={{
-                  onPress: handleResendOTP,
-                  disabled: !isReadyToResend,
-                }}
-                typographyProps={{
-                  variant: {
-                    size: 'caption',
-                  },
-                  style: {
-                    color: isReadyToResend
-                      ? tokens.colors.primary.normal
-                      : tokens.colors.primary.light,
-                  },
-                }}
-              >
-                {'  '}
-                {isReadyToResend
-                  ? 'Kirim Ulang'
-                  : `Kirim Ulang dalam 0:${
-                      secondsRemaining > 9 ? '' : '0'
-                    }${secondsRemaining}`}
-              </ClickableTypography>
-            </View>
-            <DenyutButton
-              style={{
-                marginTop: tokens.margin.M,
+                },
+                style: {
+                  color: isReadyToResend
+                    ? tokens.colors.primary.normal
+                    : tokens.colors.primary.light,
+                },
               }}
-              title="Verifikasi Kode OTP"
-              onPress={handleSubmit(onSubmit)}
-              disabled={isVerifyingOTP || !isValid}
-            />
+            >
+              {'  '}
+              {isReadyToResend
+                ? 'Kirim Ulang'
+                : `Kirim Ulang dalam 0:${
+                    secondsRemaining > 9 ? '' : '0'
+                  }${secondsRemaining}`}
+            </ClickableTypography>
           </View>
+          <DenyutButton
+            style={{
+              marginTop: tokens.margin.M,
+            }}
+            title="Verifikasi Kode OTP"
+            onPress={handleSubmit(onSubmit)}
+            disabled={isVerifyingOTP || !isValid}
+          />
         </View>
       </FormProvider>
     </TouchableWithoutFeedback>

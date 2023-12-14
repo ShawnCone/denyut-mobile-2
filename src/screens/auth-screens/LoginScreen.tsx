@@ -1,6 +1,6 @@
 import DenyutButton from '@/design-system/DenyutButton'
-import DenyutTextfield from '@/design-system/DenyutTextfield'
 import Typography from '@/design-system/Typography'
+import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
 import { tokens } from '@/design-system/tokens/tokens'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'

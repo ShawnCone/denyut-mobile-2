@@ -1,13 +1,8 @@
 import { User } from '@supabase/supabase-js'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { ReactNode, createContext, useContext } from 'react'
 
-import {
-  UserInfo,
-  createUserInfo,
-  getUserInfo,
-} from '@/client/supabase/queries/userInfo'
-import { useProtectedAuth } from './AuthContext'
+import { UserInfo, getUserInfo } from '@/client/supabase/queries/userInfo'
 
 export function getUseUserInfoQueryKey(inAuthUser: User) {
   return ['userInfo', inAuthUser.id]
@@ -61,18 +56,4 @@ export const UserInfoContextProvider = ({
 export function useUserInfoContext(): UserInfoContextValues {
   const context = useContext(UserInfoContext)
   return context
-}
-
-// Maybe this should be in the client folder?
-export function useCreateUserInfo() {
-  const queryClient = useQueryClient()
-  const { user } = useProtectedAuth()
-  return useMutation({
-    mutationFn: createUserInfo,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: getUseUserInfoQueryKey(user),
-      })
-    },
-  })
 }
