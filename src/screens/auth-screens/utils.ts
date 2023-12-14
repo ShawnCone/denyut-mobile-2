@@ -9,7 +9,7 @@ export const loginFormSchema = z.object({
   }),
 })
 
-export const OTP_LENGTH = 4
+export const OTP_LENGTH = 6
 
 export type LoginFormValues = z.infer<typeof loginFormSchema>
 

@@ -6,16 +6,16 @@ import {
   TextInputProps,
   View,
 } from 'react-native'
-import Typography, { TypographyVariants } from './Typography'
-import { tokens } from './tokens/tokens'
+import { tokens } from '../tokens/tokens'
+import FormFieldContainer, {
+  FormFieldContainerWithoutChildren,
+} from './FormFieldContainer'
 
 type DenyutTextfieldProps = {
-  label?: string
-  errorMessage?: string
-  required?: boolean
   placeholder?: string
   leftChildren?: ReactNode
-} & TextInputProps
+} & FormFieldContainerWithoutChildren &
+  TextInputProps
 
 const DenyutTextfield = forwardRef<TextInput, DenyutTextfieldProps>(
   (
@@ -44,37 +44,23 @@ const DenyutTextfield = forwardRef<TextInput, DenyutTextfieldProps>(
         borderWidth: tokens.borderWidth.M,
         borderColor: textFieldColor,
         borderRadius: tokens.borderRadius.S,
-        marginTop: tokens.margin.S,
         paddingVertical: tokens.padding.M,
         paddingLeft: leftChildrenMeasurements?.width
           ? leftChildrenMeasurements.width + tokens.padding.M * 2
           : tokens.padding.M,
         paddingRight: tokens.padding.M,
       },
-
-      error: {
-        color: tokens.colors.destructive.normal,
-        marginTop: tokens.margin.S,
-      },
     })
 
-    const labelTypographyVariant: TypographyVariants = {
-      size: 'caption',
+    const containerProps: FormFieldContainerWithoutChildren = {
+      label,
+      errorMessage,
+      required,
     }
 
     return (
-      <View>
-        <Typography variant={labelTypographyVariant}>
-          {label}
-          <Typography
-            variant={labelTypographyVariant}
-            style={{
-              color: tokens.colors.destructive.normal,
-            }}
-          >
-            {required && '*'}
-          </Typography>
-        </Typography>
+      <FormFieldContainer {...containerProps}>
+        {/* Text input */}
         <View
           style={{
             flexDirection: 'row',
@@ -108,18 +94,7 @@ const DenyutTextfield = forwardRef<TextInput, DenyutTextfieldProps>(
             {...props}
           />
         </View>
-
-        {errorMessage && (
-          <Typography
-            variant={{
-              size: 'captionS',
-            }}
-            style={styles.error}
-          >
-            {errorMessage}
-          </Typography>
-        )}
-      </View>
+      </FormFieldContainer>
     )
   },
 )

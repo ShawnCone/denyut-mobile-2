@@ -68,12 +68,6 @@ export function OTPInput({ isError, onSubmit }: OTPInputProps) {
     }
   }
 
-  // useEffect(() => {
-  //   if (filledLength === OTP_LENGTH) {
-  //     onSubmit()
-  //   }
-  // }, [otpDigitArr])
-
   useEffect(() => {
     if (textInputRef.current) {
       textInputRef.current.focus()

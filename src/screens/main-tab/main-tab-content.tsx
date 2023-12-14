@@ -1,11 +1,12 @@
 import { useProtectedAuth } from '@/context/AuthContext'
 import { UserInfoContextProvider, useUserInfo } from '@/context/UserInfoContext'
-import Typography from '@/design-system/Typography'
+import LoadingIndicator from '@/design-system/LoadingIndicator'
+import CreateUserInfoScreen from '@/screens/main-tab/CreateUserInfo/CreateUserInfoScreen'
+import { RootStackParamsList } from '@/screens/root-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { useEffect } from 'react'
 import { View } from 'react-native'
-import { RootStackParamsList } from '../root-stack'
-import CreateUserInfoScreen from './CreateUserInfoScreen'
 import HomeScreen from './HomeScreen'
 import PosyanduScreen from './PosyanduScreen'
 import ProfileStackContent from './profile-stack/profile-stack-content'
@@ -19,15 +20,25 @@ const MainTab = createBottomTabNavigator<MainTabParamsList>()
 
 type MainTabProps = NativeStackScreenProps<RootStackParamsList, 'Main'>
 
-export function MainTabContent(_props: MainTabProps) {
+export function MainTabContent({ navigation }: MainTabProps) {
   const { user } = useProtectedAuth()
   const { data: userInfo, isLoading: isLoadingUserInfo } = useUserInfo(user)
+
+  const showHeader =
+    (userInfo === null || typeof userInfo === 'undefined') && !isLoadingUserInfo
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: showHeader,
+      headerTitle: 'Buat Akun',
+    })
+  }, [showHeader])
 
   if (isLoadingUserInfo) {
     // Loading screen
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Typography>Loading user info...</Typography>
+        <LoadingIndicator />
       </View>
     )
   }
