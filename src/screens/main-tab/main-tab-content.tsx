@@ -1,8 +1,11 @@
 import { useProtectedAuth } from '@/context/AuthContext'
 import { UserInfoContextProvider, useUserInfo } from '@/context/UserInfoContext'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
+import { fontFamilyNameEnum } from '@/design-system/tokens/font-families'
+import { tokens } from '@/design-system/tokens/tokens'
 import CreateUserInfoScreen from '@/screens/main-tab/CreateUserInfo/CreateUserInfoScreen'
 import { RootStackParamsList } from '@/screens/root-stack'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useEffect } from 'react'
@@ -50,10 +53,62 @@ export function MainTabContent({ navigation }: MainTabProps) {
 
   return (
     <UserInfoContextProvider value={{ userInfo }}>
-      <MainTab.Navigator>
-        <MainTab.Screen name="Home" component={HomeScreen} />
-        <MainTab.Screen name="Posyandu" component={PosyanduScreen} />
-        <MainTab.Screen name="Profile" component={ProfileStackContent} />
+      <MainTab.Navigator
+        initialRouteName="Home"
+        screenOptions={() => ({
+          tabBarActiveTintColor: tokens.colors.primary.dark,
+          tabBarInactiveTintColor: tokens.colors.neutral.light,
+          tabBarItemStyle: {
+            paddingBottom: tokens.margin.M,
+            paddingTop: tokens.margin.S,
+          },
+          tabBarStyle: {
+            height: 60, // Better if responsive, but this should be ok.,
+          },
+
+          tabBarLabelStyle: {
+            paddingTop: tokens.margin.S,
+            fontFamily: fontFamilyNameEnum['Lato-bold'],
+            fontSize: tokens.fontSizing['XS'].fontSize,
+          },
+          tabBarHideOnKeyboard: true,
+        })}
+      >
+        <MainTab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="home" size={tokens.iconSize.M} color={color} />
+            ),
+          }}
+        />
+        <MainTab.Screen
+          name="Posyandu"
+          component={PosyanduScreen}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name="office-building-outline"
+                size={tokens.iconSize.M}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <MainTab.Screen
+          name="Profile"
+          component={ProfileStackContent}
+          options={{
+            tabBarLabel: 'Profil',
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="person" size={tokens.iconSize.M} color={color} />
+            ),
+            headerShown: false,
+          }}
+        />
       </MainTab.Navigator>
     </UserInfoContextProvider>
   )
