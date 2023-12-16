@@ -1,7 +1,7 @@
 import { BaseStackNavigationScreenOptions } from '@/design-system/BaseStackNavigationScreenOptions'
 import NewPosyanduSearchScreen from './NewPosyanduSearchScreen'
 import PosyanduDetailsScreen from './PosyanduDetailsScreen'
-import PosyanduHomeScreen from './PosyanduHomeScreen'
+import PosyanduHomeScreen from './PosyanduHome/PosyanduHomeScreen'
 import { PosyanduStack } from './posyandu-stack'
 
 function PosyanduStackContent() {

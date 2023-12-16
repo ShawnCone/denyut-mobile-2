@@ -301,21 +301,24 @@ export interface Database {
           createdAt: string | null
           outpostId: string
           role: string | null
-          status: string | null
+          status: Database['public']['Enums']['membership_status_enum']
+          status_old: string | null
         }
         Insert: {
           accountId: string
           createdAt?: string | null
           outpostId: string
           role?: string | null
-          status?: string | null
+          status?: Database['public']['Enums']['membership_status_enum']
+          status_old?: string | null
         }
         Update: {
           accountId?: string
           createdAt?: string | null
           outpostId?: string
           role?: string | null
-          status?: string | null
+          status?: Database['public']['Enums']['membership_status_enum']
+          status_old?: string | null
         }
         Relationships: [
           {
@@ -389,6 +392,7 @@ export interface Database {
       }
     }
     Enums: {
+      membership_status_enum: 'pending' | 'approved'
       sex_enum: 'male' | 'female'
     }
     CompositeTypes: {
