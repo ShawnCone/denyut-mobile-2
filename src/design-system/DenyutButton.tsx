@@ -41,7 +41,7 @@ function getPressableStyle(
   const sizeStyle: StyleProp<ViewStyle> = {
     paddingVertical: size === 'small' ? tokens.padding.S : tokens.padding.M,
     paddingHorizontal: size === 'small' ? tokens.padding.M : tokens.padding.L,
-    borderRadius: tokens.borderRadius.S,
+    borderRadius: tokens.borderRadius.M,
   }
 
   switch (variant) {
@@ -56,10 +56,10 @@ function getPressableStyle(
       return {
         ...sizeStyle,
         backgroundColor: isDisabled
-          ? tokens.colors.primary.light
-          : tokens.colors.primary.extraLight,
+          ? tokens.colors.neutral.light
+          : tokens.colors.neutral.white,
         borderColor: tokens.colors.primary.dark,
-        borderWidth: tokens.borderWidth.M,
+        borderWidth: tokens.borderWidth.L,
       }
     case 'destructive':
       return {

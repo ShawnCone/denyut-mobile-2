@@ -1,11 +1,14 @@
 import { useAuth } from '@/context/AuthContext'
 import { useUserInfoContext } from '@/context/UserInfoContext'
+import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
 import { tokens } from '@/design-system/tokens/tokens'
 import { Ionicons } from '@expo/vector-icons'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { useState } from 'react'
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
 import { ProfileStackParamsList } from '../profile-stack'
+import LogoutModal from './LogoutModal'
 import SingleProfileMenuItem from './SingleProfileMenuItem'
 import { PADDING_HORIZONTAL } from './utils'
 
@@ -18,10 +21,15 @@ type ProfileHomeScreenProps = NativeStackScreenProps<
 
 function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
   const { userInfo } = useUserInfoContext()
-  const { signOut, user } = useAuth()
+  const { user } = useAuth()
+  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false)
 
-  async function handleSignOut() {
-    signOut()
+  function handleOpenModal() {
+    setIsLogoutModalVisible(true)
+  }
+
+  function handleCloseModal() {
+    setIsLogoutModalVisible(false)
   }
 
   return (
@@ -61,7 +69,11 @@ function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
         </View>
 
         {/* Selection Section */}
-        <View>
+        <View
+          style={{
+            flex: 1,
+          }}
+        >
           <Typography
             variant={{
               size: 'Heading6',
@@ -74,6 +86,7 @@ function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
           </Typography>
           <View
             style={{
+              flex: 1,
               marginTop: tokens.margin.S,
             }}
           >
@@ -91,22 +104,27 @@ function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
                 navigation.navigate('UpdateProfile')
               }}
             />
-            <SingleProfileMenuItem
-              icon={
-                <Ionicons
-                  name="exit"
-                  size={tokens.iconSize.L}
-                  color={tokens.colors.primary.dark}
-                />
-              }
-              title="Log out"
-              description="Keluar dari akun, dan masuk dengan akun lainnya"
-              onPress={() => {
-                // Show sign out modal
+            <View
+              style={{
+                marginTop: 'auto',
+                marginBottom: tokens.margin.L,
+                paddingHorizontal: PADDING_HORIZONTAL,
               }}
-            />
+            >
+              <DenyutButton
+                title="Log Out"
+                style={{
+                  backgroundColor: tokens.colors.primary.dark,
+                }}
+                onPress={handleOpenModal}
+              />
+            </View>
           </View>
         </View>
+        <LogoutModal
+          isVisible={isLogoutModalVisible}
+          onClose={handleCloseModal}
+        />
 
         {/* <Button title="Sign out" onPress={handleSignOut} /> */}
       </View>

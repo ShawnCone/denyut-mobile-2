@@ -32,6 +32,7 @@ export const tokens = {
   },
   // Border width tokens
   borderWidth: {
+    S: 1,
     M: 1.5,
     L: 2,
   },
