@@ -129,7 +129,6 @@ function LoginScreen({ navigation }: LoginScreenProps) {
                         style={{
                           flexDirection: 'row',
                           alignItems: 'center',
-                          marginTop: 4,
                         }}
                       >
                         <Image

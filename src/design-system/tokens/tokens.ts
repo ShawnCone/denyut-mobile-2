@@ -8,6 +8,7 @@ export const tokens = {
   // Margin tokens
   margin: {
     none: 0,
+    XS: 2,
     S: 4,
     M: 8,
     L: 16,
@@ -31,6 +32,7 @@ export const tokens = {
   },
   // Border width tokens
   borderWidth: {
+    S: 1,
     M: 1.5,
     L: 2,
   },

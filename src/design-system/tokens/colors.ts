@@ -1,6 +1,7 @@
 // Each color has 5 variations (Except for neutral colors): extra light, light, normal, dark, extra dark
 // Most of these colors are taken from https://tailwindcss.com/docs/customizing-colors
 export const colors = {
+  modalBackground: 'rgba(255, 255, 255, 0.75)',
   primary: {
     extraLight: '#CFE5E3',
     light: '#87BDBA',

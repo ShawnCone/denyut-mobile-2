@@ -144,8 +144,8 @@ function VerifyScreen({ route }: VerifyScreenProps) {
             >
               {'  '}
               {isReadyToResend
-                ? 'Kirim Ulang'
-                : `Kirim Ulang dalam 0:${
+                ? 'Kirim ulang'
+                : `Kirim ulang dalam 0:${
                     secondsRemaining > 9 ? '' : '0'
                   }${secondsRemaining}`}
             </ClickableTypography>
