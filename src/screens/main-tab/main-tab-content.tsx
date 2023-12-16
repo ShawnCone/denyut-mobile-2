@@ -33,7 +33,7 @@ export function MainTabContent({ navigation }: MainTabProps) {
   useEffect(() => {
     navigation.setOptions({
       headerShown: showHeader,
-      headerTitle: 'Buat Akun',
+      headerTitle: 'Buat Profil',
     })
   }, [showHeader])
 

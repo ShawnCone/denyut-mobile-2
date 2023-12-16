@@ -6,11 +6,8 @@ import {
   ProtectedAuthContextValues,
   useAuth,
 } from './context/AuthContext'
-import {
-  fontFamilies,
-  fontFamilyNameEnum,
-} from './design-system/tokens/font-families'
-import { tokens } from './design-system/tokens/tokens'
+import { BaseStackNavigationScreenOptions } from './design-system/BaseStackNavigationScreenOptions'
+import { fontFamilies } from './design-system/tokens/font-families'
 import SplashScreen from './screens/SplashScreen'
 import LoginScreen from './screens/auth-screens/LoginScreen'
 import VerifyScreen from './screens/auth-screens/verify-screen/VerifyScreen'
@@ -36,14 +33,7 @@ function AppContent() {
     <NavigationContainer>
       <RootStack.Navigator
         initialRouteName="Login"
-        screenOptions={() => ({
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontFamily: fontFamilyNameEnum['Lato-bold'],
-            fontSize: tokens.fontSizing['L'].fontSize,
-          },
-          headerBackVisible: true,
-        })}
+        screenOptions={BaseStackNavigationScreenOptions}
       >
         {protectedRouteValues === null ? (
           <>

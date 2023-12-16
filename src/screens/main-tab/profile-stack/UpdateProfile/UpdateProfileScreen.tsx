@@ -1,61 +1,124 @@
 import { useUserInfoContext } from '@/context/UserInfoContext'
-import Typography from '@/design-system/Typography'
+import DenyutButton from '@/design-system/DenyutButton'
+import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
+import SexSelectionFormInput from '@/design-system/forms/SexSelectionFormInput'
+import { tokens } from '@/design-system/tokens/tokens'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Controller, useForm } from 'react-hook-form'
-import { Button, TextInput, View } from 'react-native'
+import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
+import { ProfileStackParamsList } from '../profile-stack'
 import {
   UpdateProfileFormSchema,
   UpdateProfileFormValues,
   useUpdateProfile,
 } from './utils'
 
-function UpdateProfileScreen() {
+type UpdateProfileScreenProps = NativeStackScreenProps<
+  ProfileStackParamsList,
+  'UpdateProfile'
+>
+
+function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
   const { userInfo } = useUserInfoContext()
 
   const { control, handleSubmit } = useForm<UpdateProfileFormValues>({
     resolver: zodResolver(UpdateProfileFormSchema),
     defaultValues: {
       name: userInfo.name,
+      sex: userInfo.sex,
+      address: userInfo.address ?? '',
     },
   })
 
-  const { mutate, isPending: isUpdatingProfile } = useUpdateProfile()
+  const { mutate, isPending: isUpdatingProfile } = useUpdateProfile({
+    onSuccess: () => {
+      navigation.goBack()
+    },
+  })
 
-  const onSubmit = ({ name }: UpdateProfileFormValues) => {
+  const onSubmit = ({ name, sex, address }: UpdateProfileFormValues) => {
     mutate({
       newUserInfo: {
         name,
+        sex,
+        address,
       },
     })
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Typography
-        variant={{
-          size: 'Heading2',
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: tokens.colors.neutral.white,
+          paddingHorizontal: tokens.padding.L,
+          paddingTop: tokens.padding.L,
         }}
       >
-        Update Profile Screen
-      </Typography>
-      <Controller
-        control={control}
-        name="name"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={{ width: 200, height: 40 }}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
+        <View
+          style={{
+            gap: tokens.margin.L,
+          }}
+        >
+          <Controller
+            control={control}
+            name="name"
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
+              <DenyutTextfield
+                label="Nama"
+                placeholder="Nama Lengkap Anda"
+                errorMessage={error?.message}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                editable={!isUpdatingProfile}
+              />
+            )}
           />
-        )}
-      />
-      <Button
-        title="Update Profile"
-        onPress={handleSubmit(onSubmit)}
-        disabled={isUpdatingProfile}
-      />
-    </View>
+          <Controller
+            control={control}
+            name="sex"
+            render={({ field: { onChange, value } }) => (
+              <SexSelectionFormInput
+                onChange={onChange}
+                value={value}
+                disabled={isUpdatingProfile}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="address"
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
+              <DenyutTextfield
+                label="Alamat"
+                placeholder="Jl. Selamat Pagi 00, Solo, Jawa Tengah"
+                errorMessage={error?.message}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                editable={!isUpdatingProfile}
+              />
+            )}
+          />
+
+          <DenyutButton
+            title="Ubah Akun"
+            onPress={handleSubmit(onSubmit)}
+            disabled={isUpdatingProfile}
+          />
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 

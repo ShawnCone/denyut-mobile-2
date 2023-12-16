@@ -1,6 +1,7 @@
 import { createUserInfo } from '@/client/supabase/queries/userInfo'
 import { useProtectedAuth } from '@/context/AuthContext'
 import { getUseUserInfoQueryKey } from '@/context/UserInfoContext'
+import { sexSchema } from '@/design-system/forms/SexSelectionFormInput'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
 
@@ -29,9 +30,6 @@ export function useCreateUserInfo({
 }
 
 // Forms
-export const SEX_OPTIONS = ['male', 'female'] as const
-export const sexSchema = z.enum(SEX_OPTIONS)
-
 export const createProfileFormSchema = z.object({
   name: z.string().min(1),
   sex: sexSchema,

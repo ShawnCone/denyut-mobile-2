@@ -15,6 +15,17 @@ export type RadioSelectProps = {
   direction?: 'row' | 'column'
   value: string
   onChange: (value: string) => void
+  disabled?: boolean
+}
+
+const RADIO_SIZE = {
+  outer: tokens.iconSize.M,
+  inner: tokens.iconSize.M / 2,
+}
+
+const RADIO_COLOR = {
+  disabled: tokens.colors.primary.light,
+  active: tokens.colors.primary.normal,
 }
 
 function RadioSelect({
@@ -22,6 +33,7 @@ function RadioSelect({
   direction = 'row',
   value,
   onChange,
+  disabled = false,
 }: RadioSelectProps) {
   const handleSelect = (selectedValue: string) => {
     onChange(selectedValue)
@@ -46,15 +58,16 @@ function RadioSelect({
             gap: tokens.margin.S,
           }}
           onPress={() => handleSelect(option.value)}
+          disabled={disabled}
         >
           {/* Make circle icon */}
           <View
             style={{
-              width: 24,
-              height: 24,
-              borderRadius: 24,
+              width: RADIO_SIZE.outer,
+              height: RADIO_SIZE.outer,
+              borderRadius: RADIO_SIZE.outer,
               borderWidth: tokens.borderWidth.L,
-              borderColor: tokens.colors.primary.normal,
+              borderColor: disabled ? RADIO_COLOR.disabled : RADIO_COLOR.active,
               justifyContent: 'center',
               alignItems: 'center',
             }}
@@ -62,10 +75,12 @@ function RadioSelect({
             {value === option.value && (
               <View
                 style={{
-                  width: 12,
-                  height: 12,
-                  borderRadius: tokens.borderRadius.M,
-                  backgroundColor: tokens.colors.primary.normal,
+                  width: RADIO_SIZE.inner,
+                  height: RADIO_SIZE.inner,
+                  borderRadius: RADIO_SIZE.inner,
+                  backgroundColor: disabled
+                    ? RADIO_COLOR.disabled
+                    : RADIO_COLOR.active,
                 }}
               />
             )}

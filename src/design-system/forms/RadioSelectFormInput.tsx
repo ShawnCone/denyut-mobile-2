@@ -13,6 +13,7 @@ function RadioSelectFormInput({
   options,
   value,
   direction,
+  disabled,
 }: RadioSelectFormInputProps) {
   const containerProps: FormFieldContainerWithoutChildren = { label, required }
   const radioSelectProps: RadioSelectProps = {
@@ -20,6 +21,7 @@ function RadioSelectFormInput({
     options,
     value,
     direction,
+    disabled,
   }
 
   return (
