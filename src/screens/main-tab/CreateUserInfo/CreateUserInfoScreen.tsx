@@ -1,7 +1,6 @@
 import DenyutButton from '@/design-system/DenyutButton'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
-import RadioSelectFormInput from '@/design-system/forms/RadioSelectFormInput'
-import { RadioSelectOptions } from '@/design-system/radio/RadioSelect'
+import SexSelectionFormInput from '@/design-system/forms/SexSelectionFormInput'
 import { tokens } from '@/design-system/tokens/tokens'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { User } from '@supabase/supabase-js'
@@ -18,17 +17,6 @@ import {
   createProfileFormSchema,
   useCreateUserInfo,
 } from './utils'
-
-const SEX_SELECT_OPTIONS: RadioSelectOptions = [
-  {
-    value: 'male',
-    label: 'Laki - laki',
-  },
-  {
-    value: 'female',
-    label: 'Perempuan',
-  },
-]
 
 type CreateUserInfoScreenProps = {
   user: User
@@ -67,7 +55,7 @@ function CreateUserInfoScreen({ user }: CreateUserInfoScreenProps) {
           flex: 1,
           backgroundColor: tokens.colors.neutral.white,
           paddingHorizontal: tokens.padding.L,
-          paddingTop: tokens.padding.XL,
+          paddingTop: tokens.padding.L,
         }}
       >
         <View
@@ -97,11 +85,10 @@ function CreateUserInfoScreen({ user }: CreateUserInfoScreenProps) {
             control={control}
             name="sex"
             render={({ field: { onChange, value } }) => (
-              <RadioSelectFormInput
-                label="Jenis Kelamin"
-                options={SEX_SELECT_OPTIONS}
+              <SexSelectionFormInput
                 onChange={onChange}
                 value={value}
+                disabled={!isCreatingUserInfo}
               />
             )}
           />
