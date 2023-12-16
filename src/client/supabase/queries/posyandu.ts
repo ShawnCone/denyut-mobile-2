@@ -23,20 +23,16 @@ export async function getUserPosyanduList({
     throw new Error(error.message)
   }
 
-  if (data === null) {
-    return []
-  }
-
   // Casting because already filtering for null here
   return data.map(d => d.OutpostInfo).filter(d => d !== null) as PosyanduInfo[]
 }
 
 // Get posyandu list (Expect longer, but still ok for now. Adjust this when using backend)
-type searchNewPosyanduParams = {
+type searchPosyanduParams = {
   keyword: string
 }
 // Search could be better
-export async function searchNewPosyandu({ keyword }: searchNewPosyanduParams) {
+export async function searchPosyandu({ keyword }: searchPosyanduParams) {
   const query = supabaseClient
     .from('OutpostInfo')
     .select('*')
@@ -50,10 +46,6 @@ export async function searchNewPosyandu({ keyword }: searchNewPosyanduParams) {
 
   if (error) {
     throw new Error(error.message)
-  }
-
-  if (data === null) {
-    return []
   }
 
   return data
