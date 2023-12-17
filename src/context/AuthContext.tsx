@@ -78,9 +78,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   )
 }
 
-export function useAuth(): AuthContextValues {
+export function useAuthContext(): AuthContextValues {
   const context = useContext(AuthContext)
-
   return context
 }
 
@@ -119,6 +118,6 @@ export const ProtectedAuthContextProvider = ({
   )
 }
 
-export function useProtectedAuth(): ProtectedAuthContextValues {
+export function useProtectedAuthContext(): ProtectedAuthContextValues {
   return useContext(ProtectedAuthContext)
 }

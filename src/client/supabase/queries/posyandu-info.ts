@@ -9,9 +9,7 @@ type getPosyanduListParams = {
 export type PosyanduInfo = Database['public']['Tables']['OutpostInfo']['Row']
 
 // Get all user posyandu list (expect to be short)
-export async function getUserPosyanduList({
-  userId,
-}: getPosyanduListParams): Promise<PosyanduInfo[]> {
+export async function getUserPosyanduList({ userId }: getPosyanduListParams) {
   const { data, error } = await supabaseClient
     .from('OutpostMembership')
     .select('OutpostInfo(*)')
@@ -24,7 +22,7 @@ export async function getUserPosyanduList({
   }
 
   // Casting because already filtering for null here
-  return data.map(d => d.OutpostInfo).filter(d => d !== null) as PosyanduInfo[]
+  return data.map(d => d.OutpostInfo).filter(Boolean)
 }
 
 // Get posyandu list (Expect longer, but still ok for now. Adjust this when using backend)
@@ -65,8 +63,6 @@ export async function joinPosyandu({
       status: 'pending',
     },
   ])
-
-  console.log({ error })
 
   if (error) {
     throw new Error(error.message)

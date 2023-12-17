@@ -1,7 +1,7 @@
-import { PosyanduInfo } from '@/client/supabase/queries/posyandu'
+import { PosyanduInfo } from '@/client/supabase/queries/posyandu-info'
 import Typography from '@/design-system/Typography'
-import { usePosyanduInfo } from '@/screens/main-tab/posyandu-stack/utils'
-import { ReactNode, createContext } from 'react'
+import { usePosyanduInfoQuery } from '@/screens/main-tab/posyandu-stack/utils'
+import { ReactNode, createContext, useContext } from 'react'
 
 // Posyandu info context, guaranteed to be not null
 type PosyanduInfoContextValues = {
@@ -24,7 +24,7 @@ const PosyanduInfoContext = createContext<PosyanduInfoContextValues>({
 
 type PosyanduInfoContextProviderProps = {
   children: ReactNode
-  selectedPosyanduId: string // Cannot be null here
+  selectedPosyanduId: string
 }
 
 export const PosyanduInfoContextProvider = ({
@@ -35,7 +35,7 @@ export const PosyanduInfoContextProvider = ({
     data: posyanduInfo,
     isPending,
     isError,
-  } = usePosyanduInfo(selectedPosyanduId)
+  } = usePosyanduInfoQuery(selectedPosyanduId)
 
   if (isPending) {
     return <Typography>Loading...</Typography>
@@ -51,4 +51,16 @@ export const PosyanduInfoContextProvider = ({
       {children}
     </PosyanduInfoContext.Provider>
   )
+}
+
+export const usePosyanduInfoContext = () => {
+  const context = useContext(PosyanduInfoContext)
+
+  if (context === undefined) {
+    throw new Error(
+      'usePosyanduInfoContext must be used within a PosyanduInfoContextProvider',
+    )
+  }
+
+  return context
 }

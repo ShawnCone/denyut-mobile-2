@@ -1,4 +1,4 @@
-import { getUserPosyanduList } from '@/client/supabase/queries/posyandu'
+import { getUserPosyanduList } from '@/client/supabase/queries/posyandu-info'
 import { useQuery } from '@tanstack/react-query'
 
 // Query function to get list of posyandu of a user

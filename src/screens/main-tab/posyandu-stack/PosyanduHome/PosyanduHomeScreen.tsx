@@ -1,4 +1,4 @@
-import { useProtectedAuth } from '@/context/AuthContext'
+import { useProtectedAuthContext } from '@/context/AuthContext'
 import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -15,7 +15,7 @@ type PosyanduHomeScreenProps = NativeStackScreenProps<
 function PosyanduHomeScreen({ navigation }: PosyanduHomeScreenProps) {
   const {
     user: { id: userId },
-  } = useProtectedAuth()
+  } = useProtectedAuthContext()
 
   const { data, isError, isPending } = useUserPosyanduListQuery(userId)
 

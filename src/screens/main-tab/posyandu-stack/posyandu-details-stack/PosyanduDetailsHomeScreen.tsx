@@ -1,7 +1,14 @@
+import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { View } from 'react-native'
+import { PosyanduDetailsStackParamsList } from './posyandu-details-stack'
 
-function PosyanduDetailsScreen() {
+type PosyanduDetailsScreenProps = NativeStackScreenProps<
+  PosyanduDetailsStackParamsList,
+  'PosyanduDetailsHome'
+>
+function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
   return (
     <View
       style={{
@@ -12,6 +19,10 @@ function PosyanduDetailsScreen() {
       }}
     >
       <Typography>PosyanduDetailsScreen</Typography>
+      <DenyutButton
+        title="Go to posyandu members"
+        onPress={() => navigation.navigate('PosyanduDetailsMembers')}
+      />
     </View>
   )
 }

@@ -1,15 +1,15 @@
-import { PosyanduInfo } from '@/client/supabase/queries/posyandu'
-import { useProtectedAuth } from '@/context/AuthContext'
+import { PosyanduInfo } from '@/client/supabase/queries/posyandu-info'
+import { useProtectedAuthContext } from '@/context/AuthContext'
 import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
 import { useState } from 'react'
 import { View } from 'react-native'
-import { useJoinPosyandu, usePosyanduSearch } from './utils'
+import { useJoinPosyandu, usePosyanduSearchQuery } from './utils'
 
 function NewPosyanduSearchScreen() {
   const [queryKeyword, setQueryKeyword] = useState('')
-  const { data, isLoading, isError } = usePosyanduSearch(queryKeyword)
+  const { data, isLoading, isError } = usePosyanduSearchQuery(queryKeyword)
 
   console.log({ isLoading, isError })
 
@@ -51,10 +51,9 @@ function SinglePosyanduResultRow({
       // Maybe toast?
     },
   })
-  const { user } = useProtectedAuth()
+  const { user } = useProtectedAuthContext()
 
   function handleJoinPosyandu() {
-    console.log({ posyanduInfo: posyanduInfo.id, user: user.id })
     mutate({
       posyanduId: posyanduInfo.id,
       userId: user.id,

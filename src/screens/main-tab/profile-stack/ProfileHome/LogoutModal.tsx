@@ -1,4 +1,4 @@
-import { useAuth } from '@/context/AuthContext'
+import { useAuthContext } from '@/context/AuthContext'
 import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
 import { tokens } from '@/design-system/tokens/tokens'
@@ -10,7 +10,7 @@ type LogoutModalProps = {
 }
 
 function LogoutModal({ isVisible, onClose }: LogoutModalProps) {
-  const { signOut } = useAuth()
+  const { signOut } = useAuthContext()
 
   function handleLogOut() {
     signOut()

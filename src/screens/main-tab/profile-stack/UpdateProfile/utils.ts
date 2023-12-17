@@ -2,7 +2,7 @@ import {
   UpdateUserInfoType,
   updateUserInfo,
 } from '@/client/supabase/queries/userInfo'
-import { useProtectedAuth } from '@/context/AuthContext'
+import { useProtectedAuthContext } from '@/context/AuthContext'
 import { getUseUserInfoQueryKey } from '@/context/UserInfoContext'
 import { sexSchema } from '@/design-system/forms/SexSelectionFormInput'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -13,11 +13,11 @@ type useUpdateProfileParams = {
   onError?: () => void
 }
 
-export function useUpdateProfile({
+export function useUpdateProfileQuery({
   onSuccess,
   onError,
 }: useUpdateProfileParams) {
-  const { user } = useProtectedAuth()
+  const { user } = useProtectedAuthContext()
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async ({

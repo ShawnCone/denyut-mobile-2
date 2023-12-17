@@ -3,7 +3,7 @@ import { BaseStackNavigationScreenOptions } from '@/design-system/BaseStackNavig
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { PosyanduStackParamsList } from '../posyandu-stack'
 import PosyanduDetailsScreen from './PosyanduDetailsHomeScreen'
-import PosyanduMembersScreen from './PosyanduMembersScreen'
+import PosyanduMembersScreen from './PosyanduMembers/PosyanduMembersScreen'
 import { PosyanduDetailsStack } from './posyandu-details-stack'
 
 type PosyanduDetailsContentProps = NativeStackScreenProps<
@@ -13,7 +13,6 @@ type PosyanduDetailsContentProps = NativeStackScreenProps<
 
 function PosyanduDetailsContent({ route }: PosyanduDetailsContentProps) {
   const { posyanduId } = route.params
-
   return (
     <PosyanduInfoContextProvider selectedPosyanduId={posyanduId}>
       <PosyanduDetailsStack.Navigator

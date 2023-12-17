@@ -11,7 +11,7 @@ import { ProfileStackParamsList } from '../profile-stack'
 import {
   UpdateProfileFormSchema,
   UpdateProfileFormValues,
-  useUpdateProfile,
+  useUpdateProfileQuery,
 } from './utils'
 
 type UpdateProfileScreenProps = NativeStackScreenProps<
@@ -31,7 +31,7 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
     },
   })
 
-  const { mutate, isPending: isUpdatingProfile } = useUpdateProfile({
+  const { mutate, isPending: isUpdatingProfile } = useUpdateProfileQuery({
     onSuccess: () => {
       navigation.goBack()
     },

@@ -1,5 +1,8 @@
-import { useProtectedAuth } from '@/context/AuthContext'
-import { UserInfoContextProvider, useUserInfo } from '@/context/UserInfoContext'
+import { useProtectedAuthContext } from '@/context/AuthContext'
+import {
+  UserInfoContextProvider,
+  useUserInfoQuery,
+} from '@/context/UserInfoContext'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
 import { fontFamilyNameEnum } from '@/design-system/tokens/font-families'
 import { tokens } from '@/design-system/tokens/tokens'
@@ -17,8 +20,9 @@ import PosyanduStackContent from './posyandu-stack/posyandu-stack-content'
 type MainTabProps = NativeStackScreenProps<RootStackParamsList, 'Main'>
 
 export function MainTabContent({ navigation }: MainTabProps) {
-  const { user } = useProtectedAuth()
-  const { data: userInfo, isLoading: isLoadingUserInfo } = useUserInfo(user)
+  const { user } = useProtectedAuthContext()
+  const { data: userInfo, isLoading: isLoadingUserInfo } =
+    useUserInfoQuery(user)
 
   const showHeader =
     (userInfo === null || typeof userInfo === 'undefined') && !isLoadingUserInfo
