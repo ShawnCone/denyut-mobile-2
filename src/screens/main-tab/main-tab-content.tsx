@@ -5,21 +5,14 @@ import { fontFamilyNameEnum } from '@/design-system/tokens/font-families'
 import { tokens } from '@/design-system/tokens/tokens'
 import CreateUserInfoScreen from '@/screens/main-tab/CreateUserInfo/CreateUserInfoScreen'
 import HomeScreen from '@/screens/main-tab/HomeScreen'
-import PosyanduStackContent from '@/screens/main-tab/posyandu-stack/posyandu-stack-content'
+import { MainTab } from '@/screens/main-tab/main-tab'
 import ProfileStackContent from '@/screens/main-tab/profile-stack/profile-stack-content'
 import { RootStackParamsList } from '@/screens/root-stack'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useEffect } from 'react'
 import { View } from 'react-native'
-
-type MainTabParamsList = {
-  Home: undefined
-  Posyandu: undefined
-  Profile: undefined
-}
-const MainTab = createBottomTabNavigator<MainTabParamsList>()
+import PosyanduStackContent from './posyandu-stack/posyandu-stack-content'
 
 type MainTabProps = NativeStackScreenProps<RootStackParamsList, 'Main'>
 
@@ -86,7 +79,6 @@ export function MainTabContent({ navigation }: MainTabProps) {
         />
         <MainTab.Screen
           name="Posyandu"
-          component={PosyanduStackContent}
           options={{
             headerShown: false,
             tabBarIcon: ({ color }) => (
@@ -97,6 +89,7 @@ export function MainTabContent({ navigation }: MainTabProps) {
               />
             ),
           }}
+          component={PosyanduStackContent}
         />
         <MainTab.Screen
           name="Profile"

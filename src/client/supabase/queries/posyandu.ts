@@ -72,3 +72,17 @@ export async function joinPosyandu({
     throw new Error(error.message)
   }
 }
+
+export async function getPosyanduInfo({ posyanduId }: { posyanduId: string }) {
+  const { data, error } = await supabaseClient
+    .from('OutpostInfo')
+    .select('*')
+    .eq('id', posyanduId)
+    .single()
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
+}

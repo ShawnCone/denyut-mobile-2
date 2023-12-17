@@ -11,12 +11,13 @@ type PosyanduHomeScreenProps = NativeStackScreenProps<
   'PosyanduHome'
 >
 
+// User's posyandu home, containing user posyandu lists
 function PosyanduHomeScreen({ navigation }: PosyanduHomeScreenProps) {
   const {
     user: { id: userId },
   } = useProtectedAuth()
 
-  const { data, isError, isLoading } = useUserPosyanduListQuery(userId)
+  const { data, isError, isPending } = useUserPosyanduListQuery(userId)
 
   return (
     <View
@@ -28,7 +29,7 @@ function PosyanduHomeScreen({ navigation }: PosyanduHomeScreenProps) {
       }}
     >
       <Typography>Home For Posyandu</Typography>
-      {isLoading ? (
+      {isPending ? (
         <Typography>Loading...</Typography>
       ) : isError ? (
         <Typography>Error...</Typography>
@@ -38,6 +39,14 @@ function PosyanduHomeScreen({ navigation }: PosyanduHomeScreenProps) {
       <DenyutButton
         title="Add new posyandu"
         onPress={() => navigation.navigate('NewPosyanduSearch')}
+      />
+      <DenyutButton
+        title="Go to posyandu details"
+        onPress={() => {
+          navigation.navigate('PosyanduDetails', {
+            posyanduId: '1525660d-6afc-45de-80c6-93f5b8f8404e',
+          })
+        }}
       />
     </View>
   )
