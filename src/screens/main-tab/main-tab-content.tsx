@@ -1,31 +1,28 @@
-import { useProtectedAuth } from '@/context/AuthContext'
-import { UserInfoContextProvider, useUserInfo } from '@/context/UserInfoContext'
+import { useProtectedAuthContext } from '@/context/AuthContext'
+import {
+  UserInfoContextProvider,
+  useUserInfoQuery,
+} from '@/context/UserInfoContext'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
 import { fontFamilyNameEnum } from '@/design-system/tokens/font-families'
 import { tokens } from '@/design-system/tokens/tokens'
 import CreateUserInfoScreen from '@/screens/main-tab/CreateUserInfo/CreateUserInfoScreen'
+import HomeScreen from '@/screens/main-tab/HomeScreen'
+import { MainTab } from '@/screens/main-tab/main-tab'
+import ProfileStackContent from '@/screens/main-tab/profile-stack/profile-stack-content'
 import { RootStackParamsList } from '@/screens/root-stack'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useEffect } from 'react'
 import { View } from 'react-native'
-import HomeScreen from './HomeScreen'
-import PosyanduScreen from './PosyanduScreen'
-import ProfileStackContent from './profile-stack/profile-stack-content'
-
-type MainTabParamsList = {
-  Home: undefined
-  Posyandu: undefined
-  Profile: undefined
-}
-const MainTab = createBottomTabNavigator<MainTabParamsList>()
+import PosyanduStackContent from './posyandu-stack/posyandu-stack-content'
 
 type MainTabProps = NativeStackScreenProps<RootStackParamsList, 'Main'>
 
 export function MainTabContent({ navigation }: MainTabProps) {
-  const { user } = useProtectedAuth()
-  const { data: userInfo, isLoading: isLoadingUserInfo } = useUserInfo(user)
+  const { user } = useProtectedAuthContext()
+  const { data: userInfo, isLoading: isLoadingUserInfo } =
+    useUserInfoQuery(user)
 
   const showHeader =
     (userInfo === null || typeof userInfo === 'undefined') && !isLoadingUserInfo
@@ -54,7 +51,7 @@ export function MainTabContent({ navigation }: MainTabProps) {
   return (
     <UserInfoContextProvider value={{ userInfo }}>
       <MainTab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Posyandu"
         screenOptions={() => ({
           tabBarActiveTintColor: tokens.colors.primary.dark,
           tabBarInactiveTintColor: tokens.colors.neutral.light,
@@ -86,7 +83,6 @@ export function MainTabContent({ navigation }: MainTabProps) {
         />
         <MainTab.Screen
           name="Posyandu"
-          component={PosyanduScreen}
           options={{
             headerShown: false,
             tabBarIcon: ({ color }) => (
@@ -97,6 +93,7 @@ export function MainTabContent({ navigation }: MainTabProps) {
               />
             ),
           }}
+          component={PosyanduStackContent}
         />
         <MainTab.Screen
           name="Profile"

@@ -1,5 +1,5 @@
 import { createUserInfo } from '@/client/supabase/queries/userInfo'
-import { useProtectedAuth } from '@/context/AuthContext'
+import { useProtectedAuthContext } from '@/context/AuthContext'
 import { getUseUserInfoQueryKey } from '@/context/UserInfoContext'
 import { sexSchema } from '@/design-system/forms/SexSelectionFormInput'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -16,7 +16,7 @@ export function useCreateUserInfo({
   onError,
 }: useCreateUserInfoParams) {
   const queryClient = useQueryClient()
-  const { user } = useProtectedAuth()
+  const { user } = useProtectedAuthContext()
   return useMutation({
     mutationFn: createUserInfo,
     onSuccess: () => {

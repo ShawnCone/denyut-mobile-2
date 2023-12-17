@@ -8,7 +8,7 @@ export function getUseUserInfoQueryKey(inAuthUser: User) {
   return ['userInfo', inAuthUser.id]
 }
 
-export function useUserInfo(inAuthUser: User) {
+export function useUserInfoQuery(inAuthUser: User) {
   return useQuery({
     queryKey: getUseUserInfoQueryKey(inAuthUser),
     queryFn: () => {

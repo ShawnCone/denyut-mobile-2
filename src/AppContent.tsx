@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font'
 import {
   ProtectedAuthContextProvider,
   ProtectedAuthContextValues,
-  useAuth,
+  useAuthContext,
 } from './context/AuthContext'
 import { BaseStackNavigationScreenOptions } from './design-system/BaseStackNavigationScreenOptions'
 import { fontFamilies } from './design-system/tokens/font-families'
@@ -15,7 +15,7 @@ import { MainTabContent } from './screens/main-tab/main-tab-content'
 import { RootStack } from './screens/root-stack'
 
 function AppContent() {
-  const { loading, user, signOut } = useAuth()
+  const { loading, user, signOut } = useAuthContext()
   const [fontsLoaded] = useFonts(fontFamilies)
 
   const protectedRouteValues: ProtectedAuthContextValues | null = user

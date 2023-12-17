@@ -1,4 +1,4 @@
-import { useAuth } from '@/context/AuthContext'
+import { useAuthContext } from '@/context/AuthContext'
 import { useUserInfoContext } from '@/context/UserInfoContext'
 import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
@@ -21,7 +21,7 @@ type ProfileHomeScreenProps = NativeStackScreenProps<
 
 function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
   const { userInfo } = useUserInfoContext()
-  const { user } = useAuth()
+  const { user } = useAuthContext()
   const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false)
 
   function handleOpenModal() {
