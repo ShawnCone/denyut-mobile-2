@@ -1,13 +1,17 @@
+import { PosyanduInfo } from '@/client/supabase/queries/posyandu'
+import { useProtectedAuth } from '@/context/AuthContext'
+import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
 import { useState } from 'react'
 import { View } from 'react-native'
-import { usePosyanduSearch } from './utils'
+import { useJoinPosyandu, usePosyanduSearch } from './utils'
 
 function NewPosyanduSearchScreen() {
   const [queryKeyword, setQueryKeyword] = useState('')
   const { data, isLoading, isError } = usePosyanduSearch(queryKeyword)
-  console.log({ data, isLoading, isError })
+
+  console.log({ isLoading, isError })
 
   return (
     <View
@@ -24,7 +28,48 @@ function NewPosyanduSearchScreen() {
         value={queryKeyword}
         onChangeText={setQueryKeyword}
       />
+      {data?.map(posyandu => (
+        <SinglePosyanduResultRow posyanduInfo={posyandu} />
+      ))}
     </View>
+  )
+}
+
+type SinglePosyanduResultRowProps = {
+  posyanduInfo: PosyanduInfo
+}
+
+function SinglePosyanduResultRow({
+  posyanduInfo,
+}: SinglePosyanduResultRowProps) {
+  const { isPending, mutate } = useJoinPosyandu({
+    onError: error => {
+      // Toast
+      console.log({ error })
+    },
+    onSuccess: () => {
+      // Maybe toast?
+    },
+  })
+  const { user } = useProtectedAuth()
+
+  function handleJoinPosyandu() {
+    console.log({ posyanduInfo: posyanduInfo.id, user: user.id })
+    mutate({
+      posyanduId: posyanduInfo.id,
+      userId: user.id,
+    })
+  }
+
+  return (
+    <DenyutButton
+      title={`Gabung ${posyanduInfo.name}`}
+      key={posyanduInfo.id}
+      onPress={() => {
+        handleJoinPosyandu()
+      }}
+      disabled={isPending}
+    />
   )
 }
 

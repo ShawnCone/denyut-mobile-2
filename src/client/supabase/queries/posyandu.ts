@@ -6,7 +6,7 @@ type getPosyanduListParams = {
   userId: string
 }
 
-type PosyanduInfo = Database['public']['Tables']['OutpostInfo']['Row']
+export type PosyanduInfo = Database['public']['Tables']['OutpostInfo']['Row']
 
 // Get all user posyandu list (expect to be short)
 export async function getUserPosyanduList({
@@ -49,4 +49,26 @@ export async function searchPosyandu({ keyword }: searchPosyanduParams) {
   }
 
   return data
+}
+
+export async function joinPosyandu({
+  userId,
+  posyanduId,
+}: {
+  userId: string
+  posyanduId: string
+}) {
+  const { error } = await supabaseClient.from('OutpostMembership').insert([
+    {
+      accountId: userId,
+      outpostId: posyanduId,
+      status: 'pending',
+    },
+  ])
+
+  console.log({ error })
+
+  if (error) {
+    throw new Error(error.message)
+  }
 }

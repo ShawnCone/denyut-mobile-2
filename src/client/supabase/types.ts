@@ -226,7 +226,7 @@ export interface Database {
           id: string
           kecamatan: string | null
           kelurahan: string | null
-          name: string | null
+          name: string
           province: string | null
           rw: string | null
         }
@@ -236,7 +236,7 @@ export interface Database {
           id?: string
           kecamatan?: string | null
           kelurahan?: string | null
-          name?: string | null
+          name: string
           province?: string | null
           rw?: string | null
         }
@@ -246,7 +246,7 @@ export interface Database {
           id?: string
           kecamatan?: string | null
           kelurahan?: string | null
-          name?: string | null
+          name?: string
           province?: string | null
           rw?: string | null
         }
