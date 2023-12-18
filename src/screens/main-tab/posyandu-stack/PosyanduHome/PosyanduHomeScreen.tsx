@@ -1,10 +1,11 @@
 import { useProtectedAuthContext } from '@/context/AuthContext'
-import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
+import { tokens } from '@/design-system/tokens/tokens'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { PosyanduStackParamsList } from '../posyandu-stack'
-import { useUserPosyanduListQuery } from './utils'
+import AddNewPosyanduCard from './AddNewPosyanduCard'
+import MyPosyanduList from './MyPosyanduList'
 
 type PosyanduHomeScreenProps = NativeStackScreenProps<
   PosyanduStackParamsList,
@@ -13,41 +14,61 @@ type PosyanduHomeScreenProps = NativeStackScreenProps<
 
 // User's posyandu home, containing user posyandu lists
 function PosyanduHomeScreen({ navigation }: PosyanduHomeScreenProps) {
-  const {
-    user: { id: userId },
-  } = useProtectedAuthContext()
+  function handleNavigateToNewPosyanduSearch() {
+    navigation.navigate('NewPosyanduSearch')
+  }
 
-  const { data, isError, isPending } = useUserPosyanduListQuery(userId)
+  function handleNavigateToPosyanduDetails(posyanduId: string) {
+    navigation.navigate('PosyanduDetails', {
+      posyanduId,
+    })
+  }
+
+  const { user } = useProtectedAuthContext()
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-      }}
-    >
-      <Typography>Home For Posyandu</Typography>
-      {isPending ? (
-        <Typography>Loading...</Typography>
-      ) : isError ? (
-        <Typography>Error...</Typography>
-      ) : (
-        <Typography>Data: {JSON.stringify(data)}</Typography>
-      )}
-      <DenyutButton
-        title="Add new posyandu"
-        onPress={() => navigation.navigate('NewPosyanduSearch')}
-      />
-      <DenyutButton
-        title="Go to posyandu details"
-        onPress={() => {
-          navigation.navigate('PosyanduDetails', {
-            posyanduId: '1525660d-6afc-45de-80c6-93f5b8f8404e',
-          })
+    <View style={StyleSheet.absoluteFill}>
+      {/* Header */}
+      <View
+        style={{
+          backgroundColor: tokens.colors.primary.dark,
+          height: 180, // TODO: Make token for header height? M and L?
+          paddingHorizontal: tokens.padding.L,
+          justifyContent: 'center',
+          borderRadius: tokens.borderRadius.S,
         }}
-      />
+      >
+        <Typography
+          variant={{ size: 'Heading4' }}
+          style={{
+            color: tokens.colors.neutral.white,
+          }}
+        >
+          Posyandu
+        </Typography>
+      </View>
+
+      {/* Content */}
+      <View
+        style={{
+          backgroundColor: tokens.colors.neutral.white,
+          flex: 1,
+        }}
+      >
+        <View
+          style={{
+            marginHorizontal: tokens.margin.L,
+            gap: tokens.margin.L,
+            flex: 1,
+          }}
+        >
+          <AddNewPosyanduCard onPress={handleNavigateToNewPosyanduSearch} />
+          <MyPosyanduList
+            userId={user.id}
+            onPosyanduPress={handleNavigateToPosyanduDetails}
+          />
+        </View>
+      </View>
     </View>
   )
 }

@@ -20,7 +20,7 @@ function SingleProfileMenuItem({
   return (
     <Pressable
       android_ripple={{
-        color: tokens.colors.neutral.extraLight,
+        color: tokens.colors.ripple,
       }}
       style={{
         flexDirection: 'row',

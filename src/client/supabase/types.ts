@@ -221,33 +221,33 @@ export interface Database {
       }
       OutpostInfo: {
         Row: {
-          city: string | null
+          city: string
           createdAt: string | null
           id: string
           kecamatan: string | null
           kelurahan: string | null
           name: string
-          province: string | null
+          province: string
           rw: string | null
         }
         Insert: {
-          city?: string | null
+          city: string
           createdAt?: string | null
           id?: string
           kecamatan?: string | null
           kelurahan?: string | null
           name: string
-          province?: string | null
+          province: string
           rw?: string | null
         }
         Update: {
-          city?: string | null
+          city?: string
           createdAt?: string | null
           id?: string
           kecamatan?: string | null
           kelurahan?: string | null
           name?: string
-          province?: string | null
+          province?: string
           rw?: string | null
         }
         Relationships: []

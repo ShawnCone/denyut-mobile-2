@@ -27,6 +27,7 @@ export const tokens = {
   // Border radius tokens
   borderRadius: {
     none: 0,
+    XS: 2,
     S: 4,
     M: 8,
   },
