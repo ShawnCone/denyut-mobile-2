@@ -34,17 +34,19 @@ function FormFieldContainer({
 
   return (
     <View>
-      <Typography variant={labelTypographyVariant}>
-        {label}
-        <Typography
-          variant={labelTypographyVariant}
-          style={{
-            color: tokens.colors.destructive.normal,
-          }}
-        >
-          {required && '*'}
+      {label && (
+        <Typography variant={labelTypographyVariant}>
+          {label}
+          <Typography
+            variant={labelTypographyVariant}
+            style={{
+              color: tokens.colors.destructive.normal,
+            }}
+          >
+            {required && '*'}
+          </Typography>
         </Typography>
-      </Typography>
+      )}
       <View
         style={{
           marginTop: tokens.margin.S,

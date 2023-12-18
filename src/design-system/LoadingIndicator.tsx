@@ -1,18 +1,44 @@
 import React from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
+import Typography from './Typography'
+import { tokens } from './tokens/tokens'
 
-function LoadingIndicator() {
+type LoadingIndicatorProps = {
+  fullPage?: boolean
+  message?: string
+}
+function LoadingIndicator({ fullPage = true, message }: LoadingIndicatorProps) {
   return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" color="#0000ff" />
+    <View
+      style={[
+        styles.container,
+        {
+          flex: fullPage ? 1 : undefined,
+        },
+      ]}
+    >
+      <ActivityIndicator size="large" color={tokens.colors.primary.dark} />
+      {message && (
+        <Typography
+          variant={{
+            size: 'caption',
+          }}
+          style={{
+            color: tokens.colors.neutral.normal,
+          }}
+        >
+          {message}
+        </Typography>
+      )}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
+    gap: tokens.margin.M,
+    alignItems: 'center',
   },
 })
 
