@@ -45,4 +45,6 @@ export const colors = {
     dark: '#334155',
     extraDark: '#0f172a',
   },
+
+  ripple: '#cbd5e1',
 }
