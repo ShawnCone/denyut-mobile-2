@@ -3,12 +3,11 @@ import Divider from '@/design-system/Divider'
 import ErrorIndicator from '@/design-system/ErrorIndicator'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
 import Typography from '@/design-system/Typography'
-import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
+import SearchTextfield from '@/design-system/forms/SearchTextfield'
 import { tokens } from '@/design-system/tokens/tokens'
-import { Ionicons } from '@expo/vector-icons'
 import { useState } from 'react'
 import { ScrollView, View } from 'react-native'
-import SinglePosyanduListMember from './SinglePosyanduListMember'
+import SinglePosyanduListMember from '../SinglePosyanduListMember'
 import { useUserPosyanduListQuery } from './utils'
 
 type MyPosyanduListProps = {
@@ -18,6 +17,7 @@ type MyPosyanduListProps = {
 function MyPosyanduList({ userId, onPosyanduPress }: MyPosyanduListProps) {
   const {
     data: posyanduInfoArr,
+    refetch: refetchPosyanduInfoArr,
     isError,
     isPending,
   } = useUserPosyanduListQuery(userId)
@@ -52,17 +52,10 @@ function MyPosyanduList({ userId, onPosyanduPress }: MyPosyanduListProps) {
           marginTop: tokens.margin.M,
         }}
       >
-        <DenyutTextfield
-          leftChildren={
-            <Ionicons
-              name="search"
-              size={tokens.iconSize.M}
-              color={tokens.colors.primary.normal}
-            />
-          }
+        <SearchTextfield
           placeholder="Cari posyandu saya"
-          value={searchQuery}
-          onChangeText={setSearchQuery}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
       </View>
 
@@ -76,7 +69,7 @@ function MyPosyanduList({ userId, onPosyanduPress }: MyPosyanduListProps) {
           {isPending ? (
             <LoadingIndicator message="Memuat posyandu saya" />
           ) : isError ? (
-            <ErrorIndicator onRetry={() => {}} />
+            <ErrorIndicator onRetry={refetchPosyanduInfoArr} />
           ) : (
             filteredPosyanduInfoArr.map(
               ({ name, city, province, id: posyanduId }, idx) => (

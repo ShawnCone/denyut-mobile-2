@@ -1,36 +1,80 @@
 import { PosyanduInfo } from '@/client/supabase/queries/posyandu-info'
 import { useProtectedAuthContext } from '@/context/AuthContext'
 import DenyutButton from '@/design-system/DenyutButton'
-import Typography from '@/design-system/Typography'
-import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
+import Divider from '@/design-system/Divider'
+import ErrorIndicator from '@/design-system/ErrorIndicator'
+import LoadingIndicator from '@/design-system/LoadingIndicator'
+import SearchTextfield from '@/design-system/forms/SearchTextfield'
+import { tokens } from '@/design-system/tokens/tokens'
+import { useDebounce } from '@uidotdev/usehooks'
 import { useState } from 'react'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
+import SinglePosyanduListMember from '../SinglePosyanduListMember'
 import { useJoinPosyandu, usePosyanduSearchQuery } from './utils'
 
-function NewPosyanduSearchScreen() {
-  const [queryKeyword, setQueryKeyword] = useState('')
-  const { data, isLoading, isError } = usePosyanduSearchQuery(queryKeyword)
+const DEBOUNCE_TIME = 500
 
-  console.log({ isLoading, isError })
+function NewPosyanduSearchScreen() {
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const debouncedSearchQuery = useDebounce(searchQuery, DEBOUNCE_TIME)
+
+  const { data, isPending, isError, refetch } =
+    usePosyanduSearchQuery(debouncedSearchQuery)
 
   return (
     <View
       style={{
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#fff',
       }}
     >
-      <Typography>NewPosyanduSearchScreen</Typography>
-      <DenyutTextfield
-        label="Search"
-        value={queryKeyword}
-        onChangeText={setQueryKeyword}
-      />
-      {data?.map(posyandu => (
-        <SinglePosyanduResultRow posyanduInfo={posyandu} />
-      ))}
+      <View
+        style={{
+          flex: 1,
+          marginHorizontal: tokens.margin.L,
+          marginTop: tokens.margin.M,
+        }}
+      >
+        <View
+          style={{
+            marginTop: tokens.margin.M,
+          }}
+        >
+          <SearchTextfield
+            placeholder="Cari posyandu saya"
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+        </View>
+
+        <View
+          style={{
+            paddingVertical: tokens.padding.M,
+            flex: 1,
+          }}
+        >
+          <ScrollView>
+            {isPending ? (
+              <LoadingIndicator message="Memuat posyandu saya" />
+            ) : isError ? (
+              <ErrorIndicator onRetry={refetch} />
+            ) : (
+              data.map(({ name, city, province, id: posyanduId }, idx) => (
+                <View key={posyanduId}>
+                  {idx > 0 && <Divider />}
+                  <SinglePosyanduListMember
+                    name={name}
+                    city={city}
+                    province={province}
+                    onPress={() => {}}
+                  />
+                </View>
+              ))
+            )}
+          </ScrollView>
+        </View>
+      </View>
     </View>
   )
 }
