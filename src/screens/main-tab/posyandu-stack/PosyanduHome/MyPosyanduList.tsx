@@ -1,5 +1,6 @@
 import { PosyanduInfo } from '@/client/supabase/queries/posyandu-info'
 import Divider from '@/design-system/Divider'
+import ErrorIndicator from '@/design-system/ErrorIndicator'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
 import Typography from '@/design-system/Typography'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
@@ -75,11 +76,11 @@ function MyPosyanduList({ userId, onPosyanduPress }: MyPosyanduListProps) {
           {isPending ? (
             <LoadingIndicator message="Memuat posyandu saya" />
           ) : isError ? (
-            <Typography>Error</Typography>
+            <ErrorIndicator />
           ) : (
             filteredPosyanduInfoArr.map(
               ({ name, city, province, id: posyanduId }, idx) => (
-                <>
+                <View key={posyanduId}>
                   {idx > 0 && <Divider />}
                   <SinglePosyanduListMember
                     name={name}
@@ -89,7 +90,7 @@ function MyPosyanduList({ userId, onPosyanduPress }: MyPosyanduListProps) {
                       onPosyanduPress(posyanduId)
                     }}
                   />
-                </>
+                </View>
               ),
             )
           )}

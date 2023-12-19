@@ -6,7 +6,7 @@ export type PosyanduStackParamsList = {
 
   PosyanduDetails: {
     posyanduId: string
-  } // Posyandu details stack
+  }
 }
 
 export const PosyanduStack =
