@@ -2,12 +2,17 @@ import {
   joinPosyandu,
   searchPosyandu,
 } from '@/client/supabase/queries/posyandu-info'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useProtectedAuthContext } from '@/context/AuthContext'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+
+const POSYANDU_SEARCH_QUERY_KEY = 'posyandu-search'
 
 export function usePosyanduSearchQuery(keyword: string) {
+  const { user } = useProtectedAuthContext()
+
   return useQuery({
-    queryKey: ['posyandu-search', keyword],
-    queryFn: () => searchPosyandu({ keyword }),
+    queryKey: [POSYANDU_SEARCH_QUERY_KEY, keyword],
+    queryFn: () => searchPosyandu({ keyword, userId: user.id }),
     gcTime: 0, // Always search for new one every time, no caching (Might change this later)
   })
 }
@@ -17,9 +22,16 @@ type useJoinPosyanduParams = {
   onSuccess?: () => void
 }
 export function useJoinPosyandu({ onSuccess, onError }: useJoinPosyanduParams) {
+  const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: joinPosyandu,
     onError,
-    onSuccess,
+    onSuccess: () => {
+      onSuccess?.()
+      queryClient.invalidateQueries({
+        queryKey: [POSYANDU_SEARCH_QUERY_KEY],
+      })
+    },
   })
 }
