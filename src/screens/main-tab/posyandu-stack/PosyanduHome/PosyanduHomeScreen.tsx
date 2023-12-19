@@ -1,4 +1,3 @@
-import { useProtectedAuthContext } from '@/context/AuthContext'
 import Typography from '@/design-system/Typography'
 import { tokens } from '@/design-system/tokens/tokens'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -23,8 +22,6 @@ function PosyanduHomeScreen({ navigation }: PosyanduHomeScreenProps) {
       posyanduId,
     })
   }
-
-  const { user } = useProtectedAuthContext()
 
   return (
     <View style={StyleSheet.absoluteFill}>
@@ -63,10 +60,7 @@ function PosyanduHomeScreen({ navigation }: PosyanduHomeScreenProps) {
           }}
         >
           <AddNewPosyanduCard onPress={handleNavigateToNewPosyanduSearch} />
-          <MyPosyanduList
-            userId={user.id}
-            onPosyanduPress={handleNavigateToPosyanduDetails}
-          />
+          <MyPosyanduList onPosyanduPress={handleNavigateToPosyanduDetails} />
         </View>
       </View>
     </View>

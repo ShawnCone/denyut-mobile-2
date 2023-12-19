@@ -11,16 +11,15 @@ import SinglePosyanduListMember from '../SinglePosyanduListMember'
 import { useUserPosyanduListQuery } from './utils'
 
 type MyPosyanduListProps = {
-  userId: string
   onPosyanduPress: (posyanduId: string) => void
 }
-function MyPosyanduList({ userId, onPosyanduPress }: MyPosyanduListProps) {
+function MyPosyanduList({ onPosyanduPress }: MyPosyanduListProps) {
   const {
     data: posyanduInfoArr,
     refetch: refetchPosyanduInfoArr,
     isError,
     isPending,
-  } = useUserPosyanduListQuery(userId)
+  } = useUserPosyanduListQuery()
 
   const [searchQuery, setSearchQuery] = useState('')
 

@@ -8,13 +8,18 @@ type getPosyanduListParams = {
 
 export type PosyanduInfo = Database['public']['Tables']['OutpostInfo']['Row']
 
+export type PosyanduMembershipInfo = PosyanduInfo & {
+  status: Database['public']['Tables']['OutpostMembership']['Row']['status']
+}
+
 // Get all user posyandu list (expect to be short)
-export async function getUserPosyanduList({ userId }: getPosyanduListParams) {
+export async function getUserPosyanduList({
+  userId,
+}: getPosyanduListParams): Promise<PosyanduMembershipInfo[]> {
   const { data, error } = await supabaseClient
     .from('OutpostMembership')
-    .select('OutpostInfo(*)')
+    .select('OutpostInfo(*), status')
     .eq('accountId', userId)
-    .eq('status', 'approved')
     .order('createdAt', { ascending: false })
 
   if (error) {
@@ -22,15 +27,23 @@ export async function getUserPosyanduList({ userId }: getPosyanduListParams) {
   }
 
   // Casting because already filtering for null here
-  return data.map(d => d.OutpostInfo).filter(Boolean)
+  return data
+    .map(d =>
+      d.OutpostInfo === null ? null : { ...d.OutpostInfo, status: d.status },
+    )
+    .filter(Boolean)
 }
 
 // Get posyandu list (Expect longer, but still ok for now. Adjust this when using backend)
 type searchPosyanduParams = {
   keyword: string
+  userId: string
 }
-// Search could be better
-export async function searchPosyandu({ keyword }: searchPosyanduParams) {
+// Search could be better, use backend later so it's handled properly when retrieved
+export async function searchPosyandu({
+  keyword,
+  userId,
+}: searchPosyanduParams) {
   const query = supabaseClient
     .from('OutpostInfo')
     .select('*')
@@ -46,7 +59,20 @@ export async function searchPosyandu({ keyword }: searchPosyanduParams) {
     throw new Error(error.message)
   }
 
-  return data
+  // Get user posyandu list
+  const userPosyanduList = await getUserPosyanduList({ userId })
+
+  // If user already joined a posyandu, indicate in returned data
+  const dataWithMembershipStatus = data.map(d => {
+    const membershipStatus = userPosyanduList.find(m => m.id === d.id)?.status
+
+    return {
+      ...d,
+      membershipStatus,
+    }
+  })
+
+  return dataWithMembershipStatus
 }
 
 export async function joinPosyandu({

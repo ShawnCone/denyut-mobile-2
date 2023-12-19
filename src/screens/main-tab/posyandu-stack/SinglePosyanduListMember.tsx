@@ -1,6 +1,7 @@
 import Typography from '@/design-system/Typography'
 import { tokens } from '@/design-system/tokens/tokens'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
 
 type SinglePosyanduListMemberProps = {
@@ -8,6 +9,8 @@ type SinglePosyanduListMemberProps = {
   name: string
   city: string
   province: string
+  rightElement?: ReactNode
+  disabled?: boolean
 }
 
 function SinglePosyanduListMember({
@@ -15,6 +18,8 @@ function SinglePosyanduListMember({
   name,
   city,
   province,
+  rightElement,
+  disabled = false,
 }: SinglePosyanduListMemberProps) {
   return (
     <Pressable
@@ -29,6 +34,7 @@ function SinglePosyanduListMember({
       android_ripple={{
         color: tokens.colors.ripple,
       }}
+      disabled={disabled}
     >
       <MaterialCommunityIcons
         name="office-building-outline"
@@ -61,6 +67,13 @@ function SinglePosyanduListMember({
         >
           {city}, {province}
         </Typography>
+      </View>
+      <View
+        style={{
+          marginLeft: 'auto',
+        }}
+      >
+        {rightElement}
       </View>
     </Pressable>
   )
