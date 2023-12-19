@@ -76,7 +76,7 @@ function MyPosyanduList({ userId, onPosyanduPress }: MyPosyanduListProps) {
           {isPending ? (
             <LoadingIndicator message="Memuat posyandu saya" />
           ) : isError ? (
-            <ErrorIndicator />
+            <ErrorIndicator onRetry={() => {}} />
           ) : (
             filteredPosyanduInfoArr.map(
               ({ name, city, province, id: posyanduId }, idx) => (

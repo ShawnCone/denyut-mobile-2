@@ -37,7 +37,12 @@ function ErrorIndicator({ fullPage, message, onRetry }: ErrorIndicatorProps) {
         Terjadi Kesalahan{message && `: ${message}`}
       </Typography>
       {typeof onRetry === 'function' && (
-        <DenyutButton variant="primary" onPress={onRetry} title="Coba lagi" />
+        <DenyutButton
+          variant="primary"
+          size="small"
+          onPress={onRetry}
+          title="Coba lagi"
+        />
       )}
     </View>
   )
