@@ -34,6 +34,12 @@ export async function getUserPosyanduList({
     .filter(Boolean)
 }
 
+export type PosyanduInfoWithMembershipStatus = PosyanduInfo & {
+  membershipStatus:
+    | Database['public']['Tables']['OutpostMembership']['Row']['status']
+    | undefined
+}
+
 // Get posyandu list (Expect longer, but still ok for now. Adjust this when using backend)
 type searchPosyanduParams = {
   keyword: string
@@ -43,7 +49,7 @@ type searchPosyanduParams = {
 export async function searchPosyandu({
   keyword,
   userId,
-}: searchPosyanduParams) {
+}: searchPosyanduParams): Promise<PosyanduInfoWithMembershipStatus[]> {
   const query = supabaseClient
     .from('OutpostInfo')
     .select('*')

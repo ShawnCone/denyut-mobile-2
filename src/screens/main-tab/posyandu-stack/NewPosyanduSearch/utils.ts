@@ -4,6 +4,7 @@ import {
 } from '@/client/supabase/queries/posyandu-info'
 import { useProtectedAuthContext } from '@/context/AuthContext'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { USER_POSYANDU_LIST_QUERY_KEY } from '../PosyanduHome/utils'
 
 const POSYANDU_SEARCH_QUERY_KEY = 'posyandu-search'
 
@@ -20,17 +21,29 @@ export function usePosyanduSearchQuery(keyword: string) {
 type useJoinPosyanduParams = {
   onError?: (error: Error) => void
   onSuccess?: () => void
+  posyanduId: string
 }
-export function useJoinPosyandu({ onSuccess, onError }: useJoinPosyanduParams) {
+
+const JOIN_POSYANDU_MUTATION_KEY = 'join-posyandu'
+
+export function useJoinPosyandu({
+  onSuccess,
+  onError,
+  posyanduId,
+}: useJoinPosyanduParams) {
   const queryClient = useQueryClient()
 
   return useMutation({
+    mutationKey: [JOIN_POSYANDU_MUTATION_KEY, posyanduId],
     mutationFn: joinPosyandu,
     onError,
     onSuccess: () => {
       onSuccess?.()
       queryClient.invalidateQueries({
         queryKey: [POSYANDU_SEARCH_QUERY_KEY],
+      })
+      queryClient.invalidateQueries({
+        queryKey: [USER_POSYANDU_LIST_QUERY_KEY],
       })
     },
   })

@@ -6,8 +6,13 @@ import { tokens } from './tokens/tokens'
 type LoadingIndicatorProps = {
   fullPage?: boolean
   message?: string
+  size?: number
 }
-function LoadingIndicator({ fullPage = true, message }: LoadingIndicatorProps) {
+function LoadingIndicator({
+  fullPage = true,
+  message,
+  size,
+}: LoadingIndicatorProps) {
   return (
     <View
       style={[
@@ -17,7 +22,10 @@ function LoadingIndicator({ fullPage = true, message }: LoadingIndicatorProps) {
         },
       ]}
     >
-      <ActivityIndicator size="large" color={tokens.colors.primary.dark} />
+      <ActivityIndicator
+        size={size ?? 'large'}
+        color={tokens.colors.primary.dark}
+      />
       {message && (
         <Typography
           variant={{

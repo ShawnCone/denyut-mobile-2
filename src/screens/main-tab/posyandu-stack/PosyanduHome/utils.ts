@@ -2,9 +2,11 @@ import { getUserPosyanduList } from '@/client/supabase/queries/posyandu-info'
 import { useProtectedAuthContext } from '@/context/AuthContext'
 import { useQuery } from '@tanstack/react-query'
 
+export const USER_POSYANDU_LIST_QUERY_KEY = 'user-posyandu-list'
+
 // Query function to get list of posyandu of a user
 function generateUserIdPosyanduListQueryKey(userId: string) {
-  return ['user', userId, 'posyandu-list']
+  return [USER_POSYANDU_LIST_QUERY_KEY, userId]
 }
 
 export function useUserPosyanduListQuery() {
