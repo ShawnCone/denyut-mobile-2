@@ -1,4 +1,4 @@
-import { PosyanduInfo } from '@/client/supabase/queries/posyandu-info'
+import { PosyanduMembershipInfo } from '@/client/supabase/queries/posyandu-info'
 import Divider from '@/design-system/Divider'
 import ErrorIndicator from '@/design-system/ErrorIndicator'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
@@ -71,7 +71,7 @@ function MyPosyanduList({ onPosyanduPress }: MyPosyanduListProps) {
             <ErrorIndicator onRetry={refetchPosyanduInfoArr} />
           ) : (
             filteredPosyanduInfoArr.map(
-              ({ name, city, province, id: posyanduId }, idx) => (
+              ({ name, city, province, id: posyanduId, status }, idx) => (
                 <View key={posyanduId}>
                   {idx > 0 && <Divider />}
                   <SinglePosyanduListMember
@@ -81,6 +81,24 @@ function MyPosyanduList({ onPosyanduPress }: MyPosyanduListProps) {
                     onPress={() => {
                       onPosyanduPress(posyanduId)
                     }}
+                    disabled={status !== 'approved'}
+                    rightElement={
+                      status === 'pending' && (
+                        <Typography
+                          variant={{
+                            size: 'captionS',
+                            textStyling: {
+                              italic: 'italic',
+                            },
+                          }}
+                          style={{
+                            color: tokens.colors.neutral.normal,
+                          }}
+                        >
+                          Menunggu
+                        </Typography>
+                      )
+                    }
                   />
                 </View>
               ),
@@ -93,7 +111,7 @@ function MyPosyanduList({ onPosyanduPress }: MyPosyanduListProps) {
 }
 
 function handleFilterPosyanduInfoArr(
-  posyanduInfoArr: PosyanduInfo[],
+  posyanduInfoArr: PosyanduMembershipInfo[],
   searchQuery: string,
 ) {
   return posyanduInfoArr.filter(

@@ -1,16 +1,13 @@
-import { useProtectedAuthContext } from '@/context/AuthContext'
 import Divider from '@/design-system/Divider'
 import ErrorIndicator from '@/design-system/ErrorIndicator'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
-import Typography from '@/design-system/Typography'
 import SearchTextfield from '@/design-system/forms/SearchTextfield'
 import { tokens } from '@/design-system/tokens/tokens'
-import { Ionicons } from '@expo/vector-icons'
 import { useDebounce } from '@uidotdev/usehooks'
 import { useState } from 'react'
 import { ScrollView, View } from 'react-native'
-import SinglePosyanduListMember from '../SinglePosyanduListMember'
-import { useJoinPosyandu, usePosyanduSearchQuery } from './utils'
+import NewPosyanduSearchListMember from './NewPosyanduSearchListMember'
+import { usePosyanduSearchQuery } from './utils'
 
 const DEBOUNCE_TIME = 500
 
@@ -25,17 +22,6 @@ function NewPosyanduSearchScreen() {
     isError,
     refetch,
   } = usePosyanduSearchQuery(debouncedSearchQuery)
-
-  const { isPending: isPendingJoinPosyandu, mutate } = useJoinPosyandu({
-    onError: error => {
-      // Toast
-      console.log({ error })
-    },
-    onSuccess: () => {
-      // Maybe toast?
-    },
-  })
-  const { user } = useProtectedAuthContext()
 
   return (
     <View
@@ -75,59 +61,14 @@ function NewPosyanduSearchScreen() {
             ) : isError ? (
               <ErrorIndicator onRetry={refetch} />
             ) : (
-              data.map(
-                (
-                  { name, city, province, id: posyanduId, membershipStatus },
-                  idx,
-                ) => {
-                  const isDisabled =
-                    isPendingJoinPosyandu ||
-                    typeof membershipStatus !== 'undefined'
-
-                  const rightElement = membershipStatus ? (
-                    <Typography
-                      variant={{
-                        size: 'captionS',
-                        textStyling: {
-                          italic: 'italic',
-                        },
-                      }}
-                      style={{
-                        color: tokens.colors.neutral.normal,
-                      }}
-                    >
-                      {membershipStatus === 'pending'
-                        ? 'Menunggu'
-                        : 'Sudah bergabung'}
-                    </Typography>
-                  ) : (
-                    <Ionicons
-                      name="add"
-                      size={tokens.iconSize.L}
-                      color={tokens.colors.primary.dark}
-                    />
-                  )
-
-                  return (
-                    <View key={posyanduId}>
-                      {idx > 0 && <Divider />}
-                      <SinglePosyanduListMember
-                        name={name}
-                        city={city}
-                        province={province}
-                        onPress={() => {
-                          mutate({
-                            posyanduId,
-                            userId: user.id,
-                          })
-                        }}
-                        disabled={isDisabled}
-                        rightElement={rightElement}
-                      />
-                    </View>
-                  )
-                },
-              )
+              data.map((posyanduMembershipInfo, idx) => (
+                <View key={posyanduMembershipInfo.id}>
+                  {idx > 0 && <Divider />}
+                  <NewPosyanduSearchListMember
+                    posyanduMembershipInfo={posyanduMembershipInfo}
+                  />
+                </View>
+              ))
             )}
           </ScrollView>
         </View>
