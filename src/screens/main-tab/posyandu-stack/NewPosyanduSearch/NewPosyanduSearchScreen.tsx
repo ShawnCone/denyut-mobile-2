@@ -1,4 +1,5 @@
 import Divider from '@/design-system/Divider'
+import EmptyResultIndicator from '@/design-system/EmptyResultIndicator'
 import ErrorIndicator from '@/design-system/ErrorIndicator'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
 import SearchTextfield from '@/design-system/forms/SearchTextfield'
@@ -60,6 +61,8 @@ function NewPosyanduSearchScreen() {
               <LoadingIndicator message="Memuat posyandu saya" />
             ) : isError ? (
               <ErrorIndicator onRetry={refetch} />
+            ) : data.length === 0 ? (
+              <EmptyResultIndicator />
             ) : (
               data.map((posyanduMembershipInfo, idx) => (
                 <View key={posyanduMembershipInfo.id}>
