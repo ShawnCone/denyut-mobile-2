@@ -1,5 +1,6 @@
 import { PosyanduMembershipInfo } from '@/client/supabase/queries/posyandu-info'
 import Divider from '@/design-system/Divider'
+import EmptyResultIndicator from '@/design-system/EmptyResultIndicator'
 import ErrorIndicator from '@/design-system/ErrorIndicator'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
 import Typography from '@/design-system/Typography'
@@ -69,6 +70,14 @@ function MyPosyanduList({ onPosyanduPress }: MyPosyanduListProps) {
             <LoadingIndicator message="Memuat posyandu saya" />
           ) : isError ? (
             <ErrorIndicator onRetry={refetchPosyanduInfoArr} />
+          ) : filteredPosyanduInfoArr.length === 0 ? (
+            <EmptyResultIndicator
+              message={
+                searchQuery === ''
+                  ? 'Belum bergabung dengan posyandu manapun'
+                  : 'Tidak dapat menemukan posyandu'
+              }
+            />
           ) : (
             filteredPosyanduInfoArr.map(
               ({ name, city, province, id: posyanduId, status }, idx) => (
