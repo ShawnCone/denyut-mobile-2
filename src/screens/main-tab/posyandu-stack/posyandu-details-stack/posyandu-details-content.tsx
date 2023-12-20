@@ -1,8 +1,11 @@
 import { PosyanduInfoContextProvider } from '@/context/PosyanduInfoContextProvider'
-import { BaseStackNavigationScreenOptions } from '@/design-system/BaseStackNavigationScreenOptions'
+import {
+  BaseStackNavigationScreenOptions,
+  DarkHeaderStackNavigationScreenOptions,
+} from '@/design-system/NavigationScreenOptions'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { PosyanduStackParamsList } from '../posyandu-stack'
-import PosyanduDetailsScreen from './PosyanduDetailsHomeScreen'
+import PosyanduDetailsScreen from './PosyanduDetailsHomeScreen/PosyanduDetailsHomeScreen'
 import PosyanduMembersScreen from './PosyanduMembers/PosyanduMembersScreen'
 import { PosyanduDetailsStack } from './posyandu-details-stack'
 
@@ -22,6 +25,7 @@ function PosyanduDetailsContent({ route }: PosyanduDetailsContentProps) {
         <PosyanduDetailsStack.Screen
           name="PosyanduDetailsHome"
           component={PosyanduDetailsScreen}
+          options={DarkHeaderStackNavigationScreenOptions}
         />
         <PosyanduDetailsStack.Screen
           name="PosyanduDetailsMembers"

@@ -6,7 +6,7 @@ import {
   ProtectedAuthContextValues,
   useAuthContext,
 } from './context/AuthContext'
-import { BaseStackNavigationScreenOptions } from './design-system/BaseStackNavigationScreenOptions'
+import { BaseStackNavigationScreenOptions } from './design-system/NavigationScreenOptions'
 import { fontFamilies } from './design-system/tokens/font-families'
 import SplashScreen from './screens/SplashScreen'
 import LoginScreen from './screens/auth-screens/LoginScreen'

@@ -1,5 +1,6 @@
 import { PosyanduInfo } from '@/client/supabase/queries/posyandu-info'
-import Typography from '@/design-system/Typography'
+import ErrorIndicator from '@/design-system/ErrorIndicator'
+import LoadingIndicator from '@/design-system/LoadingIndicator'
 import { usePosyanduInfoQuery } from '@/screens/main-tab/posyandu-stack/utils'
 import { ReactNode, createContext, useContext } from 'react'
 
@@ -38,12 +39,12 @@ export const PosyanduInfoContextProvider = ({
   } = usePosyanduInfoQuery(selectedPosyanduId)
 
   if (isPending) {
-    return <Typography>Loading...</Typography>
+    return <LoadingIndicator />
   }
 
   if (isError) {
     // Show error, maybe clear posyandu ID?
-    return <Typography>Error...</Typography>
+    return <ErrorIndicator message="Terjadi kesalahan" />
   }
 
   return (

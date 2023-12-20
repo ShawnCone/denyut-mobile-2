@@ -1,4 +1,4 @@
-import { BaseStackNavigationScreenOptions } from '@/design-system/BaseStackNavigationScreenOptions'
+import { BaseStackNavigationScreenOptions } from '@/design-system/NavigationScreenOptions'
 import ProfileHomeScreen from './ProfileHome/ProfileHomeScreen'
 import UpdateProfileScreen from './UpdateProfile/UpdateProfileScreen'
 import { ProfileStack } from './profile-stack'
