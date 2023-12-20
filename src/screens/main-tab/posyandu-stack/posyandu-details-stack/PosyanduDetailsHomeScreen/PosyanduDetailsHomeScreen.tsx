@@ -100,6 +100,10 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
                 android_ripple={{
                   color: tokens.colors.ripple,
                 }}
+                onPress={() => {
+                  // Navigate to checkup
+                  // Modal to choose between add or edit
+                }}
               >
                 <MaterialCommunityIcons
                   name="human-male-height"
