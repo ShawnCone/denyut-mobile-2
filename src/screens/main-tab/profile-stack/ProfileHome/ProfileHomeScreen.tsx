@@ -88,6 +88,7 @@ function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
             style={{
               flex: 1,
               marginTop: tokens.margin.S,
+              paddingHorizontal: PADDING_HORIZONTAL,
             }}
           >
             <SingleProfileMenuItem
@@ -104,11 +105,11 @@ function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
                 navigation.navigate('UpdateProfile')
               }}
             />
+
             <View
               style={{
                 marginTop: 'auto',
                 marginBottom: tokens.margin.L,
-                paddingHorizontal: PADDING_HORIZONTAL,
               }}
             >
               <DenyutButton

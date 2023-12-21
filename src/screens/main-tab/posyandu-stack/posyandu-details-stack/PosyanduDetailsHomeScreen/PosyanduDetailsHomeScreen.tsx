@@ -35,6 +35,10 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
     navigation.goBack()
   }
 
+  function navigateToPosyanduMembers() {
+    navigation.navigate('PosyanduDetailsMembers')
+  }
+
   return (
     <View
       style={{
@@ -255,7 +259,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
               title="Laporan"
               description="Unduh laporan SKDN"
               onPress={() => {
-                // Dowload report
+                // Dowload report page
               }}
             />
             <SingleRegularMenuCard
@@ -268,7 +272,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
               }
               title="Daftar Kader"
               description="Kelola pengurus kader untuk pengisian data di posyandu anda"
-              onPress={() => {}}
+              onPress={navigateToPosyanduMembers}
             />
           </View>
         </View>

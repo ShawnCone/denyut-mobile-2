@@ -22,60 +22,67 @@ function SinglePosyanduListMember({
   disabled = false,
 }: SinglePosyanduListMemberProps) {
   return (
-    <Pressable
+    <View
       style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: tokens.colors.neutral.white,
-        paddingVertical: tokens.padding.L,
-        paddingHorizontal: tokens.padding.L,
+        borderRadius: tokens.borderRadius.M,
       }}
-      onPress={onPress}
-      android_ripple={{
-        color: tokens.colors.ripple,
-      }}
-      disabled={disabled}
     >
-      <MaterialCommunityIcons
-        name="office-building-outline"
-        size={tokens.iconSize.L}
-        color={tokens.colors.primary.dark}
-      />
-      <View
+      <Pressable
         style={{
-          marginLeft: tokens.margin.L,
-          gap: tokens.margin.XS,
+          flexDirection: 'row',
+          alignItems: 'center',
+          backgroundColor: tokens.colors.neutral.white,
+          paddingVertical: tokens.padding.L,
+          paddingHorizontal: tokens.padding.L,
         }}
+        onPress={onPress}
+        android_ripple={{
+          borderless: true,
+          color: tokens.colors.ripple,
+        }}
+        disabled={disabled}
       >
-        <Typography
-          variant={{
-            size: 'caption',
-            textStyling: {
-              weight: 'bold',
-            },
-          }}
-        >
-          {name}
-        </Typography>
-        <Typography
-          variant={{
-            size: 'captionS',
-          }}
+        <MaterialCommunityIcons
+          name="office-building-outline"
+          size={tokens.iconSize.L}
+          color={tokens.colors.primary.dark}
+        />
+        <View
           style={{
-            color: tokens.colors.neutral.normal,
+            marginLeft: tokens.margin.L,
+            gap: tokens.margin.XS,
           }}
         >
-          {city}, {province}
-        </Typography>
-      </View>
-      <View
-        style={{
-          marginLeft: 'auto',
-        }}
-      >
-        {rightElement}
-      </View>
-    </Pressable>
+          <Typography
+            variant={{
+              size: 'caption',
+              textStyling: {
+                weight: 'bold',
+              },
+            }}
+          >
+            {name}
+          </Typography>
+          <Typography
+            variant={{
+              size: 'captionS',
+            }}
+            style={{
+              color: tokens.colors.neutral.normal,
+            }}
+          >
+            {city}, {province}
+          </Typography>
+        </View>
+        <View
+          style={{
+            marginLeft: 'auto',
+          }}
+        >
+          {rightElement}
+        </View>
+      </Pressable>
+    </View>
   )
 }
 

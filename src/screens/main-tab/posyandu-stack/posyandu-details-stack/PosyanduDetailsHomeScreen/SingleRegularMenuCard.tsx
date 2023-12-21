@@ -16,55 +16,65 @@ function SingleRegularMenuCard({
   onPress,
   icon,
 }: SingleRegularMenuCardProps) {
+  // Wrap pressable in view for android ripple effect
   return (
-    <Pressable
+    <View
       style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: tokens.margin.L,
-        borderWidth: tokens.borderWidth.S,
         borderRadius: tokens.borderRadius.M,
         borderColor: tokens.colors.neutral.light,
-        padding: tokens.padding.L,
+        borderWidth: tokens.borderWidth.S,
       }}
-      onPress={onPress}
     >
-      <View
+      <Pressable
         style={{
-          padding: tokens.padding.M,
-          backgroundColor: tokens.colors.primary.extraLight,
-          borderColor: tokens.colors.primary.normal,
-          borderWidth: tokens.borderWidth.S,
-          borderRadius: tokens.borderRadius.M,
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: tokens.margin.L,
+          padding: tokens.padding.L,
+        }}
+        onPress={onPress}
+        android_ripple={{
+          borderless: true,
+          color: tokens.colors.ripple,
         }}
       >
-        {icon}
-      </View>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-        }}
-      >
-        <Typography
-          variant={{ size: 'caption', textStyling: { weight: 'bold' } }}
-          style={{}}
-        >
-          {title}
-        </Typography>
-        <Typography
-          variant={{ size: 'captionS' }}
+        <View
           style={{
-            textAlignVertical: 'top',
-            color: tokens.colors.neutral.normal,
-            flexWrap: 'wrap',
+            padding: tokens.padding.M,
+            backgroundColor: tokens.colors.primary.extraLight,
+            borderColor: tokens.colors.primary.normal,
+            borderWidth: tokens.borderWidth.S,
+            borderRadius: tokens.borderRadius.M,
           }}
-          numberOfLines={2}
         >
-          {description}
-        </Typography>
-      </View>
-    </Pressable>
+          {icon}
+        </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+          }}
+        >
+          <Typography
+            variant={{ size: 'caption', textStyling: { weight: 'bold' } }}
+            style={{}}
+          >
+            {title}
+          </Typography>
+          <Typography
+            variant={{ size: 'captionS' }}
+            style={{
+              textAlignVertical: 'top',
+              color: tokens.colors.neutral.normal,
+              flexWrap: 'wrap',
+            }}
+            numberOfLines={2}
+          >
+            {description}
+          </Typography>
+        </View>
+      </Pressable>
+    </View>
   )
 }
 
