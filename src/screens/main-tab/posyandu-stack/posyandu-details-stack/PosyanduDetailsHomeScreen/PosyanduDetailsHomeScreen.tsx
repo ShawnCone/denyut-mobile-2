@@ -4,17 +4,36 @@ import Typography from '@/design-system/Typography'
 import { tokens } from '@/design-system/tokens/tokens'
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { useState } from 'react'
 import { Pressable, ScrollView, View } from 'react-native'
 import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
+import GrowthBottomSheet from './GrowthBottomSheeet'
 import SingleRegularMenuCard from './SingleRegularMenuCard'
 import { formatPosyanduInfoLocation } from './utils'
+
+const DUMMY_HEADER_HEIGHT = 56
 
 type PosyanduDetailsScreenProps = NativeStackScreenProps<
   PosyanduDetailsStackParamsList,
   'PosyanduDetailsHome'
 >
+
 function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
   const { posyanduInfo } = usePosyanduInfoContext()
+
+  const [growthBottomSheetOpen, setGrowthBottomSheetOpen] = useState(false)
+
+  function openGrowtBottomSheet() {
+    setGrowthBottomSheetOpen(true)
+  }
+
+  function closeGrowthBottomSheet() {
+    setGrowthBottomSheetOpen(false)
+  }
+
+  function goBack() {
+    navigation.goBack()
+  }
 
   return (
     <View
@@ -22,6 +41,23 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
         flex: 1,
       }}
     >
+      {/* Dummy Header (For bottom sheet modal purposes) */}
+      <View
+        style={{
+          height: DUMMY_HEADER_HEIGHT,
+          backgroundColor: tokens.colors.primary.dark,
+          paddingHorizontal: tokens.padding.L,
+          justifyContent: 'center',
+        }}
+      >
+        <Pressable onPress={goBack}>
+          <MaterialCommunityIcons
+            name="arrow-left"
+            size={tokens.iconSize.M}
+            color={tokens.colors.neutral.white}
+          />
+        </Pressable>
+      </View>
       {/* Header and main options */}
       <View
         style={{
@@ -100,10 +136,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
                 android_ripple={{
                   color: tokens.colors.ripple,
                 }}
-                onPress={() => {
-                  // Navigate to checkup
-                  // Modal to choose between add or edit
-                }}
+                onPress={openGrowtBottomSheet}
               >
                 <MaterialCommunityIcons
                   name="human-male-height"
@@ -240,6 +273,11 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
           </View>
         </View>
       </ScrollView>
+      {/* Bottom sheets */}
+      <GrowthBottomSheet
+        open={growthBottomSheetOpen}
+        onClose={closeGrowthBottomSheet}
+      />
     </View>
   )
 }

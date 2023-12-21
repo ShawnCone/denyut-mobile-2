@@ -25,7 +25,10 @@ function PosyanduDetailsContent({ route }: PosyanduDetailsContentProps) {
         <PosyanduDetailsStack.Screen
           name="PosyanduDetailsHome"
           component={PosyanduDetailsScreen}
-          options={DarkHeaderStackNavigationScreenOptions}
+          options={{
+            ...DarkHeaderStackNavigationScreenOptions,
+            headerShown: false,
+          }}
         />
         <PosyanduDetailsStack.Screen
           name="PosyanduDetailsMembers"
