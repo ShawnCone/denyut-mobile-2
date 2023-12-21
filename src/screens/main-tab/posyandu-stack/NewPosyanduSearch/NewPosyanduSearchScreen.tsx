@@ -28,7 +28,7 @@ function NewPosyanduSearchScreen() {
     <View
       style={{
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: tokens.colors.neutral.white,
       }}
     >
       <View

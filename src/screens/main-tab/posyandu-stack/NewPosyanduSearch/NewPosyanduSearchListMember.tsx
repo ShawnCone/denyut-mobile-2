@@ -54,7 +54,8 @@ function NewPosyanduSearchListMember({
   ) : (
     <Pressable
       style={{
-        borderRadius: 100,
+        borderRadius: tokens.borderRadius.M,
+        borderColor: tokens.colors.transparent,
       }}
       onPress={() => {
         mutate({

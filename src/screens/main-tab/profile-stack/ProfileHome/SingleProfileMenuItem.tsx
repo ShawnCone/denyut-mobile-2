@@ -18,43 +18,52 @@ function SingleProfileMenuItem({
   onPress,
 }: SingleProfileMenuItemProps) {
   return (
-    <Pressable
-      android_ripple={{
-        color: tokens.colors.ripple,
-      }}
+    <View
       style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: tokens.margin.M,
-        paddingVertical: tokens.padding.M,
-        paddingHorizontal: PADDING_HORIZONTAL,
+        borderRadius: tokens.borderRadius.M,
+        borderColor: tokens.colors.transparent,
+        borderWidth: 1,
       }}
-      onPress={onPress}
     >
-      {icon}
-      <View>
-        <Typography
-          variant={{
-            size: 'caption',
-            textStyling: {
-              weight: 'bold',
-            },
-          }}
-        >
-          {title}
-        </Typography>
-        <Typography
-          variant={{
-            size: 'caption',
-          }}
-          style={{
-            color: tokens.colors.neutral.normal,
-          }}
-        >
-          {description}
-        </Typography>
-      </View>
-    </Pressable>
+      <Pressable
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: tokens.margin.M,
+          paddingVertical: tokens.padding.M,
+          paddingHorizontal: PADDING_HORIZONTAL,
+        }}
+        onPress={onPress}
+        android_ripple={{
+          borderless: true,
+          color: tokens.colors.ripple,
+        }}
+      >
+        {icon}
+        <View>
+          <Typography
+            variant={{
+              size: 'caption',
+              textStyling: {
+                weight: 'bold',
+              },
+            }}
+          >
+            {title}
+          </Typography>
+          <Typography
+            variant={{
+              size: 'caption',
+            }}
+            style={{
+              color: tokens.colors.neutral.normal,
+            }}
+          >
+            {description}
+          </Typography>
+        </View>
+      </Pressable>
+    </View>
   )
 }
 
