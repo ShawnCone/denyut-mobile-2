@@ -32,7 +32,8 @@ function PosyanduHomeScreen({ navigation }: PosyanduHomeScreenProps) {
           height: 180, // TODO: Make token for header height? M and L?
           paddingHorizontal: tokens.padding.L,
           justifyContent: 'center',
-          borderRadius: tokens.borderRadius.S,
+          borderBottomLeftRadius: tokens.borderRadius.S,
+          borderBottomRightRadius: tokens.borderRadius.S,
         }}
       >
         <Typography

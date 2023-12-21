@@ -9,4 +9,18 @@ export const BaseStackNavigationScreenOptions: NativeStackNavigationOptions = {
     fontSize: tokens.fontSizing['L'].fontSize,
   },
   headerBackVisible: true,
+  statusBarStyle: 'auto',
 }
+
+// For dark headers
+export const DarkHeaderStackNavigationScreenOptions: NativeStackNavigationOptions =
+  {
+    headerTitle: '',
+    headerShadowVisible: false,
+    headerStyle: {
+      backgroundColor: tokens.colors.primary.dark,
+    },
+    headerTintColor: tokens.colors.neutral.white,
+    statusBarStyle: 'light',
+    statusBarColor: tokens.colors.primary.dark,
+  }

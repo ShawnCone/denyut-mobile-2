@@ -3,7 +3,7 @@
 export const colors = {
   modalBackground: 'rgba(255, 255, 255, 0.75)',
   primary: {
-    extraLight: '#CFE5E3',
+    extraLight: '#f0f7f6',
     light: '#87BDBA',
     normal: '#107C75',
     dark: '#0D6761',

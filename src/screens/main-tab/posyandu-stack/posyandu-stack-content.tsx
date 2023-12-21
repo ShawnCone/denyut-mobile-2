@@ -1,4 +1,7 @@
-import { BaseStackNavigationScreenOptions } from '@/design-system/BaseStackNavigationScreenOptions'
+import {
+  BaseStackNavigationScreenOptions,
+  DarkHeaderStackNavigationScreenOptions,
+} from '@/design-system/NavigationScreenOptions'
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { MainTabParamsList } from '../main-tab'
 import NewPosyanduSearchScreen from './NewPosyanduSearch/NewPosyanduSearchScreen'
@@ -21,6 +24,7 @@ function PosyanduStackContent(_props: PosyanduStackContentProps) {
         name="PosyanduHome"
         component={PosyanduHomeScreen}
         options={{
+          ...DarkHeaderStackNavigationScreenOptions,
           headerShown: false,
         }}
       />
