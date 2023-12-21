@@ -2,6 +2,7 @@
 // Most of these colors are taken from https://tailwindcss.com/docs/customizing-colors
 export const colors = {
   modalBackground: 'rgba(255, 255, 255, 0.75)',
+  transparent: 'rgba(0,0,0,0)',
   primary: {
     extraLight: '#f0f7f6',
     light: '#87BDBA',

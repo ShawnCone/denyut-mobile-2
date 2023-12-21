@@ -33,6 +33,9 @@ function PosyanduDetailsContent({ route }: PosyanduDetailsContentProps) {
         <PosyanduDetailsStack.Screen
           name="PosyanduDetailsMembers"
           component={PosyanduMembersScreen}
+          options={{
+            title: 'Daftar Kader / Staf Posyandu',
+          }}
         />
       </PosyanduDetailsStack.Navigator>
     </PosyanduInfoContextProvider>

@@ -4,23 +4,21 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
 
-type SinglePosyanduListMemberProps = {
+type SinglePosyanduMemberCardProps = {
   onPress?: () => void
   name: string
-  city: string
-  province: string
+  phoneNumber: string
   rightElement?: ReactNode
   disabled?: boolean
 }
 
-function SinglePosyanduListMember({
+function SinglePosyanduMemberCard({
   onPress,
   name,
-  city,
-  province,
+  phoneNumber,
   rightElement,
   disabled = false,
-}: SinglePosyanduListMemberProps) {
+}: SinglePosyanduMemberCardProps) {
   return (
     <View
       style={{
@@ -73,7 +71,7 @@ function SinglePosyanduListMember({
               color: tokens.colors.neutral.normal,
             }}
           >
-            {city}, {province}
+            +{phoneNumber}
           </Typography>
         </View>
         <View
@@ -88,4 +86,4 @@ function SinglePosyanduListMember({
   )
 }
 
-export default SinglePosyanduListMember
+export default SinglePosyanduMemberCard

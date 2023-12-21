@@ -8,14 +8,14 @@ type getPosyanduListParams = {
 
 export type PosyanduInfo = Database['public']['Tables']['OutpostInfo']['Row']
 
-export type PosyanduMembershipInfo = PosyanduInfo & {
+export type PosyanduInfoWithUserMembershipInfo = PosyanduInfo & {
   status: Database['public']['Tables']['OutpostMembership']['Row']['status']
 }
 
 // Get all user posyandu list (expect to be short)
 export async function getUserPosyanduList({
   userId,
-}: getPosyanduListParams): Promise<PosyanduMembershipInfo[]> {
+}: getPosyanduListParams): Promise<PosyanduInfoWithUserMembershipInfo[]> {
   const { data, error } = await supabaseClient
     .from('OutpostMembership')
     .select('OutpostInfo(*), status')

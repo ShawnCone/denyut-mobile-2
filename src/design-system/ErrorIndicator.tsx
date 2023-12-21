@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons'
 import { StyleSheet, View } from 'react-native'
-import DenyutButton from './DenyutButton'
+import ClickableTypography from './ClickableTypography'
 import Typography from './Typography'
 import { tokens } from './tokens/tokens'
 
@@ -37,12 +37,30 @@ function ErrorIndicator({ fullPage, message, onRetry }: ErrorIndicatorProps) {
         Terjadi Kesalahan{message && `: ${message}`}
       </Typography>
       {typeof onRetry === 'function' && (
-        <DenyutButton
-          variant="primary"
-          size="small"
-          onPress={onRetry}
-          title="Coba lagi"
-        />
+        <ClickableTypography
+          typographyProps={{
+            variant: {
+              size: 'caption',
+              textStyling: {
+                weight: 'bold',
+              },
+            },
+            style: {
+              color: tokens.colors.primary.normal,
+            },
+          }}
+          pressableProps={{
+            onPress: onRetry,
+          }}
+        >
+          Coba lagi
+        </ClickableTypography>
+        // <Pressable
+        //   variant="primary"
+        //   size="small"
+        //   onPress={onRetry}
+        //   title="Coba lagi"
+        // />
       )}
     </View>
   )

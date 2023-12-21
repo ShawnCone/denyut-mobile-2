@@ -1,4 +1,4 @@
-import { PosyanduMembershipInfo } from '@/client/supabase/queries/posyandu-info'
+import { PosyanduInfoWithUserMembershipInfo } from '@/client/supabase/queries/posyandu-info'
 import Divider from '@/design-system/Divider'
 import EmptyResultIndicator from '@/design-system/EmptyResultIndicator'
 import ErrorIndicator from '@/design-system/ErrorIndicator'
@@ -14,6 +14,7 @@ import { useUserPosyanduListQuery } from './utils'
 type MyPosyanduListProps = {
   onPosyanduPress: (posyanduId: string) => void
 }
+
 function MyPosyanduList({ onPosyanduPress }: MyPosyanduListProps) {
   const {
     data: posyanduInfoArr,
@@ -120,7 +121,7 @@ function MyPosyanduList({ onPosyanduPress }: MyPosyanduListProps) {
 }
 
 function handleFilterPosyanduInfoArr(
-  posyanduInfoArr: PosyanduMembershipInfo[],
+  posyanduInfoArr: PosyanduInfoWithUserMembershipInfo[],
   searchQuery: string,
 ) {
   return posyanduInfoArr.filter(

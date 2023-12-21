@@ -21,6 +21,8 @@ function SingleProfileMenuItem({
     <View
       style={{
         borderRadius: tokens.borderRadius.M,
+        borderColor: tokens.colors.transparent,
+        borderWidth: 1,
       }}
     >
       <Pressable
