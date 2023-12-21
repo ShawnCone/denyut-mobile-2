@@ -5,6 +5,7 @@ import Divider from '@/design-system/Divider'
 import EmptyResultIndicator from '@/design-system/EmptyResultIndicator'
 import ErrorIndicator from '@/design-system/ErrorIndicator'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
+import Typography from '@/design-system/Typography'
 import SearchTextfield from '@/design-system/forms/SearchTextfield'
 import { tokens } from '@/design-system/tokens/tokens'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -82,7 +83,18 @@ function PosyanduMembersScreen() {
                     name={name}
                     phoneNumber={phoneNumber}
                     rightElement={
-                      user.id !== id && (
+                      user.id === id ? (
+                        <Typography
+                          variant={{
+                            size: 'captionS',
+                            textStyling: {
+                              italic: 'italic',
+                            },
+                          }}
+                        >
+                          Akun Saya
+                        </Typography>
+                      ) : (
                         <Pressable>
                           <MaterialCommunityIcons
                             name="delete"
