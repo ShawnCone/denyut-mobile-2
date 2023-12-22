@@ -13,7 +13,7 @@ import { useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import SinglePosyanduMemberCard from './SinglePosyanduMemberCard'
-import { usePosyanduMembersQuery } from './utils'
+import { usePosyanduMembersQuery, useUserIsPosyanduAdminQuery } from './utils'
 
 function PosyanduMembersScreen() {
   const {
@@ -23,18 +23,47 @@ function PosyanduMembersScreen() {
   const { user } = useProtectedAuthContext()
 
   const {
+    data: userIsAdmin,
+    isPending: userIsAdminIsPending,
+    isError: userIsAdminIsError,
+    refetch: refetchUserIsAdmin,
+  } = useUserIsPosyanduAdminQuery(posyanduId, user.id)
+
+  const {
     data: posyanduMembersArr,
-    isPending,
-    isError,
-    refetch,
+    isPending: posyanduMembersArrIsPending,
+    isError: posyanduMembersArrIsError,
+    refetch: refetchPosyanduMembersArr,
   } = usePosyanduMembersQuery(posyanduId)
+
   const [searchQuery, setSearchQuery] = useState('')
 
-  // If possible, couple this with posyandInfoArr
-  const filterPosyanduMembersArr =
-    isPending || isError
+  const approvedPosyanduMembersArr =
+    posyanduMembersArrIsPending || posyanduMembersArrIsError
       ? []
-      : handleFilterMembersArr(posyanduMembersArr, searchQuery)
+      : posyanduMembersArr.filter(({ status }) => status === 'approved')
+
+  // Filter by query
+  const filterPosyanduMembersArr = handleFilterMembersArr(
+    approvedPosyanduMembersArr,
+    searchQuery,
+  )
+
+  // Show link to pending members
+  const pendingPosyanduMembersCount =
+    posyanduMembersArrIsPending || posyanduMembersArrIsError
+      ? 0
+      : posyanduMembersArr.filter(({ status }) => status === 'pending').length
+
+  const showPendingMembersLink = userIsAdmin && pendingPosyanduMembersCount > 0
+
+  if (userIsAdminIsPending) {
+    return <LoadingIndicator message="Memuat" />
+  }
+
+  if (userIsAdminIsError) {
+    return <ErrorIndicator onRetry={refetchUserIsAdmin} />
+  }
 
   return (
     <View
@@ -47,9 +76,43 @@ function PosyanduMembersScreen() {
         style={{
           flex: 1,
           marginHorizontal: tokens.margin.L,
-          marginTop: tokens.margin.M,
+          paddingTop: tokens.padding.L,
+          gap: tokens.margin.M,
         }}
       >
+        {showPendingMembersLink && (
+          <Pressable
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingVertical: tokens.padding.L,
+              paddingHorizontal: tokens.padding.L,
+              backgroundColor: tokens.colors.primary.dark,
+              borderRadius: tokens.borderRadius.M,
+            }}
+            onPress={() => {
+              console.log("navigate to 'Permintaan Bergabung' screen")
+            }}
+          >
+            <Typography
+              style={{
+                color: tokens.colors.neutral.white,
+              }}
+              variant={{
+                size: 'caption',
+              }}
+            >
+              {pendingPosyanduMembersCount} Permintaan Bergabung
+            </Typography>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={tokens.iconSize.M}
+              color={tokens.colors.neutral.white}
+            />
+          </Pressable>
+        )}
+
         <SearchTextfield
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -63,10 +126,10 @@ function PosyanduMembersScreen() {
           }}
         >
           <ScrollView>
-            {isPending ? (
+            {posyanduMembersArrIsPending ? (
               <LoadingIndicator message="Memuat staf posyandu" />
-            ) : isError ? (
-              <ErrorIndicator onRetry={refetch} />
+            ) : posyanduMembersArrIsError ? (
+              <ErrorIndicator onRetry={refetchPosyanduMembersArr} />
             ) : filterPosyanduMembersArr.length === 0 ? (
               <EmptyResultIndicator
                 message={
