@@ -156,16 +156,19 @@ function ApprovedPosyanduMembersScreen({
                 }
               />
             ) : (
-              filterPosyanduMembersArr.map(({ name, id, phoneNumber }, idx) => (
-                <View key={id}>
-                  {idx > 0 && <Divider />}
-                  <SingleApprovedPosyanduMemberCard
-                    name={name}
-                    phoneNumber={phoneNumber}
-                    id={id}
-                  />
-                </View>
-              ))
+              filterPosyanduMembersArr.map(
+                ({ name, id, phoneNumber, role }, idx) => (
+                  <View key={id}>
+                    {idx > 0 && <Divider />}
+                    <SingleApprovedPosyanduMemberCard
+                      name={name}
+                      phoneNumber={phoneNumber}
+                      id={id}
+                      role={role}
+                    />
+                  </View>
+                ),
+              )
             )}
           </ScrollView>
         </View>

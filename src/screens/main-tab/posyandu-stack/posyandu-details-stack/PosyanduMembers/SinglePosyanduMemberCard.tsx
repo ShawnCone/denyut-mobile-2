@@ -1,3 +1,4 @@
+import { Database } from '@/client/supabase/types'
 import Typography from '@/design-system/Typography'
 import { tokens } from '@/design-system/tokens/tokens'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -8,6 +9,7 @@ export type SinglePosyanduMemberCardMemberInfo = {
   id: string
   name: string
   phoneNumber: string
+  role?: Database['public']['Enums']['membership_role_enum']
 }
 
 type SinglePosyanduMemberCardProps = {
@@ -19,6 +21,7 @@ function SinglePosyanduMemberCard({
   name,
   phoneNumber,
   rightElement,
+  role,
 }: SinglePosyanduMemberCardProps) {
   return (
     <View
@@ -61,6 +64,7 @@ function SinglePosyanduMemberCard({
           >
             {name}
           </Typography>
+
           <Typography
             variant={{
               size: 'captionS',
@@ -71,7 +75,25 @@ function SinglePosyanduMemberCard({
           >
             +{phoneNumber}
           </Typography>
+          {role && (
+            <View>
+              <Typography
+                variant={{
+                  size: 'captionS',
+                  textStyling: {
+                    italic: 'italic',
+                  },
+                }}
+                style={{
+                  color: tokens.colors.neutral.normal,
+                }}
+              >
+                {role === 'owner' ? 'Admin' : 'Anggota'}
+              </Typography>
+            </View>
+          )}
         </View>
+
         <View
           style={{
             marginLeft: 'auto',

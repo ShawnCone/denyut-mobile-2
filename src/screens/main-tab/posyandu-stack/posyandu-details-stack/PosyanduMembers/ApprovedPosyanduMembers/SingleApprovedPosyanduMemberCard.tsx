@@ -1,3 +1,4 @@
+import { Database } from '@/client/supabase/types'
 import { useProtectedAuthContext } from '@/context/AuthContext'
 import Typography from '@/design-system/Typography'
 import { tokens } from '@/design-system/tokens/tokens'
@@ -13,7 +14,10 @@ function SingleApprovedPosyanduMemberCard({
   name,
   phoneNumber,
   id,
-}: SinglePosyanduMemberCardMemberInfo) {
+  role,
+}: SinglePosyanduMemberCardMemberInfo & {
+  role: Database['public']['Enums']['membership_role_enum']
+}) {
   const { user } = useProtectedAuthContext()
 
   const [showKickModal, setShowKickModal] = useState(false)
@@ -24,6 +28,7 @@ function SingleApprovedPosyanduMemberCard({
         name={name}
         phoneNumber={phoneNumber}
         id={id}
+        role={role}
         rightElement={
           user.id === id ? (
             <Typography
