@@ -2,7 +2,7 @@ import {
   acceptUserToPosyandu,
   getPosyanduMembers,
   getUserIsPosyanduAdmin,
-  kickRejectUserFromPosyandu,
+  removeMemberFromPosyandu,
 } from '@/client/supabase/queries/posyandu-members'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
@@ -35,7 +35,7 @@ export function useKickRejectUserFromPosyanduMutation({
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: kickRejectUserFromPosyandu,
+    mutationFn: removeMemberFromPosyandu,
     onSuccess: (_, { posyanduId }) => {
       // Invalidate posyandu members query
       queryClient.invalidateQueries({

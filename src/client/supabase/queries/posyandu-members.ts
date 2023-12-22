@@ -90,7 +90,7 @@ export async function getUserIsPosyanduAdmin({
   return data !== null && data.role === 'owner'
 }
 
-export async function kickRejectUserFromPosyandu({
+export async function removeMemberFromPosyandu({
   posyanduId,
   userId,
 }: {

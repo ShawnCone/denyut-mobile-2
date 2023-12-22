@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { Pressable, ScrollView, View } from 'react-native'
 import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
 import GrowthBottomSheet from './GrowthBottomSheeet'
+import LeavePosyanduButton from './LeavePosyanduButton'
 import SingleRegularMenuCard from './SingleRegularMenuCard'
 import { formatPosyanduInfoLocation } from './utils'
 
@@ -31,8 +32,9 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
     setGrowthBottomSheetOpen(false)
   }
 
-  function goBack() {
-    navigation.goBack()
+  // Back to posyandu selection
+  function goToPosyanduHomeScreen() {
+    navigation.getParent()?.goBack()
   }
 
   function navigateToPosyanduMembers() {
@@ -54,7 +56,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
           justifyContent: 'center',
         }}
       >
-        <Pressable onPress={goBack}>
+        <Pressable onPress={goToPosyanduHomeScreen}>
           <MaterialCommunityIcons
             name="arrow-left"
             size={tokens.iconSize.M}
@@ -275,6 +277,14 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
               onPress={navigateToPosyanduMembers}
             />
           </View>
+        </View>
+        {/* Exit posyandu button */}
+        <View
+          style={{
+            padding: tokens.padding.L,
+          }}
+        >
+          <LeavePosyanduButton onLeavePosyandu={goToPosyanduHomeScreen} />
         </View>
       </ScrollView>
       {/* Bottom sheets */}
