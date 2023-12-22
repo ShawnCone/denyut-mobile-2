@@ -6,8 +6,8 @@ import LoadingIndicator from '@/design-system/LoadingIndicator'
 import { tokens } from '@/design-system/tokens/tokens'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { usePosyanduMembersQuery } from '../utils'
 import SinglePendingPosyanduMemberCard from './SinglePendingPosyanduMemberCard'
-import { usePosyanduMembersQuery } from './utils'
 
 function PendingPosyanduMembersScreen() {
   const {

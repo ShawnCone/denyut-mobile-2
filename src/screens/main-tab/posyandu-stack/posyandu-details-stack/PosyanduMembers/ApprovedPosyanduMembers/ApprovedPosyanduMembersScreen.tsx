@@ -13,9 +13,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
+import { PosyanduDetailsStackParamsList } from '../../posyandu-details-stack'
+import { usePosyanduMembersQuery, useUserIsPosyanduAdminQuery } from '../utils'
 import SingleApprovedPosyanduMemberCard from './SingleApprovedPosyanduMemberCard'
-import { usePosyanduMembersQuery, useUserIsPosyanduAdminQuery } from './utils'
 
 type ApprovedPosyanduMembersScreenProps = NativeStackScreenProps<
   PosyanduDetailsStackParamsList,

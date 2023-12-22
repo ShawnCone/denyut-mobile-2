@@ -6,8 +6,8 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { PosyanduStackParamsList } from '../posyandu-stack'
 import PosyanduDetailsScreen from './PosyanduDetailsHomeScreen/PosyanduDetailsHomeScreen'
-import ApprovedPosyanduMembersScreen from './PosyanduMembers/ApprovedPosyanduMembersScreen'
-import PendingPosyanduMembersScreen from './PosyanduMembers/PendingPosyanduMembersScreen'
+import ApprovedPosyanduMembersScreen from './PosyanduMembers/ApprovedPosyanduMembers/ApprovedPosyanduMembersScreen'
+import PendingPosyanduMembersScreen from './PosyanduMembers/PendingPosyanduMembers/PendingPosyanduMembersScreen'
 import { PosyanduDetailsStack } from './posyandu-details-stack'
 
 type PosyanduDetailsContentProps = NativeStackScreenProps<
