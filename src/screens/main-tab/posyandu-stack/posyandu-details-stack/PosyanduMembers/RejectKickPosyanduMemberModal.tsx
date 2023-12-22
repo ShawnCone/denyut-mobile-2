@@ -1,4 +1,6 @@
+import { usePosyanduInfoContext } from '@/context/PosyanduInfoContextProvider'
 import ConfirmationModal from '@/design-system/ConfirmationModal'
+import { useKickRejectUserFromPosyanduMutation } from './utils'
 
 type RejectKickPosyanduMemberModalProps = {
   name: string
@@ -18,11 +20,21 @@ function RejectKickPosyanduMemberModal({
   onClose,
   mode,
 }: RejectKickPosyanduMemberModalProps) {
-  // const { posyanduId } = usePosyanduInfoContext()
+  const { posyanduInfo } = usePosyanduInfoContext()
+
+  const {
+    mutate: kickPosyanduMember,
+    isPending,
+    isError,
+  } = useKickRejectUserFromPosyanduMutation({
+    onSuccess: onClose,
+  })
 
   function handleKickRejectPosyanduMember() {
-    console.log('Removing posyandu membership')
-    onClose()
+    kickPosyanduMember({
+      posyanduId: posyanduInfo.id,
+      userId: memberId,
+    })
   }
 
   return (
@@ -37,11 +49,19 @@ function RejectKickPosyanduMemberModal({
       }
       description={
         mode === 'reject'
-          ? `Permintaan ${name} dengan nomor telepon +${phoneNumber} akan ditolak.\nApakah anda yakin?`
+          ? `Permintaan bergabung ${name} dengan nomor telepon +${phoneNumber} akan ditolak.\nApakah anda yakin?`
           : `${name} dengan nomor telepon +${phoneNumber} akan dikeluarkan dari posyandu.\nApakah anda yakin?`
       }
-      confirmText="Tolak"
+      confirmText={mode === 'reject' ? 'Tolak' : 'Keluarkan'}
       isDestructive
+      isLoading={isPending}
+      errorMessage={
+        isError
+          ? `Gagal ${
+              mode === 'reject' ? 'menolak' : 'mengeluarkan'
+            } anggota posyandu`
+          : undefined
+      }
     />
   )
 }

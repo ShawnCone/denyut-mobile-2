@@ -1,4 +1,6 @@
+import { usePosyanduInfoContext } from '@/context/PosyanduInfoContextProvider'
 import ConfirmationModal from '@/design-system/ConfirmationModal'
+import { useAcceptUserToPosyanduMutation } from '../utils'
 
 type RejectPosyanduMemberModalProps = {
   name: string
@@ -15,12 +17,20 @@ function AcceptPosyanduMemberModal({
   isVisible,
   onClose,
 }: RejectPosyanduMemberModalProps) {
-  // const { posyanduId } = usePosyanduInfoContext()
+  const { posyanduInfo } = usePosyanduInfoContext()
+  const {
+    mutate: acceptPosyanduMember,
+    isPending,
+    isError,
+  } = useAcceptUserToPosyanduMutation({
+    onSuccess: onClose,
+  })
 
   function handleAcceptPosyanduMember() {
-    console.log(' posyandu member')
-
-    onClose()
+    acceptPosyanduMember({
+      posyanduId: posyanduInfo.id,
+      userId: memberId,
+    })
   }
 
   return (
@@ -31,6 +41,8 @@ function AcceptPosyanduMemberModal({
       title="Terima Permintaan Bergabung"
       description={`Permintaan ${name} dengan nomor telepon +${phoneNumber} akan diterima.\nApakah anda yakin?`}
       confirmText="Terima"
+      isLoading={isPending}
+      errorMessage={isError ? 'Gagal menerima anggota posyandu' : undefined}
     />
   )
 }

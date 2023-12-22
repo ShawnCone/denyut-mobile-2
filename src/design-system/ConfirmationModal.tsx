@@ -2,6 +2,7 @@ import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
 import { tokens } from '@/design-system/tokens/tokens'
 import { Modal, TouchableWithoutFeedback, View } from 'react-native'
+import LoadingIndicator from './LoadingIndicator'
 
 const DEFAULT_CANCEL_TEXT = 'Kembali'
 
@@ -14,6 +15,8 @@ type ConfirmationModalProps = {
   description: string
   confirmText: string
   cancelText?: string
+  isLoading?: boolean
+  errorMessage?: string
 }
 
 function ConfirmationModal({
@@ -25,6 +28,8 @@ function ConfirmationModal({
   description,
   confirmText,
   cancelText = DEFAULT_CANCEL_TEXT,
+  isLoading = false,
+  errorMessage,
 }: ConfirmationModalProps) {
   return (
     <Modal animationType="fade" transparent visible={isVisible}>
@@ -73,24 +78,54 @@ function ConfirmationModal({
               >
                 {description}
               </Typography>
+              {errorMessage && (
+                <Typography
+                  variant={{
+                    size: 'caption',
+                    textStyling: {
+                      italic: 'italic',
+                    },
+                  }}
+                  style={{
+                    color: tokens.colors.destructive.normal,
+                    textAlign: 'center',
+                    paddingVertical: tokens.padding.S,
+                  }}
+                >
+                  {errorMessage}
+                </Typography>
+              )}
+
               <View
                 style={{
                   marginTop: tokens.margin.L,
                   gap: tokens.margin.M,
                 }}
               >
-                <DenyutButton
-                  title={confirmText}
-                  variant={isDestructive ? 'destructive' : 'primary'}
-                  size="small"
-                  onPress={onConfirm}
-                />
-                <DenyutButton
-                  title={cancelText}
-                  variant="secondary"
-                  size="small"
-                  onPress={onClose}
-                />
+                {isLoading ? (
+                  <View
+                    style={{
+                      paddingVertical: tokens.padding.M,
+                    }}
+                  >
+                    <LoadingIndicator size={tokens.iconSize.M} />
+                  </View>
+                ) : (
+                  <>
+                    <DenyutButton
+                      title={confirmText}
+                      variant={isDestructive ? 'destructive' : 'primary'}
+                      size="small"
+                      onPress={onConfirm}
+                    />
+                    <DenyutButton
+                      title={cancelText}
+                      variant="secondary"
+                      size="small"
+                      onPress={onClose}
+                    />
+                  </>
+                )}
               </View>
             </View>
           </TouchableWithoutFeedback>

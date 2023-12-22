@@ -89,3 +89,39 @@ export async function getUserIsPosyanduAdmin({
 
   return data !== null && data.role === 'owner'
 }
+
+export async function kickRejectUserFromPosyandu({
+  posyanduId,
+  userId,
+}: {
+  posyanduId: string
+  userId: string
+}) {
+  const { error } = await supabaseClient
+    .from('OutpostMembership')
+    .delete()
+    .eq('outpostId', posyanduId)
+    .eq('accountId', userId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
+
+export async function acceptUserToPosyandu({
+  posyanduId,
+  userId,
+}: {
+  posyanduId: string
+  userId: string
+}) {
+  const { error } = await supabaseClient
+    .from('OutpostMembership')
+    .update({ status: 'approved' })
+    .eq('outpostId', posyanduId)
+    .eq('accountId', userId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
