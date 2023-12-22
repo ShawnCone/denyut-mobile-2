@@ -36,7 +36,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
   }
 
   function navigateToPosyanduMembers() {
-    navigation.navigate('PosyanduDetailsMembers')
+    navigation.navigate('ApprovedPosyanduDetailsMembers')
   }
 
   return (

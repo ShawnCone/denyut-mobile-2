@@ -6,7 +6,8 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { PosyanduStackParamsList } from '../posyandu-stack'
 import PosyanduDetailsScreen from './PosyanduDetailsHomeScreen/PosyanduDetailsHomeScreen'
-import PosyanduMembersScreen from './PosyanduMembers/PosyanduMembersScreen'
+import ApprovedPosyanduMembersScreen from './PosyanduMembers/ApprovedPosyanduMembersScreen'
+import PendingPosyanduMembersScreen from './PosyanduMembers/PendingPosyanduMembersScreen'
 import { PosyanduDetailsStack } from './posyandu-details-stack'
 
 type PosyanduDetailsContentProps = NativeStackScreenProps<
@@ -31,10 +32,17 @@ function PosyanduDetailsContent({ route }: PosyanduDetailsContentProps) {
           }}
         />
         <PosyanduDetailsStack.Screen
-          name="PosyanduDetailsMembers"
-          component={PosyanduMembersScreen}
+          name="ApprovedPosyanduDetailsMembers"
+          component={ApprovedPosyanduMembersScreen}
           options={{
             title: 'Daftar Kader / Staf Posyandu',
+          }}
+        />
+        <PosyanduDetailsStack.Screen
+          name="PendingPosyanduDetailsMembers"
+          component={PendingPosyanduMembersScreen}
+          options={{
+            title: 'Permintaan Bergabung',
           }}
         />
       </PosyanduDetailsStack.Navigator>

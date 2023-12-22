@@ -9,13 +9,22 @@ import Typography from '@/design-system/Typography'
 import SearchTextfield from '@/design-system/forms/SearchTextfield'
 import { tokens } from '@/design-system/tokens/tokens'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import SinglePosyanduMemberCard from './SinglePosyanduMemberCard'
+import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
+import SingleApprovedPosyanduMemberCard from './SingleApprovedPosyanduMemberCard'
 import { usePosyanduMembersQuery, useUserIsPosyanduAdminQuery } from './utils'
 
-function PosyanduMembersScreen() {
+type ApprovedPosyanduMembersScreenProps = NativeStackScreenProps<
+  PosyanduDetailsStackParamsList,
+  'ApprovedPosyanduDetailsMembers'
+>
+
+function ApprovedPosyanduMembersScreen({
+  navigation,
+}: ApprovedPosyanduMembersScreenProps) {
   const {
     posyanduInfo: { id: posyanduId },
   } = usePosyanduInfoContext()
@@ -57,6 +66,10 @@ function PosyanduMembersScreen() {
 
   const showPendingMembersLink = userIsAdmin && pendingPosyanduMembersCount > 0
 
+  function handleNavigateToPendingMembersScreen() {
+    navigation.navigate('PendingPosyanduDetailsMembers')
+  }
+
   if (userIsAdminIsPending) {
     return <LoadingIndicator message="Memuat" />
   }
@@ -91,9 +104,10 @@ function PosyanduMembersScreen() {
               backgroundColor: tokens.colors.primary.dark,
               borderRadius: tokens.borderRadius.M,
             }}
-            onPress={() => {
-              console.log("navigate to 'Permintaan Bergabung' screen")
+            android_ripple={{
+              color: tokens.colors.neutral.white,
             }}
+            onPress={handleNavigateToPendingMembersScreen}
           >
             <Typography
               style={{
@@ -101,6 +115,9 @@ function PosyanduMembersScreen() {
               }}
               variant={{
                 size: 'caption',
+                textStyling: {
+                  weight: 'bold',
+                },
               }}
             >
               {pendingPosyanduMembersCount} Permintaan Bergabung
@@ -121,8 +138,8 @@ function PosyanduMembersScreen() {
 
         <View
           style={{
-            paddingVertical: tokens.padding.M,
             flex: 1,
+            paddingBottom: tokens.padding.M,
           }}
         >
           <ScrollView>
@@ -142,31 +159,10 @@ function PosyanduMembersScreen() {
               filterPosyanduMembersArr.map(({ name, id, phoneNumber }, idx) => (
                 <View key={id}>
                   {idx > 0 && <Divider />}
-                  <SinglePosyanduMemberCard
+                  <SingleApprovedPosyanduMemberCard
                     name={name}
                     phoneNumber={phoneNumber}
-                    rightElement={
-                      user.id === id ? (
-                        <Typography
-                          variant={{
-                            size: 'captionS',
-                            textStyling: {
-                              italic: 'italic',
-                            },
-                          }}
-                        >
-                          Akun Saya
-                        </Typography>
-                      ) : (
-                        <Pressable>
-                          <MaterialCommunityIcons
-                            name="delete"
-                            color={tokens.colors.destructive.normal}
-                            size={tokens.iconSize.M}
-                          />
-                        </Pressable>
-                      )
-                    }
+                    id={id}
                   />
                 </View>
               ))
@@ -187,4 +183,4 @@ function handleFilterMembersArr(
   )
 }
 
-export default PosyanduMembersScreen
+export default ApprovedPosyanduMembersScreen
