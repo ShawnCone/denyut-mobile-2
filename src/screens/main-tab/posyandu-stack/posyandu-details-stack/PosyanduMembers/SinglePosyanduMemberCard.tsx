@@ -31,6 +31,7 @@ function SinglePosyanduMemberCard({
       <View
         style={{
           flexDirection: 'row',
+          flexWrap: 'wrap',
           alignItems: 'center',
           backgroundColor: tokens.colors.neutral.white,
           paddingVertical: tokens.padding.L,
@@ -56,6 +57,7 @@ function SinglePosyanduMemberCard({
                 weight: 'bold',
               },
             }}
+            numberOfLines={2}
           >
             {name}
           </Typography>
