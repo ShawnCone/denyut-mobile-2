@@ -39,6 +39,10 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
     navigation.navigate('PosyanduDetailsMembers')
   }
 
+  function navigateToKidRegistration() {
+    navigation.navigate('KidRegistration')
+  }
+
   return (
     <View
       style={{
@@ -205,9 +209,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
               }
               title="Registrasi Anak"
               description="Terdapat peserta baru di posyandu anda? Daftarkan anak disini"
-              onPress={() => {
-                // Navigate to registration
-              }}
+              onPress={navigateToKidRegistration}
             />
             <SingleRegularMenuCard
               icon={

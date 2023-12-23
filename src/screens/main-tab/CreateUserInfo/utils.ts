@@ -11,7 +11,7 @@ type useCreateUserInfoParams = {
 }
 
 // Maybe this should be in the client folder?
-export function useCreateUserInfo({
+export function useCreateUserInfoMutation({
   onSuccess,
   onError,
 }: useCreateUserInfoParams) {

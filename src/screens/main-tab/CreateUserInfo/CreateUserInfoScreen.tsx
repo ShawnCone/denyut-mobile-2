@@ -15,7 +15,7 @@ import {
 import {
   CreateProfileFormValues,
   createProfileFormSchema,
-  useCreateUserInfo,
+  useCreateUserInfoMutation,
 } from './utils'
 
 type CreateUserInfoScreenProps = {
@@ -24,7 +24,7 @@ type CreateUserInfoScreenProps = {
 
 function CreateUserInfoScreen({ user }: CreateUserInfoScreenProps) {
   const { mutate: createUserInfo, isPending: isCreatingUserInfo } =
-    useCreateUserInfo({})
+    useCreateUserInfoMutation({})
 
   const nameFieldRef = useRef<TextInput>(null)
 
