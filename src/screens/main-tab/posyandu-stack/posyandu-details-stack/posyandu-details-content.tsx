@@ -7,6 +7,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { PosyanduStackParamsList } from '../posyandu-stack'
 import KidRegistrationScreen from './KidRegistrationScreen/KidRegistrationScreen'
 import PosyanduDetailsScreen from './PosyanduDetailsHomeScreen/PosyanduDetailsHomeScreen'
+import PosyanduDetailsKidsScreen from './PosyanduDetailsKidsScreen/PosyanduDetailsKidsScreen'
 import PosyanduMembersScreen from './PosyanduMembers/PosyanduMembersScreen'
 import KidDetailsContent from './kid-details-stack/kid-details-content'
 import { PosyanduDetailsStack } from './posyandu-details-stack'
@@ -52,6 +53,13 @@ function PosyanduDetailsContent({ route }: PosyanduDetailsContentProps) {
           options={{
             headerShown: false,
           }}
+        />
+        <PosyanduDetailsStack.Screen
+          name="PosyanduDetailsKids"
+          options={{
+            title: 'Daftar Anak',
+          }}
+          component={PosyanduDetailsKidsScreen}
         />
       </PosyanduDetailsStack.Navigator>
     </PosyanduInfoContextProvider>

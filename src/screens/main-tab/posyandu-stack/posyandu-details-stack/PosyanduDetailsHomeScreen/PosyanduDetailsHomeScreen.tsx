@@ -43,6 +43,10 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
     navigation.navigate('KidRegistration')
   }
 
+  function navigateToKidList() {
+    navigation.navigate('PosyanduDetailsKids')
+  }
+
   return (
     <View
       style={{
@@ -211,7 +215,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
               description="Terdapat peserta baru di posyandu anda? Daftarkan anak disini"
               onPress={navigateToKidRegistration}
             />
-            <SingleRegularMenuCard
+            {/* <SingleRegularMenuCard
               icon={
                 <MaterialCommunityIcons
                   name="account-edit"
@@ -224,6 +228,18 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
               onPress={() => {
                 // Navigate to Change kids profile
               }}
+            /> */}
+            <SingleRegularMenuCard
+              icon={
+                <MaterialCommunityIcons
+                  name="human-male-female-child"
+                  size={tokens.iconSize.M}
+                  color={tokens.colors.primary.normal}
+                />
+              }
+              title="Daftar Anak"
+              description="Lihat daftar anak yang terdaftar di posyandu anda"
+              onPress={navigateToKidList}
             />
           </View>
         </View>

@@ -10,6 +10,8 @@ import { Pressable, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import SingleRegularMenuCard from './SingleRegularMenuCard'
 
+const BOTTOM_SHEET_HEIGHT = 260
+
 type GrowthBottomSheetProps = {
   open: boolean
   onClose: () => void
@@ -39,7 +41,7 @@ function GrowthBottomSheet({ open, onClose }: GrowthBottomSheetProps) {
       ref={bottomSheetRef}
       onClose={onClose}
       index={-1}
-      snapPoints={[250]}
+      snapPoints={[BOTTOM_SHEET_HEIGHT]}
       backdropComponent={props => {
         return (
           <BottomSheetBackdrop
@@ -137,7 +139,7 @@ function GrowthBottomSheet({ open, onClose }: GrowthBottomSheetProps) {
               />
             }
             title="Riwayat Pemeriksaan Anak"
-            description="Pantau hasil pemeriksaan anak disini"
+            description="Pantau hasil pemeriksaan dan pencatatan anak disini"
             onPress={() => {
               // Do something
             }}

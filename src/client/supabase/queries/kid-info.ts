@@ -37,3 +37,28 @@ export async function registerNewKid({
 
   return kidInfo.id
 }
+
+// Get posyandu kids
+export type KidInfoSummary = Pick<
+  Database['public']['Tables']['KidInfo']['Row'],
+  'id' | 'name' | 'birthCity' | 'birthProvince' | 'dateOfBirth' | 'sex'
+>
+export async function getPosyanduKids({
+  posyanduId,
+}: {
+  posyanduId: string
+}): Promise<KidInfoSummary[]> {
+  const { data, error } = await supabaseClient
+    .from('OutpostKids')
+    .select('KidInfo(id, name, birthCity, birthProvince, dateOfBirth, sex)')
+    .eq('outpostId', posyanduId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  // Get non-null entries
+  const kidInfoArr = data.map(d => d.KidInfo).filter(Boolean)
+
+  return kidInfoArr
+}

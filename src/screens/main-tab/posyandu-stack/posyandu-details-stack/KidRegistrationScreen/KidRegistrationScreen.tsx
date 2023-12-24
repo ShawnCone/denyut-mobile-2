@@ -39,10 +39,10 @@ function KidRegistrationScreen({ navigation }: KidRegistrationScreenProps) {
     isError,
   } = useRegisterKidMutation({
     onSuccess: (newKidId: string) => {
-      console.log({ newKidId })
       // navigate to kid details screen
       navigation.navigate('KidDetailsStack', {
         kidId: newKidId,
+        initialRoute: 'growthHistory',
       })
     },
   })
