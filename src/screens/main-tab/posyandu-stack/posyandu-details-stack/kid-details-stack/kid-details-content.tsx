@@ -1,5 +1,8 @@
 import { KidInfoContextProvider } from '@/context/KidInfoContext'
-import { BaseStackNavigationScreenOptions } from '@/design-system/NavigationScreenOptions'
+import {
+  BaseStackNavigationScreenOptions,
+  DarkHeaderStackNavigationScreenOptions,
+} from '@/design-system/NavigationScreenOptions'
 import Typography from '@/design-system/Typography'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { View } from 'react-native'
@@ -25,6 +28,10 @@ function KidDetailsContent({ route }: KidDetailsContentProps) {
         <KidDetailsStack.Screen
           name="kidDetailsHome"
           component={KidDetailsHomeScreen}
+          options={{
+            ...DarkHeaderStackNavigationScreenOptions,
+            headerShown: false,
+          }}
         />
         <KidDetailsStack.Screen
           name="updateKidProfile"

@@ -88,7 +88,6 @@ function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
             style={{
               flex: 1,
               marginTop: tokens.margin.S,
-              paddingHorizontal: PADDING_HORIZONTAL,
             }}
           >
             <SingleProfileMenuItem
@@ -110,6 +109,7 @@ function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
               style={{
                 marginTop: 'auto',
                 marginBottom: tokens.margin.L,
+                paddingHorizontal: PADDING_HORIZONTAL,
               }}
             >
               <DenyutButton
@@ -126,8 +126,6 @@ function ProfileHomeScreen({ navigation }: ProfileHomeScreenProps) {
           isVisible={isLogoutModalVisible}
           onClose={handleCloseModal}
         />
-
-        {/* <Button title="Sign out" onPress={handleSignOut} /> */}
       </View>
     </TouchableWithoutFeedback>
   )

@@ -1,17 +1,16 @@
 import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import Divider from '@/design-system/Divider'
+import DummyDarkHeader from '@/design-system/DummyDarkHeader'
 import Typography from '@/design-system/Typography'
 import { tokens } from '@/design-system/tokens/tokens'
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useState } from 'react'
 import { Pressable, ScrollView, View } from 'react-native'
+import SingleRegularMenuCard from '../../../../../design-system/SingleRegularMenuCard'
+import GrowthBottomSheet from '../../../../../design-system/kid-growth/GrowthBottomSheeet'
 import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
-import GrowthBottomSheet from './GrowthBottomSheeet'
-import SingleRegularMenuCard from './SingleRegularMenuCard'
 import { formatPosyanduInfoLocation } from './utils'
-
-const DUMMY_HEADER_HEIGHT = 56
 
 type PosyanduDetailsScreenProps = NativeStackScreenProps<
   PosyanduDetailsStackParamsList,
@@ -70,22 +69,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
       }}
     >
       {/* Dummy Header (For bottom sheet modal purposes) */}
-      <View
-        style={{
-          height: DUMMY_HEADER_HEIGHT,
-          backgroundColor: tokens.colors.primary.dark,
-          paddingHorizontal: tokens.padding.L,
-          justifyContent: 'center',
-        }}
-      >
-        <Pressable onPress={goBack}>
-          <MaterialCommunityIcons
-            name="arrow-left"
-            size={tokens.iconSize.M}
-            color={tokens.colors.neutral.white}
-          />
-        </Pressable>
-      </View>
+      <DummyDarkHeader goBack={goBack} />
       {/* Header and main options */}
       <View
         style={{
