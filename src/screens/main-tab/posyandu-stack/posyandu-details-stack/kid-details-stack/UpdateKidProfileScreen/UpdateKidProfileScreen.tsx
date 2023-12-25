@@ -45,6 +45,7 @@ function UpdateKidProfileScreen({ navigation }: UpdateKidProfileScreenProps) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View
         style={{
+          flex: 1,
           backgroundColor: tokens.colors.neutral.white,
           paddingHorizontal: tokens.padding.L,
           paddingTop: tokens.padding.L,
