@@ -4,7 +4,7 @@ export type KidDetailsStackParamsList = {
   kidDetailsHome: undefined
   newGrowthRecord: undefined
   growthHistory: undefined
-  updateKidDetails: undefined
+  updateKidProfile: undefined
 }
 
 export const KidDetailsStack =

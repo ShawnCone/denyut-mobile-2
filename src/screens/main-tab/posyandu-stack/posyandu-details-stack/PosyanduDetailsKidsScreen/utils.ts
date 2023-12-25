@@ -1,7 +1,10 @@
 import { getPosyanduKids } from '@/client/supabase/queries/kid-info'
 import { useQuery } from '@tanstack/react-query'
 
-function getPosyanduKidsQueryKey(posyanduId: string) {
+export function getPosyanduKidsQueryKey(posyanduId?: string) {
+  if (!posyanduId) {
+    return ['getPosyanduKids']
+  }
   return ['getPosyanduKids', posyanduId]
 }
 

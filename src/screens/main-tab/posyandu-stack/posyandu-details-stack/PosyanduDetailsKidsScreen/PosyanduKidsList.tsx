@@ -1,5 +1,5 @@
 import { KidInfoSummary } from '@/client/supabase/queries/kid-info'
-import { usePosyanduInfoContext } from '@/context/PosyanduInfoContextProvider'
+import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import DenyutButton from '@/design-system/DenyutButton'
 import EmptyResultIndicator from '@/design-system/EmptyResultIndicator'
 import ErrorIndicator from '@/design-system/ErrorIndicator'

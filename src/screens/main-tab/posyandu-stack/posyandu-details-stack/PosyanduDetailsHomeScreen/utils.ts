@@ -1,7 +1,7 @@
 import { PosyanduInfo } from '@/client/supabase/queries/posyandu-info'
 import { removeMemberFromPosyandu } from '@/client/supabase/queries/posyandu-members'
 import { useProtectedAuthContext } from '@/context/AuthContext'
-import { usePosyanduInfoContext } from '@/context/PosyanduInfoContextProvider'
+import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { generateUserIdPosyanduListQueryKey } from '../../PosyanduHome/utils'
 

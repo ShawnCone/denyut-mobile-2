@@ -19,11 +19,7 @@ function LeavePosyanduButton({ onLeavePosyandu }: LeavePosyanduButtonProps) {
 
   return (
     <>
-      <DenyutButton
-        variant="destructive"
-        title="Keluar posyandu"
-        onPress={openModal}
-      />
+      <DenyutButton title="Keluar posyandu" onPress={openModal} />
       <LeavePosyanduModal
         isVisible={modalVisible}
         onClose={closeModal}

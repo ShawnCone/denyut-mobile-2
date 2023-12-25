@@ -62,3 +62,56 @@ export async function getPosyanduKids({
 
   return kidInfoArr
 }
+
+// Kid info regular
+export type KidInfo = Database['public']['Tables']['KidInfo']['Row']
+
+export async function getKidInfo({
+  kidId,
+}: {
+  kidId: string
+}): Promise<KidInfo> {
+  const { data, error } = await supabaseClient
+    .from('KidInfo')
+    .select()
+    .eq('id', kidId)
+    .single()
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
+}
+
+export async function updateKidProfile({
+  kidId,
+  inKidInfo,
+}: {
+  kidId: string
+  inKidInfo: Database['public']['Tables']['KidInfo']['Update']
+}) {
+  const { error } = await supabaseClient
+    .from('KidInfo')
+    .update(inKidInfo)
+    .eq('id', kidId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return kidId
+}
+
+export async function deleteKidProfile({ kidId }: { kidId: string }) {
+  const { error } = await supabaseClient
+    .from('KidInfo')
+    .delete()
+    .eq('id', kidId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return kidId
+}

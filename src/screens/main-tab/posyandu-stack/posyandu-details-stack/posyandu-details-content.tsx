@@ -1,4 +1,4 @@
-import { PosyanduInfoContextProvider } from '@/context/PosyanduInfoContextProvider'
+import { PosyanduInfoContextProvider } from '@/context/PosyanduInfoContext'
 import {
   BaseStackNavigationScreenOptions,
   DarkHeaderStackNavigationScreenOptions,

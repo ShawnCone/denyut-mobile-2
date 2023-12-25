@@ -8,7 +8,8 @@ import BottomSheet, {
 import { useEffect, useRef } from 'react'
 import { Pressable, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import SingleRegularMenuCard from './SingleRegularMenuCard'
+import AddGrowthDataMenuCard from './AddGrowthDataMenuCard'
+import GrowthHistoryDataMenuCard from './GrowthHistoryDataMenuCard'
 
 const BOTTOM_SHEET_HEIGHT = 260
 
@@ -120,30 +121,8 @@ function GrowthBottomSheet({
             gap: tokens.margin.M,
           }}
         >
-          <SingleRegularMenuCard
-            icon={
-              <MaterialCommunityIcons
-                name="plus-circle"
-                size={tokens.iconSize.M}
-                color={tokens.colors.primary.normal}
-              />
-            }
-            title="Tambah Data"
-            description="Penambahan data hasil pemeriksaan dan pencatatan anak di posyandu anda"
-            onPress={onAddRecordPress}
-          />
-          <SingleRegularMenuCard
-            icon={
-              <MaterialCommunityIcons
-                name="clipboard-text-outline"
-                size={tokens.iconSize.M}
-                color={tokens.colors.primary.normal}
-              />
-            }
-            title="Riwayat Pemeriksaan Anak"
-            description="Pantau hasil pemeriksaan dan pencatatan anak disini"
-            onPress={onHistoryPress}
-          />
+          <AddGrowthDataMenuCard onPress={onAddRecordPress} />
+          <GrowthHistoryDataMenuCard onPress={onHistoryPress} />
         </ScrollView>
       </BottomSheetView>
     </BottomSheet>

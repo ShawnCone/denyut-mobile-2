@@ -19,3 +19,5 @@ export type PosyanduDetailsStackParamsList = {
 
 export const PosyanduDetailsStack =
   createNativeStackNavigator<PosyanduDetailsStackParamsList>()
+
+export type PosyanduDetailsScreenNames = keyof PosyanduDetailsStackParamsList

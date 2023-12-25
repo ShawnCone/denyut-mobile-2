@@ -1,6 +1,6 @@
 import { PosyanduMemberWithPhoneNumberInfo } from '@/client/supabase/queries/posyandu-members'
 import { useProtectedAuthContext } from '@/context/AuthContext'
-import { usePosyanduInfoContext } from '@/context/PosyanduInfoContextProvider'
+import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import Divider from '@/design-system/Divider'
 import EmptyResultIndicator from '@/design-system/EmptyResultIndicator'
 import ErrorIndicator from '@/design-system/ErrorIndicator'

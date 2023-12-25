@@ -1,4 +1,4 @@
-import { usePosyanduInfoContext } from '@/context/PosyanduInfoContextProvider'
+import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import ConfirmationModal from '@/design-system/ConfirmationModal'
 import { useAcceptUserToPosyanduMutation } from '../utils'
 

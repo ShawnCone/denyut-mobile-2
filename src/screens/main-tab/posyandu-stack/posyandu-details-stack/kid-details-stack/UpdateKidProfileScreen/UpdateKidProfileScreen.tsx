@@ -1,57 +1,43 @@
-import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
+import { useKidInfoContext } from '@/context/KidInfoContext'
 import DenyutButton from '@/design-system/DenyutButton'
 import DenyutDateTimePicker from '@/design-system/forms/DenyutDateTimePicker'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
 import ErrorMessageDisplay from '@/design-system/forms/ErrorMessageDisplay'
 import SexSelectionFormInput from '@/design-system/forms/SexSelectionFormInput'
 import { tokens } from '@/design-system/tokens/tokens'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
-import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
+import { KidDetailsStackParamsList } from '../kid-details-stack'
 import {
-  KidRegistrationFormValues,
-  kidRegistrationFormSchema,
-  useRegisterKidMutation,
+  UpdateKidProfileFormValues,
+  useUpdateKidProfileForm,
+  useUpdateKidProfileMutation,
 } from './utils'
 
-type KidRegistrationScreenProps = NativeStackScreenProps<
-  PosyanduDetailsStackParamsList,
-  'KidRegistration'
+type UpdateKidProfileScreenProps = NativeStackScreenProps<
+  KidDetailsStackParamsList,
+  'updateKidProfile'
 >
 
-function KidRegistrationScreen({ navigation }: KidRegistrationScreenProps) {
-  const { posyanduInfo } = usePosyanduInfoContext()
+function UpdateKidProfileScreen({ navigation }: UpdateKidProfileScreenProps) {
+  const { control, handleSubmit } = useUpdateKidProfileForm()
 
-  const { handleSubmit, control } = useForm<KidRegistrationFormValues>({
-    resolver: zodResolver(kidRegistrationFormSchema),
-    defaultValues: {
-      sex: 'male',
+  const { kidInfo } = useKidInfoContext()
+
+  const { isPending, mutate, isError } = useUpdateKidProfileMutation({
+    onSuccess: () => {
+      navigation.navigate('kidDetailsHome')
     },
   })
 
-  const {
-    mutate: registerKid,
-    isPending,
-    isError,
-  } = useRegisterKidMutation({
-    onSuccess: (newKidId: string) => {
-      // navigate to kid details screen
-      navigation.navigate('KidDetailsStack', {
-        kidId: newKidId,
-        initialRoute: 'kidDetailsHome',
-      })
-    },
-  })
-
-  const onSubmit = (data: KidRegistrationFormValues) => {
-    registerKid({
+  const onSubmit = (data: UpdateKidProfileFormValues) => {
+    mutate({
+      kidId: kidInfo.id,
       inKidInfo: {
         ...data,
         dateOfBirth: data.dateOfBirth.toISOString(),
       },
-      posyanduId: posyanduInfo.id,
     })
   }
 
@@ -155,7 +141,7 @@ function KidRegistrationScreen({ navigation }: KidRegistrationScreenProps) {
           />
 
           <DenyutButton
-            title="Daftarkan Anak"
+            title="Ubah Data Anak"
             onPress={handleSubmit(onSubmit)}
             disabled={isPending}
           />
@@ -166,7 +152,7 @@ function KidRegistrationScreen({ navigation }: KidRegistrationScreenProps) {
                 marginTop: tokens.margin.M,
               }}
             >
-              <ErrorMessageDisplay message="Terjadi kesalahan: Tidak bisa mendaftarkan anak" />
+              <ErrorMessageDisplay message="Terjadi kesalahan: Tidak bisa mengubah data anak" />
             </View>
           )}
         </View>
@@ -175,4 +161,4 @@ function KidRegistrationScreen({ navigation }: KidRegistrationScreenProps) {
   )
 }
 
-export default KidRegistrationScreen
+export default UpdateKidProfileScreen
