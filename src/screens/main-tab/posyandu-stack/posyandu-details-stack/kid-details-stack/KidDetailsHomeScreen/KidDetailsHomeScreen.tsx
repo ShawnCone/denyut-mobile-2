@@ -11,6 +11,7 @@ import { ScrollView, View } from 'react-native'
 import SingleRegularMenuCard from '../../../../../../design-system/SingleRegularMenuCard'
 import { PosyanduDetailsScreenNames } from '../../posyandu-details-stack'
 import { KidDetailsStackParamsList } from '../kid-details-stack'
+import DeleteKidButton from './DeleteKidButton'
 import SingleKidDetailsDisplayInfo from './SingleKidDetailsDisplayInfo'
 
 type KidDetailsHomeScreenProps = NativeStackScreenProps<
@@ -54,6 +55,18 @@ function KidDetailsHomeScreen({ navigation }: KidDetailsHomeScreenProps) {
 
   function goToUpdateKidProfile() {
     navigation.navigate('updateKidProfile')
+  }
+
+  function goToPosyanduHome() {
+    // Unsafe, but make the parent navigation (posyandu details stack) to go to details home
+    const parentNavigation = navigation.getParent()
+    const parentRouteTarget: PosyanduDetailsScreenNames = 'PosyanduDetailsHome'
+    if (parentNavigation) {
+      parentNavigation.navigate(parentRouteTarget)
+      return
+    }
+
+    navigation.goBack() // Go back if unsafe, but it should be ok.
   }
 
   return (
@@ -204,6 +217,13 @@ function KidDetailsHomeScreen({ navigation }: KidDetailsHomeScreenProps) {
               onPress={goToUpdateKidProfile}
             />
           </View>
+        </View>
+        <View
+          style={{
+            padding: tokens.padding.L,
+          }}
+        >
+          <DeleteKidButton onDeleteKidSuccess={goToPosyanduHome} />
         </View>
       </ScrollView>
     </View>

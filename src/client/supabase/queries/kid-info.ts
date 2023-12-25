@@ -102,3 +102,16 @@ export async function updateKidProfile({
 
   return kidId
 }
+
+export async function deleteKidProfile({ kidId }: { kidId: string }) {
+  const { error } = await supabaseClient
+    .from('KidInfo')
+    .delete()
+    .eq('id', kidId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return kidId
+}

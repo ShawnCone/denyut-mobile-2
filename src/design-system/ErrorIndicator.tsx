@@ -55,12 +55,6 @@ function ErrorIndicator({ fullPage, message, onRetry }: ErrorIndicatorProps) {
         >
           Coba lagi
         </ClickableTypography>
-        // <Pressable
-        //   variant="primary"
-        //   size="small"
-        //   onPress={onRetry}
-        //   title="Coba lagi"
-        // />
       )}
     </View>
   )
@@ -71,6 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: tokens.margin.M,
     alignItems: 'center',
+    backgroundColor: tokens.colors.neutral.white,
   },
 })
 
