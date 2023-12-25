@@ -8,8 +8,7 @@ import { tokens } from '@/design-system/tokens/tokens'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Controller, useForm } from 'react-hook-form'
-import { Keyboard, View } from 'react-native'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
 import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
 import {
   KidRegistrationFormValues,
@@ -60,6 +59,7 @@ function KidRegistrationScreen({ navigation }: KidRegistrationScreenProps) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View
         style={{
+          flex: 1,
           backgroundColor: tokens.colors.neutral.white,
           paddingHorizontal: tokens.padding.L,
           paddingTop: tokens.padding.L,

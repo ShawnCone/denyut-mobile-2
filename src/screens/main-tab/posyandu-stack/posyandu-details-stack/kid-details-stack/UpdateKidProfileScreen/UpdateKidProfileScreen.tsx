@@ -7,8 +7,7 @@ import SexSelectionFormInput from '@/design-system/forms/SexSelectionFormInput'
 import { tokens } from '@/design-system/tokens/tokens'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Controller } from 'react-hook-form'
-import { Keyboard, View } from 'react-native'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
 import { KidDetailsStackParamsList } from '../kid-details-stack'
 import {
   UpdateKidProfileFormValues,
