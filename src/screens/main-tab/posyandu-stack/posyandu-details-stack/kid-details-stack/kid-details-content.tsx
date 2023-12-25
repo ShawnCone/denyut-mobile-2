@@ -3,6 +3,7 @@ import Typography from '@/design-system/Typography'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { View } from 'react-native'
 import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
+import KidDetailsHomeScreen from './KidDetailsHomeScreen/KidDetailsHomeScreen'
 import { KidDetailsStack } from './kid-details-stack'
 
 type KidDetailsContentProps = NativeStackScreenProps<
@@ -11,20 +12,17 @@ type KidDetailsContentProps = NativeStackScreenProps<
 >
 
 function KidDetailsContent({ route }: KidDetailsContentProps) {
-  const { kidId, initialRoute } = route.params
+  const { initialRoute } = route.params
 
   return (
     <KidDetailsStack.Navigator
       initialRouteName={initialRoute}
       screenOptions={BaseStackNavigationScreenOptions}
     >
-      <KidDetailsStack.Screen name="kidDetailsHome">
-        {_ => (
-          <View>
-            <Typography>Kid details screen {kidId}</Typography>
-          </View>
-        )}
-      </KidDetailsStack.Screen>
+      <KidDetailsStack.Screen
+        name="kidDetailsHome"
+        component={KidDetailsHomeScreen}
+      />
       <KidDetailsStack.Screen
         name="updateKidDetails"
         options={{
