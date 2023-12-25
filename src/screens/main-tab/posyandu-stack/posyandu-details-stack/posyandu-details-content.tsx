@@ -8,7 +8,8 @@ import { PosyanduStackParamsList } from '../posyandu-stack'
 import KidRegistrationScreen from './KidRegistrationScreen/KidRegistrationScreen'
 import PosyanduDetailsScreen from './PosyanduDetailsHomeScreen/PosyanduDetailsHomeScreen'
 import PosyanduDetailsKidsListScreen from './PosyanduDetailsKidsScreen/PosyanduDetailsKidsListScreen'
-import PosyanduMembersScreen from './PosyanduMembers/PosyanduMembersScreen'
+import ApprovedPosyanduMembersScreen from './PosyanduMembers/ApprovedPosyanduMembers/ApprovedPosyanduMembersScreen'
+import PendingPosyanduMembersScreen from './PosyanduMembers/PendingPosyanduMembers/PendingPosyanduMembersScreen'
 import KidDetailsContent from './kid-details-stack/kid-details-content'
 import { PosyanduDetailsStack } from './posyandu-details-stack'
 
@@ -34,10 +35,17 @@ function PosyanduDetailsContent({ route }: PosyanduDetailsContentProps) {
           }}
         />
         <PosyanduDetailsStack.Screen
-          name="PosyanduDetailsMembers"
-          component={PosyanduMembersScreen}
+          name="ApprovedPosyanduDetailsMembers"
+          component={ApprovedPosyanduMembersScreen}
           options={{
             title: 'Daftar Kader / Staf Posyandu',
+          }}
+        />
+        <PosyanduDetailsStack.Screen
+          name="PendingPosyanduDetailsMembers"
+          component={PendingPosyanduMembersScreen}
+          options={{
+            title: 'Permintaan Bergabung',
           }}
         />
         <PosyanduDetailsStack.Screen
