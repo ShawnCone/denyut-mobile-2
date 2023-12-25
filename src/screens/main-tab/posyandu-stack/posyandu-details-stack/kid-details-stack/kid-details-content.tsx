@@ -5,6 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { View } from 'react-native'
 import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
 import KidDetailsHomeScreen from './KidDetailsHomeScreen/KidDetailsHomeScreen'
+import UpdateKidProfileScreen from './UpdateKidProfileScreen/UpdateKidProfileScreen'
 import { KidDetailsStack } from './kid-details-stack'
 
 type KidDetailsContentProps = NativeStackScreenProps<
@@ -30,13 +31,9 @@ function KidDetailsContent({ route }: KidDetailsContentProps) {
           options={{
             title: 'Ubah Profil Anak',
           }}
-        >
-          {_ => (
-            <View>
-              <Typography>Update kid profile screen</Typography>
-            </View>
-          )}
-        </KidDetailsStack.Screen>
+          component={UpdateKidProfileScreen}
+        />
+
         <KidDetailsStack.Screen
           name="newGrowthRecord"
           options={{

@@ -83,3 +83,22 @@ export async function getKidInfo({
 
   return data
 }
+
+export async function updateKidProfile({
+  kidId,
+  inKidInfo,
+}: {
+  kidId: string
+  inKidInfo: Database['public']['Tables']['KidInfo']['Update']
+}) {
+  const { error } = await supabaseClient
+    .from('KidInfo')
+    .update(inKidInfo)
+    .eq('id', kidId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return kidId
+}
