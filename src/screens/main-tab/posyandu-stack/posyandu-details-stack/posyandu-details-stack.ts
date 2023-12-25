@@ -3,6 +3,8 @@ import { KidDetailsStackParamsList } from './kid-details-stack/kid-details-stack
 
 export type PosyanduDetailsStackParamsList = {
   PosyanduDetailsHome: undefined
+  ApprovedPosyanduDetailsMembers: undefined
+  PendingPosyanduDetailsMembers: undefined
   PosyanduDetailsMembers: undefined
   PosyanduDetailsKidsList: {
     nextKidDetailsRoute: keyof KidDetailsStackParamsList

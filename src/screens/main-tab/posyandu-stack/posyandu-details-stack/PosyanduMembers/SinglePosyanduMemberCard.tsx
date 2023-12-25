@@ -1,23 +1,27 @@
+import { Database } from '@/client/supabase/types'
 import Typography from '@/design-system/Typography'
 import { tokens } from '@/design-system/tokens/tokens'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { ReactNode } from 'react'
-import { Pressable, View } from 'react-native'
+import { View } from 'react-native'
+
+export type SinglePosyanduMemberCardMemberInfo = {
+  id: string
+  name: string
+  phoneNumber: string
+  role?: Database['public']['Enums']['membership_role_enum']
+}
 
 type SinglePosyanduMemberCardProps = {
   onPress?: () => void
-  name: string
-  phoneNumber: string
   rightElement?: ReactNode
-  disabled?: boolean
-}
+} & SinglePosyanduMemberCardMemberInfo
 
 function SinglePosyanduMemberCard({
-  onPress,
   name,
   phoneNumber,
   rightElement,
-  disabled = false,
+  role,
 }: SinglePosyanduMemberCardProps) {
   return (
     <View
@@ -27,23 +31,19 @@ function SinglePosyanduMemberCard({
         borderColor: tokens.colors.transparent,
       }}
     >
-      <Pressable
+      <View
         style={{
           flexDirection: 'row',
+          flexWrap: 'wrap',
           alignItems: 'center',
           backgroundColor: tokens.colors.neutral.white,
           paddingVertical: tokens.padding.L,
           paddingHorizontal: tokens.padding.L,
         }}
-        onPress={onPress}
-        android_ripple={{
-          borderless: true,
-          color: tokens.colors.ripple,
-        }}
-        disabled={disabled}
       >
+        {/* Later change this to avatar */}
         <MaterialCommunityIcons
-          name="office-building-outline"
+          name="account-circle"
           size={tokens.iconSize.L}
           color={tokens.colors.primary.dark}
         />
@@ -60,9 +60,11 @@ function SinglePosyanduMemberCard({
                 weight: 'bold',
               },
             }}
+            numberOfLines={2}
           >
             {name}
           </Typography>
+
           <Typography
             variant={{
               size: 'captionS',
@@ -73,7 +75,25 @@ function SinglePosyanduMemberCard({
           >
             +{phoneNumber}
           </Typography>
+          {role && (
+            <View>
+              <Typography
+                variant={{
+                  size: 'captionS',
+                  textStyling: {
+                    italic: 'italic',
+                  },
+                }}
+                style={{
+                  color: tokens.colors.neutral.normal,
+                }}
+              >
+                {role === 'owner' ? 'Admin' : 'Anggota'}
+              </Typography>
+            </View>
+          )}
         </View>
+
         <View
           style={{
             marginLeft: 'auto',
@@ -81,7 +101,7 @@ function SinglePosyanduMemberCard({
         >
           {rightElement}
         </View>
-      </Pressable>
+      </View>
     </View>
   )
 }

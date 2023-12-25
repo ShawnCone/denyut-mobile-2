@@ -10,6 +10,7 @@ import { Pressable, ScrollView, View } from 'react-native'
 import SingleRegularMenuCard from '../../../../../design-system/SingleRegularMenuCard'
 import GrowthBottomSheet from '../../../../../design-system/kid-growth/GrowthBottomSheeet'
 import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
+import LeavePosyanduButton from './LeavePosyanduButton'
 import { formatPosyanduInfoLocation } from './utils'
 
 type PosyanduDetailsScreenProps = NativeStackScreenProps<
@@ -30,12 +31,13 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
     setGrowthBottomSheetOpen(false)
   }
 
-  function goBack() {
-    navigation.goBack()
+  // Back to posyandu selection
+  function goToPosyanduHomeScreen() {
+    navigation.getParent()?.goBack()
   }
 
   function navigateToPosyanduMembers() {
-    navigation.navigate('PosyanduDetailsMembers')
+    navigation.navigate('ApprovedPosyanduDetailsMembers')
   }
 
   function navigateToKidRegistration() {
@@ -69,7 +71,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
       }}
     >
       {/* Dummy Header (For bottom sheet modal purposes) */}
-      <DummyDarkHeader goBack={goBack} />
+      <DummyDarkHeader goBack={goToPosyanduHomeScreen} />
       {/* Header and main options */}
       <View
         style={{
@@ -279,6 +281,14 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
               onPress={navigateToPosyanduMembers}
             />
           </View>
+        </View>
+        {/* Exit posyandu button */}
+        <View
+          style={{
+            padding: tokens.padding.L,
+          }}
+        >
+          <LeavePosyanduButton onLeavePosyandu={goToPosyanduHomeScreen} />
         </View>
       </ScrollView>
       {/* Bottom sheets */}
