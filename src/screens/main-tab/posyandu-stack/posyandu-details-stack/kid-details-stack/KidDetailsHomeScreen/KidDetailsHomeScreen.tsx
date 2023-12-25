@@ -18,6 +18,10 @@ function KidDetailsHomeScreen({ navigation }: KidDetailsHomeScreenProps) {
     navigation.navigate('growthHistory')
   }
 
+  // TODO: Disable header back button,
+  // If coming from register, make it go back to posyandu details home, otherwise go back as normal
+  // (Cannot go back to register)
+
   return (
     <View
       style={{

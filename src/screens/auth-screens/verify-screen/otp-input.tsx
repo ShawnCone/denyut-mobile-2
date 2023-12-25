@@ -1,3 +1,4 @@
+import ErrorMessageDisplay from '@/design-system/forms/ErrorMessageDisplay'
 import { tokens } from '@/design-system/tokens/tokens'
 import { useEffect, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -104,24 +105,15 @@ export function OTPInput({ isError, onSubmit }: OTPInputProps) {
           ))}
         </Pressable>
         {/* Should never happen */}
-        {/* {errorMessage && (
+        {isError && (
           <View
             style={{
               marginTop: tokens.margin.M,
             }}
           >
-            <Typography
-              style={{
-                color: tokens.colors.destructive.normal,
-              }}
-              variant={{
-                size: 'caption',
-              }}
-            >
-              {errorMessage}
-            </Typography>
+            <ErrorMessageDisplay message="Terjadi kesalahan: Tidak bisa memverifikasi nomor telepon" />
           </View>
-        )} */}
+        )}
       </View>
       <TextInput
         style={{

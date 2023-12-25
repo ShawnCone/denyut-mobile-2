@@ -1,5 +1,6 @@
 import DenyutButton from '@/design-system/DenyutButton'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
+import ErrorMessageDisplay from '@/design-system/forms/ErrorMessageDisplay'
 import SexSelectionFormInput from '@/design-system/forms/SexSelectionFormInput'
 import { tokens } from '@/design-system/tokens/tokens'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -23,8 +24,11 @@ type CreateUserInfoScreenProps = {
 }
 
 function CreateUserInfoScreen({ user }: CreateUserInfoScreenProps) {
-  const { mutate: createUserInfo, isPending: isCreatingUserInfo } =
-    useCreateUserInfoMutation({})
+  const {
+    mutate: createUserInfo,
+    isPending: isCreatingUserInfo,
+    isError,
+  } = useCreateUserInfoMutation({})
 
   const nameFieldRef = useRef<TextInput>(null)
 
@@ -117,6 +121,16 @@ function CreateUserInfoScreen({ user }: CreateUserInfoScreenProps) {
             onPress={handleSubmit(onSubmit)}
             disabled={isCreatingUserInfo}
           />
+          {/* Error text here */}
+          {isError && (
+            <View
+              style={{
+                marginTop: tokens.margin.M,
+              }}
+            >
+              <ErrorMessageDisplay message="Terjadi kesalahan: Tidak bisa membuat akun" />
+            </View>
+          )}
         </View>
       </View>
     </TouchableWithoutFeedback>
