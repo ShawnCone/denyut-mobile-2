@@ -1,4 +1,4 @@
-import { usePosyanduInfoContext } from '@/context/PosyanduInfoContextProvider'
+import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import Divider from '@/design-system/Divider'
 import Typography from '@/design-system/Typography'
 import { tokens } from '@/design-system/tokens/tokens'

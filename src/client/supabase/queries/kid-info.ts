@@ -62,3 +62,24 @@ export async function getPosyanduKids({
 
   return kidInfoArr
 }
+
+// Kid info regular
+export type KidInfo = Database['public']['Tables']['KidInfo']['Row']
+
+export async function getKidInfo({
+  kidId,
+}: {
+  kidId: string
+}): Promise<KidInfo> {
+  const { data, error } = await supabaseClient
+    .from('KidInfo')
+    .select()
+    .eq('id', kidId)
+    .single()
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
+}

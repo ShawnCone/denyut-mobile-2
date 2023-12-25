@@ -1,4 +1,4 @@
-import { usePosyanduInfoContext } from '@/context/PosyanduInfoContextProvider'
+import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import DenyutButton from '@/design-system/DenyutButton'
 import DenyutDateTimePicker from '@/design-system/forms/DenyutDateTimePicker'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'

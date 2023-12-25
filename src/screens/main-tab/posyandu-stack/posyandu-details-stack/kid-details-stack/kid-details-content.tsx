@@ -1,3 +1,4 @@
+import { KidInfoContextProvider } from '@/context/KidInfoContext'
 import { BaseStackNavigationScreenOptions } from '@/design-system/NavigationScreenOptions'
 import Typography from '@/design-system/Typography'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -12,54 +13,56 @@ type KidDetailsContentProps = NativeStackScreenProps<
 >
 
 function KidDetailsContent({ route }: KidDetailsContentProps) {
-  const { initialRoute } = route.params
+  const { initialRoute, kidId } = route.params
 
   return (
-    <KidDetailsStack.Navigator
-      initialRouteName={initialRoute}
-      screenOptions={BaseStackNavigationScreenOptions}
-    >
-      <KidDetailsStack.Screen
-        name="kidDetailsHome"
-        component={KidDetailsHomeScreen}
-      />
-      <KidDetailsStack.Screen
-        name="updateKidDetails"
-        options={{
-          title: 'Ubah Profil Anak',
-        }}
+    <KidInfoContextProvider selectedKidId={kidId}>
+      <KidDetailsStack.Navigator
+        initialRouteName={initialRoute}
+        screenOptions={BaseStackNavigationScreenOptions}
       >
-        {_ => (
-          <View>
-            <Typography>Update kid profile screen</Typography>
-          </View>
-        )}
-      </KidDetailsStack.Screen>
-      <KidDetailsStack.Screen
-        name="newGrowthRecord"
-        options={{
-          title: 'Tambah Riwayat Pertumbuhan',
-        }}
-      >
-        {_ => (
-          <View>
-            <Typography>Add new growth record</Typography>
-          </View>
-        )}
-      </KidDetailsStack.Screen>
-      <KidDetailsStack.Screen
-        name="growthHistory"
-        options={{
-          title: 'Riwayat Pertumbuhan',
-        }}
-      >
-        {_ => (
-          <View>
-            <Typography>Growth History</Typography>
-          </View>
-        )}
-      </KidDetailsStack.Screen>
-    </KidDetailsStack.Navigator>
+        <KidDetailsStack.Screen
+          name="kidDetailsHome"
+          component={KidDetailsHomeScreen}
+        />
+        <KidDetailsStack.Screen
+          name="updateKidProfile"
+          options={{
+            title: 'Ubah Profil Anak',
+          }}
+        >
+          {_ => (
+            <View>
+              <Typography>Update kid profile screen</Typography>
+            </View>
+          )}
+        </KidDetailsStack.Screen>
+        <KidDetailsStack.Screen
+          name="newGrowthRecord"
+          options={{
+            title: 'Tambah Riwayat Pertumbuhan',
+          }}
+        >
+          {_ => (
+            <View>
+              <Typography>Add new growth record</Typography>
+            </View>
+          )}
+        </KidDetailsStack.Screen>
+        <KidDetailsStack.Screen
+          name="growthHistory"
+          options={{
+            title: 'Riwayat Pertumbuhan',
+          }}
+        >
+          {_ => (
+            <View>
+              <Typography>Growth History</Typography>
+            </View>
+          )}
+        </KidDetailsStack.Screen>
+      </KidDetailsStack.Navigator>
+    </KidInfoContextProvider>
   )
 }
 

@@ -18,6 +18,10 @@ function KidDetailsHomeScreen({ navigation }: KidDetailsHomeScreenProps) {
     navigation.navigate('growthHistory')
   }
 
+  function goToUpdateKidProfile() {
+    navigation.navigate('updateKidProfile')
+  }
+
   // TODO: Disable header back button,
   // If coming from register, make it go back to posyandu details home, otherwise go back as normal
   // (Cannot go back to register)
@@ -36,6 +40,10 @@ function KidDetailsHomeScreen({ navigation }: KidDetailsHomeScreenProps) {
         onPress={goToRegisterGrowth}
       />
       <DenyutButton title="Go to growth history" onPress={goToGrowthHistory} />
+      <DenyutButton
+        title="Go to update kid profile"
+        onPress={goToUpdateKidProfile}
+      />
     </View>
   )
 }
