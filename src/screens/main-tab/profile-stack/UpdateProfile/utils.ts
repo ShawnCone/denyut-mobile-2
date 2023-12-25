@@ -5,6 +5,7 @@ import {
 import { useProtectedAuthContext } from '@/context/AuthContext'
 import { getUseUserInfoQueryKey } from '@/context/UserInfoContext'
 import { sexSchema } from '@/design-system/forms/SexSelectionFormInput'
+import { CANNOT_BE_EMPTY } from '@/forms/error-messages'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
 
@@ -39,9 +40,11 @@ export function useUpdateProfileQuery({
 
 // Forms
 export const UpdateProfileFormSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().min(1, { message: CANNOT_BE_EMPTY }),
   sex: sexSchema,
-  address: z.string().min(1),
+  address: z.string().min(1, {
+    message: CANNOT_BE_EMPTY,
+  }),
 })
 
 export type UpdateProfileFormValues = z.infer<typeof UpdateProfileFormSchema>

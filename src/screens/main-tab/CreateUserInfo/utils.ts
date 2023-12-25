@@ -2,6 +2,7 @@ import { createUserInfo } from '@/client/supabase/queries/userInfo'
 import { useProtectedAuthContext } from '@/context/AuthContext'
 import { getUseUserInfoQueryKey } from '@/context/UserInfoContext'
 import { sexSchema } from '@/design-system/forms/SexSelectionFormInput'
+import { CANNOT_BE_EMPTY } from '@/forms/error-messages'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
 
@@ -11,7 +12,7 @@ type useCreateUserInfoParams = {
 }
 
 // Maybe this should be in the client folder?
-export function useCreateUserInfo({
+export function useCreateUserInfoMutation({
   onSuccess,
   onError,
 }: useCreateUserInfoParams) {
@@ -31,7 +32,9 @@ export function useCreateUserInfo({
 
 // Forms
 export const createProfileFormSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().min(1, {
+    message: CANNOT_BE_EMPTY,
+  }),
   sex: sexSchema,
   address: z.string().min(1),
 })

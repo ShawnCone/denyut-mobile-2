@@ -10,12 +10,21 @@ import { Pressable, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import SingleRegularMenuCard from './SingleRegularMenuCard'
 
+const BOTTOM_SHEET_HEIGHT = 260
+
 type GrowthBottomSheetProps = {
   open: boolean
   onClose: () => void
+  onAddRecordPress: () => void
+  onHistoryPress: () => void
 }
 
-function GrowthBottomSheet({ open, onClose }: GrowthBottomSheetProps) {
+function GrowthBottomSheet({
+  open,
+  onClose,
+  onAddRecordPress,
+  onHistoryPress,
+}: GrowthBottomSheetProps) {
   const bottomSheetRef = useRef<BottomSheet>(null)
 
   const handleClose = () => {
@@ -39,7 +48,7 @@ function GrowthBottomSheet({ open, onClose }: GrowthBottomSheetProps) {
       ref={bottomSheetRef}
       onClose={onClose}
       index={-1}
-      snapPoints={[250]}
+      snapPoints={[BOTTOM_SHEET_HEIGHT]}
       backdropComponent={props => {
         return (
           <BottomSheetBackdrop
@@ -86,9 +95,7 @@ function GrowthBottomSheet({ open, onClose }: GrowthBottomSheetProps) {
               gap: tokens.margin.XS,
               alignItems: 'center',
             }}
-            onPress={() => {
-              onClose()
-            }}
+            onPress={onClose}
           >
             <MaterialCommunityIcons
               name="close-circle-outline"
@@ -123,10 +130,7 @@ function GrowthBottomSheet({ open, onClose }: GrowthBottomSheetProps) {
             }
             title="Tambah Data"
             description="Penambahan data hasil pemeriksaan dan pencatatan anak di posyandu anda"
-            onPress={() => {
-              // Do something
-              console.log('Go to tambah data')
-            }}
+            onPress={onAddRecordPress}
           />
           <SingleRegularMenuCard
             icon={
@@ -137,10 +141,8 @@ function GrowthBottomSheet({ open, onClose }: GrowthBottomSheetProps) {
               />
             }
             title="Riwayat Pemeriksaan Anak"
-            description="Pantau hasil pemeriksaan anak disini"
-            onPress={() => {
-              // Do something
-            }}
+            description="Pantau hasil pemeriksaan dan pencatatan anak disini"
+            onPress={onHistoryPress}
           />
         </ScrollView>
       </BottomSheetView>

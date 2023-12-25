@@ -173,49 +173,49 @@ export interface Database {
       }
       KidInfo: {
         Row: {
-          birthCity: string | null
+          birthCity: string
           birthHeight: number | null
-          birthProvince: string | null
+          birthProvince: string
           birthWeight: number | null
-          createdAt: string | null
-          dateOfBirth: string | null
+          createdAt: string
+          dateOfBirth: string
           fatherName: string | null
           hasKMSBook: boolean
           id: string
           motherName: string | null
-          name: string | null
+          name: string
           photoURL: string | null
-          sex: string | null
+          sex: Database['public']['Enums']['sex_enum']
         }
         Insert: {
-          birthCity?: string | null
+          birthCity: string
           birthHeight?: number | null
-          birthProvince?: string | null
+          birthProvince: string
           birthWeight?: number | null
-          createdAt?: string | null
-          dateOfBirth?: string | null
+          createdAt?: string
+          dateOfBirth: string
           fatherName?: string | null
           hasKMSBook?: boolean
           id?: string
           motherName?: string | null
-          name?: string | null
+          name: string
           photoURL?: string | null
-          sex?: string | null
+          sex: Database['public']['Enums']['sex_enum']
         }
         Update: {
-          birthCity?: string | null
+          birthCity?: string
           birthHeight?: number | null
-          birthProvince?: string | null
+          birthProvince?: string
           birthWeight?: number | null
-          createdAt?: string | null
-          dateOfBirth?: string | null
+          createdAt?: string
+          dateOfBirth?: string
           fatherName?: string | null
           hasKMSBook?: boolean
           id?: string
           motherName?: string | null
-          name?: string | null
+          name?: string
           photoURL?: string | null
-          sex?: string | null
+          sex?: Database['public']['Enums']['sex_enum']
         }
         Relationships: []
       }
@@ -300,25 +300,25 @@ export interface Database {
           accountId: string
           createdAt: string | null
           outpostId: string
-          role: string | null
+          role: Database['public']['Enums']['membership_role_enum']
+          role_old: string | null
           status: Database['public']['Enums']['membership_status_enum']
-          status_old: string | null
         }
         Insert: {
           accountId: string
           createdAt?: string | null
           outpostId: string
-          role?: string | null
+          role?: Database['public']['Enums']['membership_role_enum']
+          role_old?: string | null
           status?: Database['public']['Enums']['membership_status_enum']
-          status_old?: string | null
         }
         Update: {
           accountId?: string
           createdAt?: string | null
           outpostId?: string
-          role?: string | null
+          role?: Database['public']['Enums']['membership_role_enum']
+          role_old?: string | null
           status?: Database['public']['Enums']['membership_status_enum']
-          status_old?: string | null
         }
         Relationships: [
           {
@@ -392,6 +392,7 @@ export interface Database {
       }
     }
     Enums: {
+      membership_role_enum: 'owner' | 'member'
       membership_status_enum: 'pending' | 'approved'
       sex_enum: 'male' | 'female'
     }
