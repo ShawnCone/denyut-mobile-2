@@ -165,6 +165,7 @@ function ApprovedPosyanduMembersScreen({
                       phoneNumber={phoneNumber}
                       id={id}
                       role={role}
+                      isAdmin={userIsAdmin}
                     />
                   </View>
                 ),

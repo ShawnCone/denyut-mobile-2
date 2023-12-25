@@ -173,49 +173,49 @@ export interface Database {
       }
       KidInfo: {
         Row: {
-          birthCity: string | null
+          birthCity: string
           birthHeight: number | null
-          birthProvince: string | null
+          birthProvince: string
           birthWeight: number | null
-          createdAt: string | null
-          dateOfBirth: string | null
+          createdAt: string
+          dateOfBirth: string
           fatherName: string | null
           hasKMSBook: boolean
           id: string
           motherName: string | null
-          name: string | null
+          name: string
           photoURL: string | null
-          sex: string | null
+          sex: Database['public']['Enums']['sex_enum']
         }
         Insert: {
-          birthCity?: string | null
+          birthCity: string
           birthHeight?: number | null
-          birthProvince?: string | null
+          birthProvince: string
           birthWeight?: number | null
-          createdAt?: string | null
-          dateOfBirth?: string | null
+          createdAt?: string
+          dateOfBirth: string
           fatherName?: string | null
           hasKMSBook?: boolean
           id?: string
           motherName?: string | null
-          name?: string | null
+          name: string
           photoURL?: string | null
-          sex?: string | null
+          sex: Database['public']['Enums']['sex_enum']
         }
         Update: {
-          birthCity?: string | null
+          birthCity?: string
           birthHeight?: number | null
-          birthProvince?: string | null
+          birthProvince?: string
           birthWeight?: number | null
-          createdAt?: string | null
-          dateOfBirth?: string | null
+          createdAt?: string
+          dateOfBirth?: string
           fatherName?: string | null
           hasKMSBook?: boolean
           id?: string
           motherName?: string | null
-          name?: string | null
+          name?: string
           photoURL?: string | null
-          sex?: string | null
+          sex?: Database['public']['Enums']['sex_enum']
         }
         Relationships: []
       }

@@ -10,14 +10,18 @@ import SinglePosyanduMemberCard, {
   SinglePosyanduMemberCardMemberInfo,
 } from '../SinglePosyanduMemberCard'
 
+type SingleApprovedPosyanduMemberCardProps = {
+  isAdmin?: boolean
+  role: Database['public']['Enums']['membership_role_enum']
+} & SinglePosyanduMemberCardMemberInfo
+
 function SingleApprovedPosyanduMemberCard({
   name,
   phoneNumber,
   id,
   role,
-}: SinglePosyanduMemberCardMemberInfo & {
-  role: Database['public']['Enums']['membership_role_enum']
-}) {
+  isAdmin,
+}: SingleApprovedPosyanduMemberCardProps) {
   const { user } = useProtectedAuthContext()
 
   const [showKickModal, setShowKickModal] = useState(false)
@@ -42,17 +46,19 @@ function SingleApprovedPosyanduMemberCard({
               Akun Saya
             </Typography>
           ) : (
-            <Pressable
-              onPress={() => {
-                setShowKickModal(true)
-              }}
-            >
-              <MaterialCommunityIcons
-                name="delete"
-                color={tokens.colors.destructive.normal}
-                size={tokens.iconSize.M}
-              />
-            </Pressable>
+            isAdmin && (
+              <Pressable
+                onPress={() => {
+                  setShowKickModal(true)
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="delete"
+                  color={tokens.colors.destructive.normal}
+                  size={tokens.iconSize.M}
+                />
+              </Pressable>
+            )
           )
         }
       />

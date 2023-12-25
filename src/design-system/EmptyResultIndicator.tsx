@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Typography from './Typography'
 import { tokens } from './tokens/tokens'
@@ -6,8 +6,13 @@ import { tokens } from './tokens/tokens'
 type LoadingIndicatorProps = {
   fullPage?: boolean
   message?: string
+  actionComponent?: ReactNode
 }
-function EmptyResultIndicator({ fullPage, message }: LoadingIndicatorProps) {
+function EmptyResultIndicator({
+  fullPage,
+  message,
+  actionComponent,
+}: LoadingIndicatorProps) {
   return (
     <View
       style={[
@@ -28,6 +33,7 @@ function EmptyResultIndicator({ fullPage, message }: LoadingIndicatorProps) {
       >
         {message ?? 'Hasil pencarian tidak ditemukan'}
       </Typography>
+      {actionComponent && actionComponent}
     </View>
   )
 }
