@@ -9,8 +9,8 @@ import { tokens } from '@/design-system/tokens/tokens'
 import { useState } from 'react'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useGetPosyanduKidsQuery } from './PosyanduDetailsKidsScreen/utils'
 import SinglePosyanduKidInfoSummaryCard from './SinglePosyanduKidInfoSummaryCard'
+import { useGetPosyanduKidsQuery } from './utils'
 
 type PosyandKidsListProps = {
   onRegisterPress: () => void // Go to kid registration

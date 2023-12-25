@@ -38,6 +38,18 @@ function KidDetailsContent({ route }: KidDetailsContentProps) {
         )}
       </KidDetailsStack.Screen>
       <KidDetailsStack.Screen
+        name="newGrowthRecord"
+        options={{
+          title: 'Tambah Riwayat Pertumbuhan',
+        }}
+      >
+        {_ => (
+          <View>
+            <Typography>Add new growth record</Typography>
+          </View>
+        )}
+      </KidDetailsStack.Screen>
+      <KidDetailsStack.Screen
         name="growthHistory"
         options={{
           title: 'Riwayat Pertumbuhan',

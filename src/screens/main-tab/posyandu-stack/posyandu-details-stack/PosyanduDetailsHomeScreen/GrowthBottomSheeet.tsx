@@ -15,9 +15,16 @@ const BOTTOM_SHEET_HEIGHT = 260
 type GrowthBottomSheetProps = {
   open: boolean
   onClose: () => void
+  onAddRecordPress: () => void
+  onHistoryPress: () => void
 }
 
-function GrowthBottomSheet({ open, onClose }: GrowthBottomSheetProps) {
+function GrowthBottomSheet({
+  open,
+  onClose,
+  onAddRecordPress,
+  onHistoryPress,
+}: GrowthBottomSheetProps) {
   const bottomSheetRef = useRef<BottomSheet>(null)
 
   const handleClose = () => {
@@ -88,9 +95,7 @@ function GrowthBottomSheet({ open, onClose }: GrowthBottomSheetProps) {
               gap: tokens.margin.XS,
               alignItems: 'center',
             }}
-            onPress={() => {
-              onClose()
-            }}
+            onPress={onClose}
           >
             <MaterialCommunityIcons
               name="close-circle-outline"
@@ -125,10 +130,7 @@ function GrowthBottomSheet({ open, onClose }: GrowthBottomSheetProps) {
             }
             title="Tambah Data"
             description="Penambahan data hasil pemeriksaan dan pencatatan anak di posyandu anda"
-            onPress={() => {
-              // Do something
-              console.log('Go to tambah data')
-            }}
+            onPress={onAddRecordPress}
           />
           <SingleRegularMenuCard
             icon={
@@ -140,9 +142,7 @@ function GrowthBottomSheet({ open, onClose }: GrowthBottomSheetProps) {
             }
             title="Riwayat Pemeriksaan Anak"
             description="Pantau hasil pemeriksaan dan pencatatan anak disini"
-            onPress={() => {
-              // Do something
-            }}
+            onPress={onHistoryPress}
           />
         </ScrollView>
       </BottomSheetView>

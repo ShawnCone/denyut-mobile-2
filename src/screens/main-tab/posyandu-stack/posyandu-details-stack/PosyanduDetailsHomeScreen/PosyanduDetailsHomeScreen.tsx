@@ -43,8 +43,24 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
     navigation.navigate('KidRegistration')
   }
 
-  function navigateToKidList() {
-    navigation.navigate('PosyanduDetailsKids')
+  function navigateToRegularKidList() {
+    navigation.navigate('PosyanduDetailsKidsList', {
+      nextKidDetailsRoute: 'kidDetailsHome',
+    })
+  }
+
+  function onAddGrowthRecordPress() {
+    closeGrowthBottomSheet()
+    navigation.navigate('PosyanduDetailsKidsList', {
+      nextKidDetailsRoute: 'newGrowthRecord',
+    })
+  }
+
+  function onGrowthHistoryPress() {
+    closeGrowthBottomSheet()
+    navigation.navigate('PosyanduDetailsKidsList', {
+      nextKidDetailsRoute: 'growthHistory',
+    })
   }
 
   return (
@@ -215,20 +231,6 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
               description="Terdapat peserta baru di posyandu anda? Daftarkan anak disini"
               onPress={navigateToKidRegistration}
             />
-            {/* <SingleRegularMenuCard
-              icon={
-                <MaterialCommunityIcons
-                  name="account-edit"
-                  size={tokens.iconSize.M}
-                  color={tokens.colors.primary.normal}
-                />
-              }
-              title="Ubah Profil Anak"
-              description="Terdapat kesalahan pengisian data anak? Ubah data anak disini"
-              onPress={() => {
-                // Navigate to Change kids profile
-              }}
-            /> */}
             <SingleRegularMenuCard
               icon={
                 <MaterialCommunityIcons
@@ -239,7 +241,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
               }
               title="Daftar Anak"
               description="Lihat daftar anak yang terdaftar di posyandu anda"
-              onPress={navigateToKidList}
+              onPress={navigateToRegularKidList}
             />
           </View>
         </View>
@@ -299,6 +301,8 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
       <GrowthBottomSheet
         open={growthBottomSheetOpen}
         onClose={closeGrowthBottomSheet}
+        onAddRecordPress={onAddGrowthRecordPress}
+        onHistoryPress={onGrowthHistoryPress}
       />
     </View>
   )

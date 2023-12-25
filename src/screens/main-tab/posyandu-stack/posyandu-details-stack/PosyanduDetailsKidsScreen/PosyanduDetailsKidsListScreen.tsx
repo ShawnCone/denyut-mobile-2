@@ -1,16 +1,17 @@
 import { KidInfoSummary } from '@/client/supabase/queries/kid-info'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import PosyanduKidsList from '../PosyanduKidsList'
 import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
+import PosyanduKidsList from './PosyanduKidsList'
 
-type PosyanduDetailsKidsScreenProps = NativeStackScreenProps<
+type PosyanduDetailsKidsListScreenProps = NativeStackScreenProps<
   PosyanduDetailsStackParamsList,
-  'PosyanduDetailsKids'
+  'PosyanduDetailsKidsList'
 >
 
-function PosyanduDetailsKidsScreen({
+function PosyanduDetailsKidsListScreen({
   navigation,
-}: PosyanduDetailsKidsScreenProps) {
+  route,
+}: PosyanduDetailsKidsListScreenProps) {
   function navigateToKidRegistration() {
     navigation.navigate('KidRegistration')
   }
@@ -18,7 +19,7 @@ function PosyanduDetailsKidsScreen({
   function navigateToKidDetails(kidId: KidInfoSummary['id']) {
     navigation.navigate('KidDetailsStack', {
       kidId,
-      initialRoute: 'kidDetailsHome',
+      initialRoute: route.params.nextKidDetailsRoute,
     })
   }
 
@@ -30,4 +31,4 @@ function PosyanduDetailsKidsScreen({
   )
 }
 
-export default PosyanduDetailsKidsScreen
+export default PosyanduDetailsKidsListScreen
