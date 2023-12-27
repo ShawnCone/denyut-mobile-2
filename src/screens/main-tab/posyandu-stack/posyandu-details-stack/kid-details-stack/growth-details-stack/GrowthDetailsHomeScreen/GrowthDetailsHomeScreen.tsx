@@ -5,6 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { View } from 'react-native'
 import { KidDetailsStackParamsList } from '../../kid-details-stack'
 import { GrowthDetailsStackParamsList } from '../growth-details-stack'
+import { usePrintGrowthData } from '../utils'
 import DeleteGrowthRecordButton from './DeleteGrowthRecordButton'
 
 type GrowthDetailsHomeScreenProps = NativeStackScreenProps<
@@ -30,9 +31,12 @@ function GrowthDetailsHomeScreen({ navigation }: GrowthDetailsHomeScreenProps) {
     navigation.goBack()
   }
 
+  const printGrowthDetails = usePrintGrowthData()
+
   return (
     <View>
       <DenyutButton title="Go back" onPress={goBackSafe} />
+      <DenyutButton title="Print growth details" onPress={printGrowthDetails} />
       <Typography>
         Home screen for growth details {growthDetails.recordId}
       </Typography>

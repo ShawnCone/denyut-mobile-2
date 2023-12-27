@@ -4,15 +4,24 @@ import RadioSelectFormInput from './RadioSelectFormInput'
 
 export const SEX_OPTIONS = ['male', 'female'] as const
 export const sexSchema = z.enum(SEX_OPTIONS)
+type sexSchemaType = z.infer<typeof sexSchema>
+export function getDisplaySexStr(sex: sexSchemaType) {
+  switch (sex) {
+    case 'female':
+      return 'Perempuan'
+    case 'male':
+      return 'Laki - laki'
+  }
+}
 
 const SEX_SELECT_OPTIONS: RadioSelectOptions = [
   {
     value: 'male',
-    label: 'Laki - laki',
+    label: getDisplaySexStr('male'),
   },
   {
     value: 'female',
-    label: 'Perempuan',
+    label: getDisplaySexStr('female'),
   },
 ]
 
