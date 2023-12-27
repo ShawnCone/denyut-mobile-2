@@ -48,7 +48,6 @@ export function KidInfoContextProvider({
   }
 
   if (isError) {
-    // Show error, maybe clear posyandu ID?
     return (
       <ErrorIndicator
         message="Terjadi kesalahan memuat data anak"

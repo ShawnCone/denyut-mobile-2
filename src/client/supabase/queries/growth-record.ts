@@ -32,15 +32,18 @@ export async function addNewGrowthRecord({
   return data.recordId
 }
 
+export type GrowthRecordInfo =
+  Database['public']['Tables']['KidBodilyGrowth']['Row']
+
 export async function getGrowthRecordDetails({
   recordId,
 }: {
   recordId: string
-}) {
+}): Promise<GrowthRecordInfo> {
   const { data, error } = await supabaseClient
     .from('KidBodilyGrowth')
     .select()
-    .eq('id', recordId)
+    .eq('recordId', recordId)
     .single()
 
   if (error) {

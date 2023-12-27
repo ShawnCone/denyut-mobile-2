@@ -18,8 +18,7 @@ function LatestGrowthRecordCard() {
     kidId: kidInfo.id,
   })
 
-  if (isPending)
-    return <LoadingIndicator message="Memuat riwayat pertumbuhan sebelumnya" />
+  if (isPending) return <LoadingIndicator size={tokens.iconSize.M} />
 
   if (isError) {
     return (
