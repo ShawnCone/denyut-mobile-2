@@ -31,6 +31,7 @@ function ErrorIndicator({ fullPage, message, onRetry }: ErrorIndicatorProps) {
           size: 'caption',
         }}
         style={{
+          textAlign: 'center',
           color: tokens.colors.neutral.normal,
         }}
       >
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
     gap: tokens.margin.M,
     alignItems: 'center',
     backgroundColor: tokens.colors.neutral.white,
+    paddingHorizontal: tokens.padding.L,
   },
 })
 

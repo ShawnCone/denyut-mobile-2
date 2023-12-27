@@ -8,6 +8,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { View } from 'react-native'
 import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
 import CreateGrowthRecordScreen from './KidDetailsHomeScreen/CreateGrowthRecordScreen/CreateGrowthRecordScreen'
+import GrowthHistoryScreen from './KidDetailsHomeScreen/GrowthHistoryScreen'
 import KidDetailsHomeScreen from './KidDetailsHomeScreen/KidDetailsHomeScreen'
 import UpdateKidProfileScreen from './UpdateKidProfileScreen/UpdateKidProfileScreen'
 import { KidDetailsStack } from './kid-details-stack'
@@ -54,13 +55,9 @@ function KidDetailsContent({ route }: KidDetailsContentProps) {
           options={{
             title: 'Riwayat Pertumbuhan',
           }}
-        >
-          {_ => (
-            <View>
-              <Typography>Growth History</Typography>
-            </View>
-          )}
-        </KidDetailsStack.Screen>
+          component={GrowthHistoryScreen}
+        />
+
         <KidDetailsStack.Screen
           name="growthRecordDetails"
           options={{

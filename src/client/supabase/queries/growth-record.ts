@@ -49,3 +49,35 @@ export async function getGrowthRecordDetails({
 
   return data
 }
+
+export async function getMostRecentGrowthDetails({ kidId }: { kidId: string }) {
+  const { data, error } = await supabaseClient
+    .from('KidBodilyGrowth')
+    .select()
+    .eq('kidId', kidId)
+    .order('outpostRecordYear', { ascending: false })
+    .order('outpostRecordMonthIdx', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
+}
+
+export async function getKidGrowthRecordList({ kidId }: { kidId: string }) {
+  const { data, error } = await supabaseClient
+    .from('KidBodilyGrowth')
+    .select('recordId, outpostRecordMonthIdx, outpostRecordYear')
+    .eq('kidId', kidId)
+    .order('outpostRecordYear', { ascending: false })
+    .order('outpostRecordMonthIdx', { ascending: false })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
+}

@@ -31,7 +31,6 @@ function CreateGrowthRecordScreen({
     mutate: createGrowthRecordMutate,
     isPending: createGrowthRecordIsPending,
     isError: createGrowthRecordIsError,
-    error,
   } = useCreateGrowthRecordMutation({
     onSuccess: recordId => {
       // Navigate to record details
@@ -40,8 +39,6 @@ function CreateGrowthRecordScreen({
       })
     },
   })
-
-  console.log({ error })
 
   const onSubmit = (data: CreateGrowthRecordFormValues) => {
     createGrowthRecordMutate({
