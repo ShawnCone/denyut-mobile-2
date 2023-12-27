@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import Typography from './Typography'
 import { tokens } from './tokens/tokens'
 
-type LoadingIndicatorProps = {
+type EmptyResultIndicatorProps = {
   fullPage?: boolean
   message?: string
   actionComponent?: ReactNode
@@ -12,7 +12,7 @@ function EmptyResultIndicator({
   fullPage,
   message,
   actionComponent,
-}: LoadingIndicatorProps) {
+}: EmptyResultIndicatorProps) {
   return (
     <View
       style={[

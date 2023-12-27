@@ -1,5 +1,6 @@
+import { getKidGrowthRecordList } from '@/client/supabase/queries/growth-record'
 import { deleteKidProfile } from '@/client/supabase/queries/kid-info'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getPosyanduKidsQueryKey } from '../../PosyanduDetailsKidsScreen/utils'
 
 type DeleteKidProfileParams = {
@@ -21,5 +22,16 @@ export function useDeleteKidProfileMutation({
 
       onSuccess()
     },
+  })
+}
+
+export function getGrowthHistoryQueryKey(kidId: string) {
+  return ['growth-history', kidId]
+}
+
+export function useGetGrowthHistoryQuery(kidId: string) {
+  return useQuery({
+    queryKey: getGrowthHistoryQueryKey(kidId),
+    queryFn: () => getKidGrowthRecordList({ kidId }),
   })
 }

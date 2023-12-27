@@ -18,8 +18,8 @@ function GrowthHistoryDataMenuCard({
           color={tokens.colors.primary.normal}
         />
       }
-      title="Riwayat Pemeriksaan Anak"
-      description="Pantau hasil pemeriksaan dan pencatatan anak disini"
+      title="Riwayat Pertumbuhan Anak"
+      description="Pantau hasil pemeriksaan dan pencatatan pertumbuhan anak"
       onPress={onPress}
     />
   )

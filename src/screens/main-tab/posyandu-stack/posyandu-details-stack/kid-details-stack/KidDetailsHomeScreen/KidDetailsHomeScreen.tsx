@@ -46,7 +46,7 @@ function KidDetailsHomeScreen({ navigation }: KidDetailsHomeScreenProps) {
   }
 
   function goToAddGrowth() {
-    navigation.navigate('newGrowthRecord')
+    navigation.navigate('createGrowthRecord')
   }
 
   function goToGrowthHistory() {

@@ -1,6 +1,6 @@
 import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import DenyutButton from '@/design-system/DenyutButton'
-import DenyutDateTimePicker from '@/design-system/forms/DenyutDateTimePicker'
+import DenyutDateTimePicker from '@/design-system/forms/DatePickers/DenyutDateTimePicker'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
 import ErrorMessageDisplay from '@/design-system/forms/ErrorMessageDisplay'
 import SexSelectionFormInput from '@/design-system/forms/SexSelectionFormInput'
@@ -109,7 +109,7 @@ function KidRegistrationScreen({ navigation }: KidRegistrationScreenProps) {
                 errorMessage={error ? 'Tanggal lahir salah' : undefined}
                 label="Tanggal Lahir"
                 value={value}
-                setValue={newDate => onChange(newDate)}
+                setValue={onChange}
                 disabled={isPending}
               />
             )}

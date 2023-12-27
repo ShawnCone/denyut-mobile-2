@@ -53,7 +53,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
   function onAddGrowthRecordPress() {
     closeGrowthBottomSheet()
     navigation.navigate('PosyanduDetailsKidsList', {
-      nextKidDetailsRoute: 'newGrowthRecord',
+      nextKidDetailsRoute: 'createGrowthRecord',
     })
   }
 

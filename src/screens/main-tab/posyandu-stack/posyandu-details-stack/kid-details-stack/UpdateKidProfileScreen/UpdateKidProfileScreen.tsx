@@ -1,6 +1,6 @@
 import { useKidInfoContext } from '@/context/KidInfoContext'
 import DenyutButton from '@/design-system/DenyutButton'
-import DenyutDateTimePicker from '@/design-system/forms/DenyutDateTimePicker'
+import DenyutDateTimePicker from '@/design-system/forms/DatePickers/DenyutDateTimePicker'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
 import ErrorMessageDisplay from '@/design-system/forms/ErrorMessageDisplay'
 import SexSelectionFormInput from '@/design-system/forms/SexSelectionFormInput'
