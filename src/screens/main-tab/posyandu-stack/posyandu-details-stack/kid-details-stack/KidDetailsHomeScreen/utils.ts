@@ -25,7 +25,7 @@ export function useDeleteKidProfileMutation({
   })
 }
 
-function getGrowthHistoryQueryKey(kidId: string) {
+export function getGrowthHistoryQueryKey(kidId: string) {
   return ['growth-history', kidId]
 }
 

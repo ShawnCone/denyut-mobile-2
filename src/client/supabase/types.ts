@@ -72,39 +72,39 @@ export interface Database {
           createdAt: string | null
           createdBy: string | null
           headCirc: number | null
-          height: number | null
+          height: number
           kidId: string
           measurementDate: string | null
           outpostRecordMonthIdx: number
           outpostRecordYear: number
           recordId: string
-          weight: number | null
+          weight: number
         }
         Insert: {
           armCirc?: number | null
           createdAt?: string | null
           createdBy?: string | null
           headCirc?: number | null
-          height?: number | null
+          height: number
           kidId: string
           measurementDate?: string | null
           outpostRecordMonthIdx: number
           outpostRecordYear: number
           recordId?: string
-          weight?: number | null
+          weight: number
         }
         Update: {
           armCirc?: number | null
           createdAt?: string | null
           createdBy?: string | null
           headCirc?: number | null
-          height?: number | null
+          height?: number
           kidId?: string
           measurementDate?: string | null
           outpostRecordMonthIdx?: number
           outpostRecordYear?: number
           recordId?: string
-          weight?: number | null
+          weight?: number
         }
         Relationships: [
           {

@@ -50,7 +50,7 @@ export async function getGrowthRecordDetails({
   return data
 }
 
-export async function getMostRecentGrowthDetails({ kidId }: { kidId: string }) {
+export async function getLatestGrowthRecord({ kidId }: { kidId: string }) {
   const { data, error } = await supabaseClient
     .from('KidBodilyGrowth')
     .select()

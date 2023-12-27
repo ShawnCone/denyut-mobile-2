@@ -4,12 +4,16 @@ import DenyutMonthPicker from '@/design-system/forms/DatePickers/DenyutMonthPick
 import DenyutYearPicker from '@/design-system/forms/DatePickers/DenyutYearPicker'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
 import ErrorMessageDisplay from '@/design-system/forms/ErrorMessageDisplay'
+import {
+  SingleFormFieldContainerWithinRow,
+  SingleRowFieldContainer,
+} from '@/design-system/forms/FormLayout'
 import { tokens } from '@/design-system/tokens/tokens'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { ReactNode } from 'react'
 import { Controller } from 'react-hook-form'
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
 import { KidDetailsStackParamsList } from '../../kid-details-stack'
+import LatestGrowthRecordCard from './LatestGrowthRecordCard'
 import {
   CreateGrowthRecordFormValues,
   useCreateGrowthRecordForm,
@@ -55,15 +59,24 @@ function CreateGrowthRecordScreen({
       <View
         style={{
           flex: 1,
-          backgroundColor: tokens.colors.neutral.white,
-          paddingHorizontal: tokens.padding.L,
           paddingTop: tokens.padding.L,
+          gap: tokens.margin.L,
         }}
       >
         <View
           style={{
+            backgroundColor: tokens.colors.neutral.white,
+            padding: tokens.padding.L,
+          }}
+        >
+          <LatestGrowthRecordCard />
+        </View>
+        <View
+          style={{
             flex: 1,
             gap: tokens.margin.L,
+            backgroundColor: tokens.colors.neutral.white,
+            padding: tokens.padding.L,
           }}
         >
           <DenyutTextfield
@@ -79,7 +92,7 @@ function CreateGrowthRecordScreen({
                 field: { onChange, onBlur },
                 fieldState: { error },
               }) => (
-                <SingleTextFieldContainerWithinRow>
+                <SingleFormFieldContainerWithinRow>
                   <DenyutTextfield
                     label="Berat Badan (kg)"
                     placeholder="Berat badan anak"
@@ -90,7 +103,7 @@ function CreateGrowthRecordScreen({
                     editable={!createGrowthRecordIsPending}
                     required
                   />
-                </SingleTextFieldContainerWithinRow>
+                </SingleFormFieldContainerWithinRow>
               )}
             />
             <Controller
@@ -100,7 +113,7 @@ function CreateGrowthRecordScreen({
                 field: { onChange, onBlur },
                 fieldState: { error },
               }) => (
-                <SingleTextFieldContainerWithinRow>
+                <SingleFormFieldContainerWithinRow>
                   <DenyutTextfield
                     label="Tinggi Badan (cm)"
                     placeholder="Tinggi badan anak"
@@ -111,7 +124,7 @@ function CreateGrowthRecordScreen({
                     editable={!createGrowthRecordIsPending}
                     required
                   />
-                </SingleTextFieldContainerWithinRow>
+                </SingleFormFieldContainerWithinRow>
               )}
             />
           </SingleRowFieldContainer>
@@ -123,7 +136,7 @@ function CreateGrowthRecordScreen({
                 field: { onChange, onBlur },
                 fieldState: { error },
               }) => (
-                <SingleTextFieldContainerWithinRow>
+                <SingleFormFieldContainerWithinRow>
                   <DenyutTextfield
                     label="Lingkar Kepala (cm)"
                     placeholder="Lingkar kepala anak"
@@ -132,9 +145,8 @@ function CreateGrowthRecordScreen({
                     onChangeText={onChange}
                     keyboardType="numeric"
                     editable={!createGrowthRecordIsPending}
-                    required
                   />
-                </SingleTextFieldContainerWithinRow>
+                </SingleFormFieldContainerWithinRow>
               )}
             />
             <Controller
@@ -144,7 +156,7 @@ function CreateGrowthRecordScreen({
                 field: { onChange, onBlur },
                 fieldState: { error },
               }) => (
-                <SingleTextFieldContainerWithinRow>
+                <SingleFormFieldContainerWithinRow>
                   <DenyutTextfield
                     label="Lingkar Lengan (cm)"
                     placeholder="Lingkar lengan anak"
@@ -154,7 +166,7 @@ function CreateGrowthRecordScreen({
                     keyboardType="numeric"
                     editable={!createGrowthRecordIsPending}
                   />
-                </SingleTextFieldContainerWithinRow>
+                </SingleFormFieldContainerWithinRow>
               )}
             />
           </SingleRowFieldContainer>
@@ -166,7 +178,7 @@ function CreateGrowthRecordScreen({
                 field: { value, onChange },
                 fieldState: { error },
               }) => (
-                <SingleTextFieldContainerWithinRow>
+                <SingleFormFieldContainerWithinRow>
                   <DenyutMonthPicker
                     placeholder="Pilih Bulan Pencatatan"
                     value={value}
@@ -176,7 +188,7 @@ function CreateGrowthRecordScreen({
                     required
                     label="Bulan Pencatatan"
                   />
-                </SingleTextFieldContainerWithinRow>
+                </SingleFormFieldContainerWithinRow>
               )}
             />
             <Controller
@@ -186,7 +198,7 @@ function CreateGrowthRecordScreen({
                 field: { value, onChange },
                 fieldState: { error },
               }) => (
-                <SingleTextFieldContainerWithinRow>
+                <SingleFormFieldContainerWithinRow>
                   <DenyutYearPicker
                     placeholder="Pilih Tahun Pencatatan"
                     value={value}
@@ -196,7 +208,7 @@ function CreateGrowthRecordScreen({
                     required
                     label="Tahun Pencatatan"
                   />
-                </SingleTextFieldContainerWithinRow>
+                </SingleFormFieldContainerWithinRow>
               )}
             />
           </SingleRowFieldContainer>
@@ -219,34 +231,6 @@ function CreateGrowthRecordScreen({
         </View>
       </View>
     </TouchableWithoutFeedback>
-  )
-}
-
-function SingleRowFieldContainer({ children }: { children: ReactNode }) {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        gap: tokens.margin.L,
-      }}
-    >
-      {children}
-    </View>
-  )
-}
-function SingleTextFieldContainerWithinRow({
-  children,
-}: {
-  children: ReactNode
-}) {
-  return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
-      {children}
-    </View>
   )
 }
 
