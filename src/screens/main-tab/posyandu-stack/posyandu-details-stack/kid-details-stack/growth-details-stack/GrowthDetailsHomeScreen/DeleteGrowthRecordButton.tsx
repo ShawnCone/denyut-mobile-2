@@ -1,9 +1,12 @@
-import { useGrowthDetailsContext } from '@/context/GrowthDetailsContext'
 import { useKidInfoContext } from '@/context/KidInfoContext'
 import ConfirmationModal from '@/design-system/ConfirmationModal'
-import DenyutButton from '@/design-system/DenyutButton'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+
+import { tokens } from '@/design-system/tokens/tokens'
 import { getDisplayGrowthRecordDate } from '@/utils/dateFormatter'
 import { useState } from 'react'
+import { Pressable } from 'react-native'
+import { useGrowthDetailsContext } from '../utils'
 import { useDeleteGrowthDetailsMutation } from './utils'
 
 type DeleteGrowthRecordButtonProps = {
@@ -45,7 +48,19 @@ function DeleteGrowthRecordButton({
 
   return (
     <>
-      <DenyutButton title="Hapus" onPress={handleOpenModal} />
+      <Pressable
+        onPress={handleOpenModal}
+        android_ripple={{
+          color: tokens.colors.ripple,
+          borderless: true,
+        }}
+      >
+        <MaterialCommunityIcons
+          name="delete"
+          size={tokens.iconSize.M}
+          color={tokens.colors.primary.normal}
+        />
+      </Pressable>
       <ConfirmationModal
         isVisible={modalIsOpen}
         title="Hapus Data Pertumbuhan"

@@ -1,9 +1,9 @@
-import { GrowthDetailsContextProvider } from '@/context/GrowthDetailsContext'
 import { BaseStackNavigationScreenOptions } from '@/design-system/NavigationScreenOptions'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { KidDetailsStackParamsList } from '../kid-details-stack'
 import GrowthDetailsHomeScreen from './GrowthDetailsHomeScreen/GrowthDetailsHomeScreen'
 import { GrowthDetailsStack } from './growth-details-stack'
+import { GrowthDetailsContextProvider } from './utils'
 
 type GrowthDetailsContentProps = NativeStackScreenProps<
   KidDetailsStackParamsList,
@@ -23,7 +23,8 @@ function GrowthDetailsContent({ route }: GrowthDetailsContentProps) {
           name="growthDetailsHome"
           component={GrowthDetailsHomeScreen}
           options={{
-            headerShown: false,
+            headerTitle: 'Detail Pertumbuhan',
+            headerBackVisible: false,
           }}
         />
       </GrowthDetailsStack.Navigator>

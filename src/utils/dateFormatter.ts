@@ -28,6 +28,18 @@ export function getDisplayGrowthRecordDate({
   return format(date, 'MMMM yyyy')
 }
 
+export function getDisplayDistanceAge(
+  fromDate: Date | string,
+  toDate: Date | string,
+) {
+  const years = differenceInYears(fromDate, toDate)
+  const months = differenceInMonths(fromDate, toDate) % 12
+
+  if (years === 0) return `${months} Bulan`
+
+  return `${years} Tahun ${months} Bulan`
+}
+
 export const MONTHS_LIST_SHORT = [
   'Jan',
   'Feb',

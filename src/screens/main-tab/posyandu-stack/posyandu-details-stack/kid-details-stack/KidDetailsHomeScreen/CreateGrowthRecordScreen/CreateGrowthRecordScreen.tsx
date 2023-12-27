@@ -1,5 +1,7 @@
 import { useKidInfoContext } from '@/context/KidInfoContext'
 import DenyutButton from '@/design-system/DenyutButton'
+import Typography from '@/design-system/Typography'
+import DenyutDateTimePicker from '@/design-system/forms/DatePickers/DenyutDateTimePicker'
 import DenyutMonthPicker from '@/design-system/forms/DatePickers/DenyutMonthPicker'
 import DenyutYearPicker from '@/design-system/forms/DatePickers/DenyutYearPicker'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
@@ -71,10 +73,10 @@ function CreateGrowthRecordScreen({
       <ScrollView
         style={{
           flex: 1,
-          gap: tokens.margin.L,
         }}
         contentContainerStyle={{
           paddingVertical: tokens.padding.L,
+          gap: tokens.margin.L,
         }}
       >
         <View
@@ -93,10 +95,34 @@ function CreateGrowthRecordScreen({
             padding: tokens.padding.L,
           }}
         >
+          <Typography
+            variant={{
+              size: 'caption',
+              textStyling: {
+                weight: 'bold',
+              },
+            }}
+          >
+            Pertumbuhan Baru
+          </Typography>
           <DenyutTextfield
             label="Nama Anak"
             value={kidInfo.name}
             editable={false}
+          />
+          <Controller
+            control={control}
+            name="measurementDate"
+            render={({ field: { value, onChange }, fieldState: { error } }) => (
+              <DenyutDateTimePicker
+                placeholder="Pilih Tanggal Pengukuran"
+                value={value}
+                setValue={onChange}
+                disabled={createGrowthRecordIsPending}
+                errorMessage={error?.message}
+                label="Tanggal Pengukuran"
+              />
+            )}
           />
           <SingleRowFieldContainer>
             <Controller

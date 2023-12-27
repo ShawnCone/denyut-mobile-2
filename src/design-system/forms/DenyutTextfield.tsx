@@ -1,11 +1,6 @@
+import { useMeasure } from '@/utils/useMeasure'
 import React, { ReactNode, forwardRef, useState } from 'react'
-import {
-  LayoutChangeEvent,
-  StyleSheet,
-  TextInput,
-  TextInputProps,
-  View,
-} from 'react-native'
+import { StyleSheet, TextInput, TextInputProps, View } from 'react-native'
 import { tokens } from '../tokens/tokens'
 import FormFieldContainer, {
   FormFieldContainerWithoutChildren,
@@ -115,20 +110,4 @@ function getTextFieldStatusColor(
   }
 
   return tokens.colors.neutral.light
-}
-
-function useMeasure() {
-  const [measurements, setMeasurements] = useState<{
-    x: number
-    y: number
-    width: number
-    height: number
-  }>()
-
-  const onLayout = (event: LayoutChangeEvent) => {
-    const { x, y, width, height } = event.nativeEvent.layout
-    setMeasurements({ x, y, width, height })
-  }
-
-  return { measurements, onLayout }
 }

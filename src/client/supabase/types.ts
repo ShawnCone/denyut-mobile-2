@@ -69,12 +69,12 @@ export interface Database {
       KidBodilyGrowth: {
         Row: {
           armCirc: number | null
-          createdAt: string | null
+          createdAt: string
           createdBy: string | null
           headCirc: number | null
           height: number
           kidId: string
-          measurementDate: string | null
+          measurementDate: string
           outpostRecordMonthIdx: number
           outpostRecordYear: number
           recordId: string
@@ -82,12 +82,12 @@ export interface Database {
         }
         Insert: {
           armCirc?: number | null
-          createdAt?: string | null
+          createdAt?: string
           createdBy?: string | null
           headCirc?: number | null
           height: number
           kidId: string
-          measurementDate?: string | null
+          measurementDate: string
           outpostRecordMonthIdx: number
           outpostRecordYear: number
           recordId?: string
@@ -95,12 +95,12 @@ export interface Database {
         }
         Update: {
           armCirc?: number | null
-          createdAt?: string | null
+          createdAt?: string
           createdBy?: string | null
           headCirc?: number | null
           height?: number
           kidId?: string
-          measurementDate?: string | null
+          measurementDate?: string
           outpostRecordMonthIdx?: number
           outpostRecordYear?: number
           recordId?: string

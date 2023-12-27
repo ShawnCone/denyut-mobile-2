@@ -1,7 +1,11 @@
-import { getGrowthRecordDetails } from '@/client/supabase/queries/growth-record'
-import { useGrowthDetailsContext } from '@/context/GrowthDetailsContext'
+import {
+  GrowthRecordInfo,
+  getGrowthRecordDetails,
+} from '@/client/supabase/queries/growth-record'
 import { useKidInfoContext } from '@/context/KidInfoContext'
 import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
+import ErrorIndicator from '@/design-system/ErrorIndicator'
+import LoadingIndicator from '@/design-system/LoadingIndicator'
 import { getDisplaySexStr } from '@/design-system/forms/SexSelectionFormInput'
 import {
   getDisplayDate,
@@ -9,6 +13,7 @@ import {
 } from '@/utils/dateFormatter'
 import { useQuery } from '@tanstack/react-query'
 import { printAsync } from 'expo-print'
+import { createContext, useContext } from 'react'
 
 export function getGrowthDetailsQueryKey(recordId: string) {
   return ['growth-record', recordId]
@@ -88,4 +93,64 @@ export function usePrintGrowthData() {
     })
 
   return printFn
+}
+
+// Context
+type GrowthDetailsContextValues = {
+  growthDetails: GrowthRecordInfo
+}
+
+const GrowthDetailsContext = createContext<GrowthDetailsContextValues>({
+  growthDetails: {
+    recordId: '',
+    kidId: '',
+    weight: 0,
+    height: 0,
+    headCirc: null,
+    armCirc: null,
+    createdBy: null,
+    measurementDate: '',
+    outpostRecordMonthIdx: 0,
+    outpostRecordYear: 0,
+    createdAt: '',
+  },
+})
+
+type GrowthDetailsContextProviderProps = {
+  children: React.ReactNode
+  recordId: string
+}
+
+export function GrowthDetailsContextProvider({
+  children,
+  recordId,
+}: GrowthDetailsContextProviderProps) {
+  const { data, isPending, isError, refetch } = useGrowthDetailsQuery(recordId)
+  if (isPending) {
+    return <LoadingIndicator fullPage />
+  }
+
+  if (isError) {
+    return (
+      <ErrorIndicator
+        message="Terjadi kesalahan memuat data pertumbuhan"
+        fullPage
+        onRetry={refetch}
+      />
+    )
+  }
+
+  return (
+    <GrowthDetailsContext.Provider
+      value={{
+        growthDetails: data,
+      }}
+    >
+      {children}
+    </GrowthDetailsContext.Provider>
+  )
+}
+
+export function useGrowthDetailsContext() {
+  return useContext(GrowthDetailsContext)
 }
