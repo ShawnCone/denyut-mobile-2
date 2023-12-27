@@ -1,30 +1,34 @@
-import { getDisplayDate } from '@/utils/dateFormatter'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import DateTimePicker from '@react-native-community/datetimepicker'
-import { useState } from 'react'
+import { ReactNode } from 'react'
 import { Pressable } from 'react-native'
-import Typography from '../Typography'
-import { tokens } from '../tokens/tokens'
+import Typography from '../../Typography'
+import { tokens } from '../../tokens/tokens'
 import FormFieldContainer, {
   FormFieldContainerWithoutChildren,
-} from './FormFieldContainer'
+} from '../FormFieldContainer'
 
-type DenyutDateTimePickerProps = {
+type DatePickerFormContainerProps = {
   placeholder: string
-  value?: Date
-  setValue?: (date: Date | undefined) => void
+  displayValue?: string
   disabled?: boolean
+  children: ReactNode
+  pickerOpen: boolean
+  handleOpenPicker: () => void
+  hideCalendarIcon?: boolean
 } & FormFieldContainerWithoutChildren
 
-function DenyutDateTimePicker({
+function DatePickerFormContainer({
   placeholder,
   label,
   errorMessage,
   required,
-  value,
-  setValue,
   disabled,
-}: DenyutDateTimePickerProps) {
+  children,
+  displayValue,
+  handleOpenPicker,
+  pickerOpen,
+  hideCalendarIcon,
+}: DatePickerFormContainerProps) {
   const containerProps: FormFieldContainerWithoutChildren = {
     label,
     errorMessage,
@@ -32,16 +36,6 @@ function DenyutDateTimePicker({
   }
 
   const pressableColor = getPressableStatusColor(errorMessage)
-
-  const [pickerOpen, setPickerOpen] = useState(false)
-
-  function handleOpenPicker() {
-    setPickerOpen(true)
-  }
-
-  function handleClosePicker() {
-    setPickerOpen(false)
-  }
 
   return (
     <FormFieldContainer {...containerProps}>
@@ -60,36 +54,31 @@ function DenyutDateTimePicker({
         onPress={handleOpenPicker}
         disabled={disabled}
       >
-        <MaterialCommunityIcons
-          name="calendar"
-          size={tokens.iconSize.M}
-          color={getCalendarIconStatusColor(errorMessage, value, disabled)}
-        />
+        {!hideCalendarIcon && (
+          <MaterialCommunityIcons
+            name="calendar"
+            size={tokens.iconSize.M}
+            color={getCalendarIconStatusColor(
+              errorMessage,
+              displayValue,
+              disabled,
+            )}
+          />
+        )}
+
         <Typography
           variant={{
             size: 'caption',
           }}
           style={{
-            color: getTyographyColor(value, disabled),
+            color: getTyographyColor(displayValue, disabled),
           }}
         >
-          {value ? getDisplayDate(value) : placeholder}
+          {displayValue ?? placeholder}
         </Typography>
       </Pressable>
       {/* Picker */}
-      {pickerOpen && (
-        <DateTimePicker
-          value={value || new Date()}
-          mode="date"
-          textColor={tokens.colors.primary.dark}
-          display="spinner"
-          onChange={(_, selectedDate) => {
-            setValue?.(selectedDate)
-            handleClosePicker()
-          }}
-          maximumDate={new Date()}
-        />
-      )}
+      {pickerOpen && <>{children}</>}
     </FormFieldContainer>
   )
 }
@@ -104,7 +93,7 @@ function getPressableStatusColor(errorMessage?: string) {
 
 function getCalendarIconStatusColor(
   errorMessage?: string,
-  value?: Date,
+  value?: string,
   disabled?: boolean,
 ) {
   if (errorMessage) {
@@ -122,7 +111,7 @@ function getCalendarIconStatusColor(
   return tokens.colors.neutral.normal
 }
 
-function getTyographyColor(value?: Date, disabled?: boolean) {
+function getTyographyColor(value?: string, disabled?: boolean) {
   if (value) {
     return tokens.colors.neutral.dark
   }
@@ -134,4 +123,4 @@ function getTyographyColor(value?: Date, disabled?: boolean) {
   return tokens.colors.neutral.normal
 }
 
-export default DenyutDateTimePicker
+export default DatePickerFormContainer

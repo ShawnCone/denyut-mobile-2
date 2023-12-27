@@ -14,7 +14,6 @@ import { RootStackParamsList } from '@/screens/root-stack'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useEffect } from 'react'
-import { View } from 'react-native'
 import PosyanduStackContent from './posyandu-stack/posyandu-stack-content'
 
 type MainTabProps = NativeStackScreenProps<RootStackParamsList, 'Main'>
@@ -36,11 +35,7 @@ export function MainTabContent({ navigation }: MainTabProps) {
 
   if (isLoadingUserInfo) {
     // Loading screen
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <LoadingIndicator />
-      </View>
-    )
+    return <LoadingIndicator />
   }
 
   if (userInfo === null || typeof userInfo === 'undefined') {

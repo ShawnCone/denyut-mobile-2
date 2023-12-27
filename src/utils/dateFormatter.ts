@@ -16,3 +16,44 @@ export function getDisplayCurrentAge(date: Date | string) {
   const months = differenceInMonths(new Date(), date) % 12
   return `${years} Tahun ${months} Bulan`
 }
+
+export function getDisplayBodyRecordDate({
+  recordYear,
+  recordMonthIdx,
+}: {
+  recordYear: number
+  recordMonthIdx: number
+}) {
+  const date = new Date(recordYear, recordMonthIdx)
+  return format(date, 'MMMM yyyy')
+}
+
+export const MONTHS_LIST_SHORT = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'Mei',
+  'Jun',
+  'Jul',
+  'Agu',
+  'Sep',
+  'Okt',
+  'Nov',
+  'Des',
+]
+
+export const MONTHS_LIST_LONG = [
+  'Januari',
+  'Februari',
+  'Maret',
+  'April',
+  'Mei',
+  'Juni',
+  'Juli',
+  'Agustus',
+  'September',
+  'Oktober',
+  'Nopember',
+  'Desember',
+]

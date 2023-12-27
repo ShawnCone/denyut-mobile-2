@@ -7,6 +7,7 @@ import Typography from '@/design-system/Typography'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { View } from 'react-native'
 import { PosyanduDetailsStackParamsList } from '../posyandu-details-stack'
+import CreateGrowthRecordScreen from './KidDetailsHomeScreen/CreateGrowthRecordScreen/CreateGrowthRecordScreen'
 import KidDetailsHomeScreen from './KidDetailsHomeScreen/KidDetailsHomeScreen'
 import UpdateKidProfileScreen from './UpdateKidProfileScreen/UpdateKidProfileScreen'
 import { KidDetailsStack } from './kid-details-stack'
@@ -42,17 +43,12 @@ function KidDetailsContent({ route }: KidDetailsContentProps) {
         />
 
         <KidDetailsStack.Screen
-          name="newGrowthRecord"
+          name="createGrowthRecord"
           options={{
             title: 'Tambah Riwayat Pertumbuhan',
           }}
-        >
-          {_ => (
-            <View>
-              <Typography>Add new growth record</Typography>
-            </View>
-          )}
-        </KidDetailsStack.Screen>
+          component={CreateGrowthRecordScreen}
+        />
         <KidDetailsStack.Screen
           name="growthHistory"
           options={{
@@ -62,6 +58,18 @@ function KidDetailsContent({ route }: KidDetailsContentProps) {
           {_ => (
             <View>
               <Typography>Growth History</Typography>
+            </View>
+          )}
+        </KidDetailsStack.Screen>
+        <KidDetailsStack.Screen
+          name="growthRecordDetails"
+          options={{
+            title: 'Growth Details stack',
+          }}
+        >
+          {_ => (
+            <View>
+              <Typography>Growth Details Stack</Typography>
             </View>
           )}
         </KidDetailsStack.Screen>
