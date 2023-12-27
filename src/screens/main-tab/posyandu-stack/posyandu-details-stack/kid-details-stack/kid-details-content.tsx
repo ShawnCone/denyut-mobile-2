@@ -41,7 +41,6 @@ function KidDetailsContent({ route }: KidDetailsContentProps) {
           }}
           component={UpdateKidProfileScreen}
         />
-
         <KidDetailsStack.Screen
           name="createGrowthRecord"
           options={{

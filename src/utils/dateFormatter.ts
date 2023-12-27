@@ -17,7 +17,7 @@ export function getDisplayCurrentAge(date: Date | string) {
   return `${years} Tahun ${months} Bulan`
 }
 
-export function getDisplayBodyRecordDate({
+export function getDisplayGrowthRecordDate({
   recordYear,
   recordMonthIdx,
 }: {
@@ -54,6 +54,6 @@ export const MONTHS_LIST_LONG = [
   'Agustus',
   'September',
   'Oktober',
-  'Nopember',
+  'November',
   'Desember',
 ]

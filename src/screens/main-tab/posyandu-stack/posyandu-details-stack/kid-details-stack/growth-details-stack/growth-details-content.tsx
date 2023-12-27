@@ -2,7 +2,7 @@ import { GrowthDetailsContextProvider } from '@/context/GrowthDetailsContext'
 import { BaseStackNavigationScreenOptions } from '@/design-system/NavigationScreenOptions'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { KidDetailsStackParamsList } from '../kid-details-stack'
-import GrowthDetailsHomeScreen from './GrowthDetailsHomeScreen'
+import GrowthDetailsHomeScreen from './GrowthDetailsHomeScreen/GrowthDetailsHomeScreen'
 import { GrowthDetailsStack } from './growth-details-stack'
 
 type GrowthDetailsContentProps = NativeStackScreenProps<

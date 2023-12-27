@@ -84,3 +84,14 @@ export async function getKidGrowthRecordList({ kidId }: { kidId: string }) {
 
   return data
 }
+
+export async function deleteGrowthRecord({ recordId }: { recordId: string }) {
+  const { error } = await supabaseClient
+    .from('KidBodilyGrowth')
+    .delete()
+    .eq('recordId', recordId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
