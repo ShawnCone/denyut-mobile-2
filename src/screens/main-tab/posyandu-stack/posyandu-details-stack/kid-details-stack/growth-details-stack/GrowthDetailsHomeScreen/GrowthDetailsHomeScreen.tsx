@@ -82,8 +82,10 @@ function GrowthDetailsHomeScreen({ navigation }: GrowthDetailsHomeScreenProps) {
     <View
       style={{
         flex: 1,
+        gap: tokens.margin.L,
       }}
     >
+      {/* Top card */}
       <View
         style={{
           backgroundColor: tokens.colors.neutral.white,
@@ -140,8 +142,6 @@ function GrowthDetailsHomeScreen({ navigation }: GrowthDetailsHomeScreenProps) {
           </View>
         </View>
       </View>
-      {/* Contains the growth record date, kid name, print button*/}
-
       {/* Tabview here */}
       <GrowthDetailsTabView />
     </View>

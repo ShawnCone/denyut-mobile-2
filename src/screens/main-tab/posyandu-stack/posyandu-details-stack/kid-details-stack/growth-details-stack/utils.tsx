@@ -125,6 +125,8 @@ export function GrowthDetailsContextProvider({
   children,
   recordId,
 }: GrowthDetailsContextProviderProps) {
+  // Also get previous growth detail here OR in the query function there's this information already
+
   const { data, isPending, isError, refetch } = useGrowthDetailsQuery(recordId)
   if (isPending) {
     return <LoadingIndicator fullPage />
