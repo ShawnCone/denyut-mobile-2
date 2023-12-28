@@ -7,7 +7,7 @@ import {
   SingleRowFieldContainer,
 } from '@/design-system/forms/FormLayout'
 import { tokens } from '@/design-system/tokens/tokens'
-import { getDisplayBodyRecordDate } from '@/utils/dateFormatter'
+import { getDisplayGrowthRecordDate } from '@/utils/dateFormatter'
 import { View } from 'react-native'
 import { useGetLatestGrowthRecordQuery } from './utils'
 
@@ -18,8 +18,7 @@ function LatestGrowthRecordCard() {
     kidId: kidInfo.id,
   })
 
-  if (isPending)
-    return <LoadingIndicator message="Memuat riwayat pertumbuhan sebelumnya" />
+  if (isPending) return <LoadingIndicator size={tokens.iconSize.M} />
 
   if (isError) {
     return (
@@ -61,7 +60,7 @@ function LatestGrowthRecordCard() {
               color: tokens.colors.neutral.normal,
             }}
           >
-            {getDisplayBodyRecordDate({
+            {getDisplayGrowthRecordDate({
               recordYear: data.outpostRecordYear,
               recordMonthIdx: data.outpostRecordMonthIdx,
             })}

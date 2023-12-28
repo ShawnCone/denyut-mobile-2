@@ -1,5 +1,7 @@
 import { useKidInfoContext } from '@/context/KidInfoContext'
 import DenyutButton from '@/design-system/DenyutButton'
+import Typography from '@/design-system/Typography'
+import DenyutDateTimePicker from '@/design-system/forms/DatePickers/DenyutDateTimePicker'
 import DenyutMonthPicker from '@/design-system/forms/DatePickers/DenyutMonthPicker'
 import DenyutYearPicker from '@/design-system/forms/DatePickers/DenyutYearPicker'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
@@ -9,9 +11,15 @@ import {
   SingleRowFieldContainer,
 } from '@/design-system/forms/FormLayout'
 import { tokens } from '@/design-system/tokens/tokens'
+import { getDisplayGrowthRecordDate } from '@/utils/dateFormatter'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Controller } from 'react-hook-form'
-import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
+import {
+  Keyboard,
+  ScrollView,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native'
 import { KidDetailsStackParamsList } from '../../kid-details-stack'
 import LatestGrowthRecordCard from './LatestGrowthRecordCard'
 import {
@@ -29,12 +37,13 @@ function CreateGrowthRecordScreen({
   navigation,
 }: CreateGrowthRecordScreenProps) {
   const { kidInfo } = useKidInfoContext()
-  const { control, handleSubmit } = useCreateGrowthRecordForm()
+  const { control, handleSubmit, watch } = useCreateGrowthRecordForm()
+  const { outpostRecordMonthIdx, outpostRecordYear } = watch()
 
   const {
     mutate: createGrowthRecordMutate,
     isPending: createGrowthRecordIsPending,
-    isError: createGrowthRecordIsError,
+    error: createGrowthRecordError,
   } = useCreateGrowthRecordMutation({
     onSuccess: recordId => {
       // Navigate to record details
@@ -43,6 +52,11 @@ function CreateGrowthRecordScreen({
       })
     },
   })
+
+  const createGrowthRecordIsError = createGrowthRecordError !== null
+  const errorIsDuplicate =
+    createGrowthRecordIsError &&
+    createGrowthRecordError.message.includes('duplicate') // Change logic if be error message changes
 
   const onSubmit = (data: CreateGrowthRecordFormValues) => {
     createGrowthRecordMutate({
@@ -56,10 +70,12 @@ function CreateGrowthRecordScreen({
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View
+      <ScrollView
         style={{
           flex: 1,
-          paddingTop: tokens.padding.L,
+        }}
+        contentContainerStyle={{
+          paddingVertical: tokens.padding.L,
           gap: tokens.margin.L,
         }}
       >
@@ -79,10 +95,34 @@ function CreateGrowthRecordScreen({
             padding: tokens.padding.L,
           }}
         >
+          <Typography
+            variant={{
+              size: 'caption',
+              textStyling: {
+                weight: 'bold',
+              },
+            }}
+          >
+            Pertumbuhan Baru
+          </Typography>
           <DenyutTextfield
             label="Nama Anak"
             value={kidInfo.name}
             editable={false}
+          />
+          <Controller
+            control={control}
+            name="measurementDate"
+            render={({ field: { value, onChange }, fieldState: { error } }) => (
+              <DenyutDateTimePicker
+                placeholder="Pilih Tanggal Pengukuran"
+                value={value}
+                setValue={onChange}
+                disabled={createGrowthRecordIsPending}
+                errorMessage={error?.message}
+                label="Tanggal Pengukuran"
+              />
+            )}
           />
           <SingleRowFieldContainer>
             <Controller
@@ -213,11 +253,6 @@ function CreateGrowthRecordScreen({
             />
           </SingleRowFieldContainer>
 
-          <DenyutButton
-            title="Simpan Data"
-            onPress={handleSubmit(onSubmit)}
-            disabled={createGrowthRecordIsPending}
-          />
           {/* Error text here */}
           {createGrowthRecordIsError && (
             <View
@@ -225,11 +260,27 @@ function CreateGrowthRecordScreen({
                 marginTop: tokens.margin.M,
               }}
             >
-              <ErrorMessageDisplay message="Terjadi kesalahan: Tidak bisa menyimpan data pertumbuhan anak" />
+              <ErrorMessageDisplay
+                message={`Terjadi kesalahan: ${
+                  errorIsDuplicate
+                    ? `Sudah ada data pertumbuhan untuk bulan pencatatan ${getDisplayGrowthRecordDate(
+                        {
+                          recordYear: outpostRecordYear,
+                          recordMonthIdx: outpostRecordMonthIdx,
+                        },
+                      )}`
+                    : 'Tidak bisa menyimpan data pertumbuhan anak'
+                }`}
+              />
             </View>
           )}
+          <DenyutButton
+            title="Simpan Data"
+            onPress={handleSubmit(onSubmit)}
+            disabled={createGrowthRecordIsPending}
+          />
         </View>
-      </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
   )
 }

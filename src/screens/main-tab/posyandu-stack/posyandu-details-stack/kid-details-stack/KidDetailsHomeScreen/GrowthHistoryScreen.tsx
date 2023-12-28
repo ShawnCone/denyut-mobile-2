@@ -71,10 +71,9 @@ function GrowthHistoryScreen({ navigation }: GrowthHistoryScreenProps) {
     >
       {data.map(
         ({ recordId, outpostRecordMonthIdx, outpostRecordYear }, idx) => (
-          <View>
+          <View key={recordId}>
             {idx > 0 && <Divider />}
             <Pressable
-              key={recordId}
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',

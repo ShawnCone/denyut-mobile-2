@@ -32,15 +32,18 @@ export async function addNewGrowthRecord({
   return data.recordId
 }
 
+export type GrowthRecordInfo =
+  Database['public']['Tables']['KidBodilyGrowth']['Row']
+
 export async function getGrowthRecordDetails({
   recordId,
 }: {
   recordId: string
-}) {
+}): Promise<GrowthRecordInfo> {
   const { data, error } = await supabaseClient
     .from('KidBodilyGrowth')
     .select()
-    .eq('id', recordId)
+    .eq('recordId', recordId)
     .single()
 
   if (error) {
@@ -80,4 +83,15 @@ export async function getKidGrowthRecordList({ kidId }: { kidId: string }) {
   }
 
   return data
+}
+
+export async function deleteGrowthRecord({ recordId }: { recordId: string }) {
+  const { error } = await supabaseClient
+    .from('KidBodilyGrowth')
+    .delete()
+    .eq('recordId', recordId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
 }
