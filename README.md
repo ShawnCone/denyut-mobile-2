@@ -2,9 +2,9 @@
 
 ## Overview
 
-Denyut mobile 2 is an android-first client side app
+Denyut mobile 2 is an android-first client side app. The main goal of this app is to digitize posyandu health tracking.
 
-TBD: Mental model image here
+![context-diagram](./docs/diagrams/context-diagram.png)
 
 ## Stack and Notable Packages
 
