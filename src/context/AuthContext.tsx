@@ -87,6 +87,7 @@ export function useAuthContext(): AuthContextValues {
 export type ProtectedAuthContextValues = {
   user: User // This user the "user" from supabase auth, need to get the user info from the database
   signOut: () => void
+  session: Session
 }
 
 const ProtectedAuthContext = createContext<ProtectedAuthContextValues>({
@@ -100,6 +101,20 @@ const ProtectedAuthContext = createContext<ProtectedAuthContextValues>({
     user_metadata: {},
   },
   signOut: () => {},
+  session: {
+    access_token: '',
+    expires_in: -1,
+    refresh_token: '',
+    token_type: '',
+    user: {
+      app_metadata: {},
+      aud: '',
+      confirmed_at: '',
+      created_at: '',
+      id: '',
+      user_metadata: {},
+    },
+  },
 })
 
 type ProtectedAuthContextProviderProps = {
