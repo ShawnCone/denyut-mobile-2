@@ -66,6 +66,7 @@ export type Query = {
   __typename?: 'Query'
   growthGraphStandardData?: Maybe<GrowthGraphStandardDataResponse>
   growthInterpretation?: Maybe<GrowthInterpretationResponse>
+  weightGrowthEvaluation?: Maybe<WeightGrowthEvaluationResponse>
 }
 
 export type QueryGrowthGraphStandardDataArgs = {
@@ -75,6 +76,10 @@ export type QueryGrowthGraphStandardDataArgs = {
 
 export type QueryGrowthInterpretationArgs = {
   growthType: GrowthType
+  recordId: Scalars['String']['input']
+}
+
+export type QueryWeightGrowthEvaluationArgs = {
   recordId: Scalars['String']['input']
 }
 
@@ -88,6 +93,13 @@ export type SingleMonthGrowthData = {
   SD3: Scalars['Float']['output']
   SD3neg: Scalars['Float']['output']
   ageInMonths: Scalars['Int']['output']
+}
+
+export type WeightGrowthEvaluationResponse = {
+  __typename?: 'WeightGrowthEvaluationResponse'
+  increaseInWeight: Scalars['Float']['output']
+  isEnough: Scalars['Boolean']['output']
+  targetIncrease: Scalars['Float']['output']
 }
 
 export type GetGrowthGraphDataQueryVariables = Exact<{
@@ -131,6 +143,20 @@ export type GetGrowthInterpretationQuery = {
       measurementDate: string
       measurementValue: number
     } | null
+  } | null
+}
+
+export type GetWeightEvaluationQueryVariables = Exact<{
+  recordId: Scalars['String']['input']
+}>
+
+export type GetWeightEvaluationQuery = {
+  __typename?: 'Query'
+  weightGrowthEvaluation?: {
+    __typename?: 'WeightGrowthEvaluationResponse'
+    increaseInWeight: number
+    isEnough: boolean
+    targetIncrease: number
   } | null
 }
 
@@ -337,4 +363,66 @@ export const GetGrowthInterpretationDocument = {
 } as unknown as DocumentNode<
   GetGrowthInterpretationQuery,
   GetGrowthInterpretationQueryVariables
+>
+export const GetWeightEvaluationDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetWeightEvaluation' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'recordId' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'weightGrowthEvaluation' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'recordId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'recordId' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'increaseInWeight' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'isEnough' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'targetIncrease' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetWeightEvaluationQuery,
+  GetWeightEvaluationQueryVariables
 >

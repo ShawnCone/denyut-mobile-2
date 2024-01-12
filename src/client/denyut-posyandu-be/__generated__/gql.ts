@@ -17,6 +17,8 @@ const documents = {
     types.GetGrowthGraphDataDocument,
   '\n  query GetGrowthInterpretation($recordId: String!, $growthType: GrowthType!) {\n    growthInterpretation(recordId: $recordId, growthType: $growthType) {\n      label\n      severity\n      previousMeasurementData {\n        measurementDate\n        measurementValue\n      }\n    }\n  }\n':
     types.GetGrowthInterpretationDocument,
+  '\n  query GetWeightEvaluation($recordId: String!) {\n    weightGrowthEvaluation(recordId: $recordId) {\n      increaseInWeight\n      isEnough\n      targetIncrease\n    }\n  }\n':
+    types.GetWeightEvaluationDocument,
 }
 
 /**
@@ -45,6 +47,12 @@ export function graphql(
 export function graphql(
   source: '\n  query GetGrowthInterpretation($recordId: String!, $growthType: GrowthType!) {\n    growthInterpretation(recordId: $recordId, growthType: $growthType) {\n      label\n      severity\n      previousMeasurementData {\n        measurementDate\n        measurementValue\n      }\n    }\n  }\n',
 ): (typeof documents)['\n  query GetGrowthInterpretation($recordId: String!, $growthType: GrowthType!) {\n    growthInterpretation(recordId: $recordId, growthType: $growthType) {\n      label\n      severity\n      previousMeasurementData {\n        measurementDate\n        measurementValue\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetWeightEvaluation($recordId: String!) {\n    weightGrowthEvaluation(recordId: $recordId) {\n      increaseInWeight\n      isEnough\n      targetIncrease\n    }\n  }\n',
+): (typeof documents)['\n  query GetWeightEvaluation($recordId: String!) {\n    weightGrowthEvaluation(recordId: $recordId) {\n      increaseInWeight\n      isEnough\n      targetIncrease\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

@@ -9,6 +9,7 @@ import {
 } from '@/utils/dateFormatter'
 import { View } from 'react-native'
 import { useGrowthDetailsContext } from '../../utils'
+import EmptyValueMeasurementCardContent from './EmptyValueCardContent'
 import GrowthInterpretationCard from './GrowthInterpretationCard'
 import SingleSeverityPill from './SingleSeverityPill'
 import {
@@ -46,29 +47,6 @@ function NumbersMeasurementCard({
         measurementType={measurementType}
       />
     </GrowthInterpretationCard>
-  )
-}
-
-function EmptyValueMeasurementCardContent({ label }: { label: string }) {
-  return (
-    <View
-      style={{
-        paddingVertical: tokens.padding.M,
-        paddingHorizontal: tokens.padding.L,
-        borderRadius: tokens.borderRadius.S,
-      }}
-    >
-      <Typography
-        variant={{
-          size: 'caption',
-        }}
-        style={{
-          textAlign: 'center',
-        }}
-      >
-        Data {label} tidak tersedia
-      </Typography>
-    </View>
   )
 }
 
@@ -120,7 +98,7 @@ function NumbersMeasurementCardContent({
     typeof interpretationData === 'undefined' ||
     value === null
   )
-    return <EmptyValueMeasurementCardContent label={label} />
+    return <EmptyValueMeasurementCardContent measurementName={label} />
 
   const previousMeasurementData = interpretationData.previousMeasurementData
 
