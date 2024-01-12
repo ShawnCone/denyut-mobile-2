@@ -7,8 +7,10 @@ const GET_GROWTH_INTERPRETATION_QUERY = graphql(`
     growthInterpretation(recordId: $recordId, growthType: $growthType) {
       label
       severity
-      differenceSincePrevious
-      isEnough
+      previousMeasurementData {
+        measurementDate
+        measurementValue
+      }
     }
   }
 `)

@@ -15,15 +15,17 @@ import { MainTabContent } from './screens/main-tab/main-tab-content'
 import { RootStack } from './screens/root-stack'
 
 function AppContent() {
-  const { loading, user, signOut } = useAuthContext()
+  const { loading, user, session, signOut } = useAuthContext()
   const [fontsLoaded] = useFonts(fontFamilies)
 
-  const protectedRouteValues: ProtectedAuthContextValues | null = user
-    ? {
-        user,
-        signOut,
-      }
-    : null
+  const protectedRouteValues: ProtectedAuthContextValues | null =
+    user && session
+      ? {
+          user,
+          signOut,
+          session,
+        }
+      : null
 
   if (loading || !fontsLoaded) {
     return <SplashScreen />
