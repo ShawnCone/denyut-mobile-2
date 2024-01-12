@@ -9,6 +9,7 @@ import {
 } from '@/utils/dateFormatter'
 import { View } from 'react-native'
 import { useGrowthDetailsContext } from '../../utils'
+import GrowthInterpretationCard from './GrowthInterpretationCard'
 import SingleSeverityPill from './SingleSeverityPill'
 import {
   GrowthMeasurementTypes,
@@ -31,52 +32,20 @@ function NumbersMeasurementCard({
   const label = getGrowthMeasurementTypeLabel(measurementType)
 
   return (
-    <View
-      style={{
-        backgroundColor: tokens.colors.neutral.white,
-        padding: tokens.padding.L,
-        gap: tokens.margin.L,
-      }}
+    <GrowthInterpretationCard
+      mainTitle={label}
+      rightSideTitle={getDisplayGrowthRecordDate({
+        recordMonthIdx: growthDetails.outpostRecordMonthIdx,
+        recordYear: growthDetails.outpostRecordYear,
+      })}
     >
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Typography
-          variant={{
-            size: 'paragraph',
-            textStyling: {
-              weight: 'bold',
-            },
-          }}
-        >
-          {label}
-        </Typography>
-        <Typography
-          variant={{
-            size: 'paragraphS',
-          }}
-          style={{
-            color: tokens.colors.neutral.normal,
-          }}
-        >
-          {getDisplayGrowthRecordDate({
-            recordMonthIdx: growthDetails.outpostRecordMonthIdx,
-            recordYear: growthDetails.outpostRecordYear,
-          })}
-        </Typography>
-      </View>
-      {/* Measurement card content */}
       <NumbersMeasurementCardContent
         value={value}
         unit={unit}
         label={label}
         measurementType={measurementType}
       />
-    </View>
+    </GrowthInterpretationCard>
   )
 }
 
