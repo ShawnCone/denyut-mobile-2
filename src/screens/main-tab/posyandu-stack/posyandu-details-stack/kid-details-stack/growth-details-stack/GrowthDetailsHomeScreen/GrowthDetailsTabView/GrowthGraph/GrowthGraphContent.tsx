@@ -68,6 +68,7 @@ function GrowthGraphContent({ measurementType }: GrowthGraphContentProps) {
           backgroundColor: tokens.colors.neutral.white,
           justifyContent: 'center',
           alignItems: 'center',
+          paddingVertical: tokens.padding.S,
         }}
       >
         <GrowthGraphRaw
