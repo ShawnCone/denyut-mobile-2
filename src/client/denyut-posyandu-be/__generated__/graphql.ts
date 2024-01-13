@@ -208,15 +208,17 @@ export const GetGrowthGraphDataDocument = {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'recordId' },
                 value: {
-                  kind: 'StringValue',
-                  value: 'f4adcd52-dceb-47cd-9739-28252c31ae88',
-                  block: false,
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'recordId' },
                 },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'growthType' },
-                value: { kind: 'EnumValue', value: 'HEIGHT' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'growthType' },
+                },
               },
             ],
             selectionSet: {

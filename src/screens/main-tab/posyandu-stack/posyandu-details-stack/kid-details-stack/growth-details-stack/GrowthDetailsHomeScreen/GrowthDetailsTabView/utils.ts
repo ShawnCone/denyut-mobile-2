@@ -32,7 +32,8 @@ export function getGrowthMeasurementTypeUnit(
   }
 }
 
-function getPosyanduBEGrowhtTypeFromGrowthMeasurementTypes(
+// Converts supabase column -> graphql Enum
+export function getPosyanduBEGrowhtTypeFromGrowthMeasurementTypes(
   inValue: GrowthMeasurementTypes,
 ): GrowthType {
   switch (inValue) {
