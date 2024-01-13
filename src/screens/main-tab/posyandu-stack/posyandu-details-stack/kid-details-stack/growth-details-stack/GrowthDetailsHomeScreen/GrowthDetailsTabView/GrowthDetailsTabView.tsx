@@ -20,8 +20,8 @@ function GrowthDetailsTabView() {
   return (
     <View
       style={{
-        flex: 1,
         gap: tokens.margin.L,
+        flex: 1,
       }}
       onLayout={onLayout}
     >
@@ -35,12 +35,18 @@ function GrowthDetailsTabView() {
         style={{
           width: containerMeasurements?.width,
           height: containerMeasurements?.height,
+          flex: 1,
         }}
         collapsable={false}
       >
         {PAGER_VIEW_NAMES.map(name => {
           return (
-            <View key={name}>
+            <View
+              key={name}
+              style={{
+                flex: 1,
+              }}
+            >
               <SingleGrowthDetailTab measurementType={name} />
             </View>
           )

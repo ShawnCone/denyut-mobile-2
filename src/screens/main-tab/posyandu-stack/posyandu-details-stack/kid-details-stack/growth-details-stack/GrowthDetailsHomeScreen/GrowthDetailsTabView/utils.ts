@@ -3,6 +3,7 @@ import {
   GrowthType,
 } from '@/client/denyut-posyandu-be/__generated__/graphql'
 import { getGrowthInterpretation } from '@/client/denyut-posyandu-be/queries/get-growth-interpretation'
+import { getWeightEvaluation } from '@/client/denyut-posyandu-be/queries/get-weight-evaluation'
 import { Database } from '@/client/supabase/types'
 import { useProtectedAuthContext } from '@/context/AuthContext'
 import { tokens } from '@/design-system/tokens/tokens'
@@ -128,4 +129,28 @@ export function getSeverityStyle(severity: GrowthInterpretationSeverity): {
         color: tokens.colors.destructive.dark,
       }
   }
+}
+
+function getWeightEvaluationQueryKey(inRecordId: string) {
+  return ['weightEvaluation', inRecordId]
+}
+
+export function useWeightEvaluation() {
+  const {
+    session: { access_token: authToken },
+  } = useProtectedAuthContext()
+
+  const {
+    growthDetails: { recordId },
+  } = useGrowthDetailsContext()
+
+  return useQuery({
+    queryKey: getWeightEvaluationQueryKey(recordId),
+    queryFn: () => {
+      return getWeightEvaluation({
+        authToken,
+        recordId,
+      })
+    },
+  })
 }
