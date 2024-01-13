@@ -1,6 +1,6 @@
 import { tokens } from '@/design-system/tokens/tokens'
 import { ScrollView } from 'react-native'
-import GrowthGraph from './GrowthGraph'
+import GrowthGraph from './GrowthGraph/GrowthGraph'
 import NumbersMeasurementCard from './NumbersMeasurementCard'
 import WeightEvaluationCard from './WeightEvaluationCard'
 import { GrowthMeasurementTypes } from './utils'

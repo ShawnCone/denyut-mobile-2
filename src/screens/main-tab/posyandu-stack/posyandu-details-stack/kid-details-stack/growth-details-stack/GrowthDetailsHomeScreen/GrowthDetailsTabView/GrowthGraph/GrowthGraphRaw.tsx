@@ -1,21 +1,24 @@
-import { SingleMonthGrowthData } from '@/client/denyut-posyandu-be/__generated__/graphql'
 import { useKidInfoContext } from '@/context/KidInfoContext'
 import Typography from '@/design-system/Typography'
-import { sexSchemaType } from '@/design-system/forms/SexSelectionFormInput'
-import { tokens } from '@/design-system/tokens/tokens'
 import { scaleLinear } from 'd3-scale'
 import { line } from 'd3-shape'
 import { Fragment } from 'react'
 import { View } from 'react-native'
 import { Circle, Path, Svg, Text } from 'react-native-svg'
-import { GrowthMeasurementTypes } from './utils'
+import { GrowthMeasurementTypes } from '../utils'
+import {
+  GraphSDType,
+  getLineColorForStandardCurves,
+  getSexGraphColor,
+} from './utils'
 
 // Constant for all cases
 const GRAPH_HEIGHT_WIDTH = 240
-const GRAPH_MARGIN = 20
+const GRAPH_MARGIN = {
+  horizontal: 20,
+  vertical: 20,
+}
 const TICK_PIXEL_LENGTH = 4
-const monthValueRange = 5 // Always 5 months for x range
-const monthTickInterval = 1
 const TICK_FONT_SIZE = 10
 
 const standardData = [
@@ -132,18 +135,20 @@ const standardData = [
 ]
 
 const measurementMonthOld = 7
-const measurementValue = 2
+const measurementValue = 70
 
 type tickInfo = {
   pixelValue: number
   label: string
 }
 
-type GrowthGraphProps = {
+type GrowthGraphRawProps = {
   measurementType: GrowthMeasurementTypes
 }
 
-export default function GrowthGraph({ measurementType }: GrowthGraphProps) {
+export default function GrowthGraphRaw({
+  measurementType,
+}: GrowthGraphRawProps) {
   const {
     kidInfo: { sex },
   } = useKidInfoContext()
@@ -154,7 +159,7 @@ export default function GrowthGraph({ measurementType }: GrowthGraphProps) {
 
   const scaleX = scaleLinear(
     [minMonth, maxMonth],
-    [GRAPH_MARGIN, GRAPH_HEIGHT_WIDTH - GRAPH_MARGIN],
+    [GRAPH_MARGIN.horizontal, GRAPH_HEIGHT_WIDTH - GRAPH_MARGIN.horizontal],
   )
 
   const monthTickIntervalValues: tickInfo[] = standardData.map(cDatum => {
@@ -177,7 +182,7 @@ export default function GrowthGraph({ measurementType }: GrowthGraphProps) {
 
   const scaleY = scaleLinear(
     [minMeasurementValue, maxMeasurementValue],
-    [GRAPH_HEIGHT_WIDTH - GRAPH_MARGIN, GRAPH_MARGIN], // Flipped because Y axis
+    [GRAPH_HEIGHT_WIDTH - GRAPH_MARGIN.vertical, GRAPH_MARGIN.vertical], // Flipped because Y axis
   )
 
   const measurementTickValues: tickInfo[] = [
@@ -205,6 +210,58 @@ export default function GrowthGraph({ measurementType }: GrowthGraphProps) {
 
   const standardizedMonthsDataToUse = standardData
 
+  // Only get path for within-range values
+  const getTranslatedMeasurementStandardData = (SDType: GraphSDType) => {
+    const dataToUse = standardData.map(
+      cDatum => [cDatum.ageInMonths, cDatum[SDType]] satisfies [number, number],
+    )
+
+    // Make data to use have higher resolution, split month to 0.5, interpolate values in between
+    const SPLIT_DATA = 5
+    const dataToUseWithHigherTickResolution: [number, number][] = []
+    for (let i = 0; i < dataToUse.length - 1; i++) {
+      const cData = dataToUse[i]
+      const nextData = dataToUse[i + 1]
+
+      const monthDiff = nextData[0] - cData[0]
+      const measurementDiff = nextData[1] - cData[1]
+
+      // Split data to 10 parts
+      for (let j = 0; j < SPLIT_DATA; j++) {
+        const cMonth = cData[0] + (monthDiff / SPLIT_DATA) * j
+        const cMeasurement = cData[1] + (measurementDiff / SPLIT_DATA) * j
+
+        dataToUseWithHigherTickResolution.push([cMonth, cMeasurement])
+      }
+    }
+
+    // Filter data to use with higher tick resolution to only within range
+    const dataToUseWithHigherTickResolutionWithinRange =
+      dataToUseWithHigherTickResolution.filter(cData => {
+        const [cMonth, cMeasurement] = cData
+
+        return (
+          cMonth >= minMonth &&
+          cMonth <= maxMonth &&
+          cMeasurement >= minMeasurementValue &&
+          cMeasurement <= maxMeasurementValue
+        )
+      })
+
+    return (
+      lineTranslator(dataToUseWithHigherTickResolutionWithinRange) ?? undefined
+    )
+  }
+  const SDTypesToDraw: GraphSDType[] = [
+    'SD3',
+    'SD2',
+    'SD1',
+    'SD0',
+    'SD1neg',
+    'SD2neg',
+    'SD3neg',
+  ]
+
   if (standardizedMonthsDataToUse.length === 0) {
     return (
       <View
@@ -227,7 +284,7 @@ export default function GrowthGraph({ measurementType }: GrowthGraphProps) {
         width: GRAPH_HEIGHT_WIDTH,
       }}
     >
-      <Svg>
+      <Svg viewBox={`0 0 ${GRAPH_HEIGHT_WIDTH} ${GRAPH_HEIGHT_WIDTH}`}>
         {/* X Axis and ticks*/}
         <Path
           stroke="black"
@@ -302,97 +359,17 @@ export default function GrowthGraph({ measurementType }: GrowthGraphProps) {
 
         {/* Lines */}
         {/* SD 3 */}
-        <Path
-          stroke={getLineColorForStandardCurves('SD3')}
-          strokeWidth={2}
-          d={
-            lineTranslator(
-              standardizedMonthsDataToUse.map(cDatum => [
-                cDatum.ageInMonths,
-                cDatum.SD3,
-              ]),
-            ) ?? undefined
-          }
-        />
-        {/* SD 2 */}
-        <Path
-          stroke={getLineColorForStandardCurves('SD2')}
-          strokeWidth={2}
-          d={
-            lineTranslator(
-              standardizedMonthsDataToUse.map(cDatum => [
-                cDatum.ageInMonths,
-                cDatum.SD2,
-              ]),
-            ) ?? undefined
-          }
-        />
-        {/* SD 1 */}
-        <Path
-          stroke={getLineColorForStandardCurves('SD1')}
-          strokeWidth={2}
-          d={
-            lineTranslator(
-              standardizedMonthsDataToUse.map(cDatum => [
-                cDatum.ageInMonths,
-                cDatum.SD1,
-              ]),
-            ) ?? undefined
-          }
-        />
-        {/* SD 0 */}
-        <Path
-          stroke={getLineColorForStandardCurves('SD0')}
-          strokeWidth={2}
-          d={
-            lineTranslator(
-              standardizedMonthsDataToUse.map(cDatum => [
-                cDatum.ageInMonths,
-                cDatum.SD0,
-              ]),
-            ) ?? undefined
-          }
-        />
-        {/* SD -1 */}
-        <Path
-          stroke={getLineColorForStandardCurves('SD1neg')}
-          strokeWidth={2}
-          d={
-            lineTranslator(
-              standardizedMonthsDataToUse.map(cDatum => [
-                cDatum.ageInMonths,
-                cDatum.SD1neg,
-              ]),
-            ) ?? undefined
-          }
-        />
-        {/* SD -2 */}
-        <Path
-          stroke={getLineColorForStandardCurves('SD2neg')}
-          strokeWidth={2}
-          d={
-            lineTranslator(
-              standardizedMonthsDataToUse.map(cDatum => [
-                cDatum.ageInMonths,
-                cDatum.SD2neg,
-              ]),
-            ) ?? undefined
-          }
-        />
-
-        {/* SD -3 */}
-        <Path
-          stroke={getLineColorForStandardCurves('SD3neg')}
-          strokeWidth={2}
-          d={
-            lineTranslator(
-              standardizedMonthsDataToUse.map(cDatum => [
-                cDatum.ageInMonths,
-                cDatum.SD3neg,
-              ]),
-            ) ?? undefined
-          }
-        />
+        {SDTypesToDraw.map((cSDType, idx) => {
+          return (
+            <Path
+              key={idx}
+              stroke={getLineColorForStandardCurves(cSDType)}
+              strokeWidth={2}
+              d={getTranslatedMeasurementStandardData(cSDType)}
+              fill="none"
+            />
+          )
+        })}
 
         {/* Point */}
         <Circle
@@ -422,34 +399,5 @@ function getMeasurementValueRangesAndIntervals(
   return {
     measurementValueRange: 15,
     measurementValueTickInterval: 5,
-  }
-}
-
-type GraphSDType = Omit<
-  keyof SingleMonthGrowthData,
-  '_typename' | 'ageInMonths'
->
-
-function getLineColorForStandardCurves(inCurveMode: GraphSDType) {
-  if (inCurveMode === 'SD3' || inCurveMode === 'SD3neg') {
-    return tokens.colors.destructive.dark
-  }
-
-  if (inCurveMode === 'SD2' || inCurveMode === 'SD2neg') {
-    return tokens.colors.warning.dark
-  }
-
-  if (inCurveMode === 'SD1' || inCurveMode === 'SD1neg') {
-    return tokens.colors.primary.dark
-  }
-  return tokens.colors.neutral.dark
-}
-
-export function getSexGraphColor(inSex: sexSchemaType): string {
-  switch (inSex) {
-    case 'male':
-      return '#0097D7'
-    case 'female':
-      return '#E47DB2'
   }
 }
