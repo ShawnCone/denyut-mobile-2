@@ -4,16 +4,11 @@ import {
 } from '@/client/denyut-posyandu-be/__generated__/graphql'
 import { getGrowthInterpretation } from '@/client/denyut-posyandu-be/queries/get-growth-interpretation'
 import { getWeightEvaluation } from '@/client/denyut-posyandu-be/queries/get-weight-evaluation'
-import { Database } from '@/client/supabase/types'
+
 import { useProtectedAuthContext } from '@/context/AuthContext'
 import { tokens } from '@/design-system/tokens/tokens'
 import { useQuery } from '@tanstack/react-query'
-import { useGrowthDetailsContext } from '../../utils'
-
-export type GrowthMeasurementTypes = keyof Pick<
-  Database['public']['Tables']['KidBodilyGrowth']['Row'],
-  'weight' | 'height' | 'headCirc' | 'armCirc'
->
+import { GrowthMeasurementTypes, useGrowthDetailsContext } from '../../utils'
 
 export const PAGER_VIEW_NAMES: GrowthMeasurementTypes[] = [
   'weight',
@@ -21,21 +16,6 @@ export const PAGER_VIEW_NAMES: GrowthMeasurementTypes[] = [
   'headCirc',
   'armCirc',
 ]
-
-export function getGrowthMeasurementTypeLabel(
-  inValue: GrowthMeasurementTypes,
-): string {
-  switch (inValue) {
-    case 'weight':
-      return 'Berat Badan'
-    case 'height':
-      return 'Tinggi Badan'
-    case 'headCirc':
-      return 'Lingkar Kepala'
-    case 'armCirc':
-      return 'Lingkar Lengan'
-  }
-}
 
 export function getGrowthMeasurementTypeUnit(
   inValue: GrowthMeasurementTypes,

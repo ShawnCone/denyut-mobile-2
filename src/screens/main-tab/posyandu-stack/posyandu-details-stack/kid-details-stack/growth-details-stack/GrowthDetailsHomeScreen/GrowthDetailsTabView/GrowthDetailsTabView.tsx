@@ -3,9 +3,10 @@ import { useMeasure } from '@/utils/useMeasure'
 import { useEffect, useRef, useState } from 'react'
 import { View } from 'react-native'
 import PagerView from 'react-native-pager-view'
+import { GrowthMeasurementTypes } from '../../utils'
 import SingleGrowthDetailTab from './SingleGrowthDetailTab'
 import TabSwitcher from './TabSwitcher'
-import { GrowthMeasurementTypes, PAGER_VIEW_NAMES } from './utils'
+import { PAGER_VIEW_NAMES } from './utils'
 
 function GrowthDetailsTabView() {
   const { measurements: containerMeasurements, onLayout } = useMeasure()

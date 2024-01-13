@@ -2,12 +2,21 @@ import { SingleMonthGrowthData } from '@/client/denyut-posyandu-be/__generated__
 import { sexSchemaType } from '@/design-system/forms/SexSelectionFormInput'
 import { tokens } from '@/design-system/tokens/tokens'
 
-export function getSexGraphColor(inSex: sexSchemaType): string {
+export function getSexGraphColor(inSex: sexSchemaType): {
+  dark: string
+  light: string
+} {
   switch (inSex) {
     case 'male':
-      return '#0097D7'
+      return {
+        dark: '#0097D7',
+        light: '#80CBEB',
+      }
     case 'female':
-      return '#E47DB2'
+      return {
+        dark: '#E47DB2',
+        light: '#F2BED8',
+      }
   }
 }
 

@@ -2,6 +2,7 @@ import {
   GrowthRecordInfo,
   getGrowthRecordDetails,
 } from '@/client/supabase/queries/growth-record'
+import { Database } from '@/client/supabase/types'
 import { useKidInfoContext } from '@/context/KidInfoContext'
 import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import ErrorIndicator from '@/design-system/ErrorIndicator'
@@ -14,6 +15,11 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import { printAsync } from 'expo-print'
 import { createContext, useContext } from 'react'
+
+export type GrowthMeasurementTypes = keyof Pick<
+  Database['public']['Tables']['KidBodilyGrowth']['Row'],
+  'weight' | 'height' | 'headCirc' | 'armCirc'
+>
 
 export function getGrowthDetailsQueryKey(recordId: string) {
   return ['growth-record', recordId]
@@ -155,4 +161,19 @@ export function GrowthDetailsContextProvider({
 
 export function useGrowthDetailsContext() {
   return useContext(GrowthDetailsContext)
+}
+
+export function getGrowthMeasurementTypeLabel(
+  inMeasurementType: GrowthMeasurementTypes,
+) {
+  switch (inMeasurementType) {
+    case 'armCirc':
+      return 'Lingkar Lengan'
+    case 'headCirc':
+      return 'Lingkar Kepala'
+    case 'height':
+      return 'Tinggi Badan'
+    case 'weight':
+      return 'Berat Badan'
+  }
 }

@@ -1,9 +1,9 @@
 import { tokens } from '@/design-system/tokens/tokens'
 import { ScrollView } from 'react-native'
+import { GrowthMeasurementTypes } from '../../utils'
 import GrowthGraph from './GrowthGraph/GrowthGraph'
 import NumbersMeasurementCard from './NumbersMeasurementCard'
 import WeightEvaluationCard from './WeightEvaluationCard'
-import { GrowthMeasurementTypes } from './utils'
 
 type SingleGrowthDetailTabProps = {
   measurementType: GrowthMeasurementTypes

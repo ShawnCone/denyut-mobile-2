@@ -4,9 +4,9 @@ import { Pressable, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import {
   GrowthMeasurementTypes,
-  PAGER_VIEW_NAMES,
   getGrowthMeasurementTypeLabel,
-} from './utils'
+} from '../../utils'
+import { PAGER_VIEW_NAMES } from './utils'
 
 type TabSwitcherProps = {
   currentTab: GrowthMeasurementTypes
