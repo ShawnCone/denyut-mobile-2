@@ -5,12 +5,14 @@ import { View } from 'react-native'
 
 type GrowthInterpretationCardProps = {
   mainTitle: string
+  subtitle?: string
   rightSideTitle?: string
   children: ReactNode
 }
 
 function GrowthInterpretationCard({
   mainTitle,
+  subtitle,
   rightSideTitle,
   children,
 }: GrowthInterpretationCardProps) {
@@ -22,36 +24,51 @@ function GrowthInterpretationCard({
         gap: tokens.margin.L,
       }}
     >
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Typography
-          variant={{
-            size: 'paragraph',
-            textStyling: {
-              weight: 'bold',
-            },
+      <View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
           }}
         >
-          {mainTitle}
-        </Typography>
-        {rightSideTitle && (
           <Typography
             variant={{
-              size: 'paragraphS',
+              size: 'paragraph',
+              textStyling: {
+                weight: 'bold',
+              },
+            }}
+          >
+            {mainTitle}
+          </Typography>
+          {rightSideTitle && (
+            <Typography
+              variant={{
+                size: 'paragraphS',
+              }}
+              style={{
+                color: tokens.colors.neutral.normal,
+              }}
+            >
+              {rightSideTitle}
+            </Typography>
+          )}
+        </View>
+        {subtitle && (
+          <Typography
+            variant={{
+              size: 'captionS',
             }}
             style={{
               color: tokens.colors.neutral.normal,
             }}
           >
-            {rightSideTitle}
+            {subtitle}
           </Typography>
         )}
       </View>
+
       {children}
     </View>
   )

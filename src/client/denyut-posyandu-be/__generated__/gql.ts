@@ -13,7 +13,7 @@ import * as types from './graphql'
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  '\n  query GetGrowthGraphData($recordId: String!, $growthType: GrowthType!) {\n    growthGraphStandardData(\n      recordId: "f4adcd52-dceb-47cd-9739-28252c31ae88"\n      growthType: HEIGHT\n    ) {\n      standardData {\n        ageInMonths\n        SD0\n        SD1\n        SD2\n        SD3\n        SD1neg\n        SD2neg\n        SD3neg\n      }\n      measurementMonthOld\n      measurementValue\n    }\n  }\n':
+  '\n  query GetGrowthGraphData($recordId: String!, $growthType: GrowthType!) {\n    growthGraphStandardData(recordId: $recordId, growthType: $growthType) {\n      standardData {\n        ageInMonths\n        SD0\n        SD1\n        SD2\n        SD3\n        SD1neg\n        SD2neg\n        SD3neg\n      }\n      measurementMonthOld\n      measurementValue\n    }\n  }\n':
     types.GetGrowthGraphDataDocument,
   '\n  query GetGrowthInterpretation($recordId: String!, $growthType: GrowthType!) {\n    growthInterpretation(recordId: $recordId, growthType: $growthType) {\n      label\n      severity\n      previousMeasurementData {\n        measurementDate\n        measurementValue\n      }\n    }\n  }\n':
     types.GetGrowthInterpretationDocument,
@@ -39,8 +39,8 @@ export function graphql(source: string): unknown
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetGrowthGraphData($recordId: String!, $growthType: GrowthType!) {\n    growthGraphStandardData(\n      recordId: "f4adcd52-dceb-47cd-9739-28252c31ae88"\n      growthType: HEIGHT\n    ) {\n      standardData {\n        ageInMonths\n        SD0\n        SD1\n        SD2\n        SD3\n        SD1neg\n        SD2neg\n        SD3neg\n      }\n      measurementMonthOld\n      measurementValue\n    }\n  }\n',
-): (typeof documents)['\n  query GetGrowthGraphData($recordId: String!, $growthType: GrowthType!) {\n    growthGraphStandardData(\n      recordId: "f4adcd52-dceb-47cd-9739-28252c31ae88"\n      growthType: HEIGHT\n    ) {\n      standardData {\n        ageInMonths\n        SD0\n        SD1\n        SD2\n        SD3\n        SD1neg\n        SD2neg\n        SD3neg\n      }\n      measurementMonthOld\n      measurementValue\n    }\n  }\n']
+  source: '\n  query GetGrowthGraphData($recordId: String!, $growthType: GrowthType!) {\n    growthGraphStandardData(recordId: $recordId, growthType: $growthType) {\n      standardData {\n        ageInMonths\n        SD0\n        SD1\n        SD2\n        SD3\n        SD1neg\n        SD2neg\n        SD3neg\n      }\n      measurementMonthOld\n      measurementValue\n    }\n  }\n',
+): (typeof documents)['\n  query GetGrowthGraphData($recordId: String!, $growthType: GrowthType!) {\n    growthGraphStandardData(recordId: $recordId, growthType: $growthType) {\n      standardData {\n        ageInMonths\n        SD0\n        SD1\n        SD2\n        SD3\n        SD1neg\n        SD2neg\n        SD3neg\n      }\n      measurementMonthOld\n      measurementValue\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -4,10 +4,7 @@ import { DenyutPosyanduBeClient } from '../client'
 
 const GET_GROWTH_GRAPH_DATA = graphql(`
   query GetGrowthGraphData($recordId: String!, $growthType: GrowthType!) {
-    growthGraphStandardData(
-      recordId: "f4adcd52-dceb-47cd-9739-28252c31ae88"
-      growthType: HEIGHT
-    ) {
+    growthGraphStandardData(recordId: $recordId, growthType: $growthType) {
       standardData {
         ageInMonths
         SD0

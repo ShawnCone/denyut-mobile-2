@@ -8,13 +8,15 @@ import {
   getDisplayGrowthRecordDate,
 } from '@/utils/dateFormatter'
 import { View } from 'react-native'
-import { useGrowthDetailsContext } from '../../utils'
+import {
+  GrowthMeasurementTypes,
+  getGrowthMeasurementTypeLabel,
+  useGrowthDetailsContext,
+} from '../../utils'
 import EmptyValueMeasurementCardContent from './EmptyValueCardContent'
 import GrowthInterpretationCard from './GrowthInterpretationCard'
 import SingleSeverityPill from './SingleSeverityPill'
 import {
-  GrowthMeasurementTypes,
-  getGrowthMeasurementTypeLabel,
   getGrowthMeasurementTypeUnit,
   getInterpretationSource,
   getSeverityStyle,
