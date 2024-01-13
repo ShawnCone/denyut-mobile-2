@@ -77,6 +77,7 @@ export default function GrowthGraphRaw({
     [GRAPH_HEIGHT_WIDTH - GRAPH_MARGIN.vertical, GRAPH_MARGIN.vertical], // Flipped because Y axis
   )
 
+  // Get tick value for measurement, from min to max, with interval of measurementValueTickInterval
   const measurementTickValues: tickInfo[] = [
     ...Array(Math.floor(measurementValueRange / measurementValueTickInterval)),
   ].map((_, cIdx) => {
@@ -95,7 +96,7 @@ export default function GrowthGraphRaw({
     }
   })
 
-  // Line translator (Format is [monthValue, measurementValue])
+  // Line translator, for drawing lines of standard data (Format is [monthValue, measurementValue])
   const lineTranslator = line()
     .x(d => scaleX(d[0]))
     .y(d => scaleY(d[1]))
@@ -219,7 +220,9 @@ export default function GrowthGraphRaw({
           strokeWidth={1}
           d={`M ${scaleX(minMonth)} ${scaleY(minMeasurementValue)} L ${scaleX(
             minMonth,
-          )} ${scaleY(maxMeasurementValue)}`}
+          )} ${
+            measurementTickValues[measurementTickValues.length - 1].pixelValue
+          }`}
         />
         {measurementTickValues.map((cTickInfo, idx) => {
           return (
