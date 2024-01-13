@@ -114,7 +114,9 @@ function NumbersMeasurementCardContent({
         borderWidth: tokens.borderWidth.S,
         borderColor: tokens.colors.neutral.light,
         paddingTop: tokens.padding.L,
-        paddingBottom: tokens.padding.M,
+        paddingBottom: increaseSincePrevious
+          ? tokens.padding.M
+          : tokens.padding.L,
         paddingHorizontal: tokens.padding.L,
         borderRadius: tokens.borderRadius.S,
         gap: tokens.margin.M,
