@@ -1,5 +1,6 @@
 import { tokens } from '@/design-system/tokens/tokens'
 import { ScrollView } from 'react-native'
+import GrowthGraph from './GrowthGraph'
 import NumbersMeasurementCard from './NumbersMeasurementCard'
 import WeightEvaluationCard from './WeightEvaluationCard'
 import { GrowthMeasurementTypes } from './utils'
@@ -22,6 +23,7 @@ function SingleGrowthDetailTab({
     >
       <NumbersMeasurementCard measurementType={measurementType} />
       {measurementType === 'weight' && <WeightEvaluationCard />}
+      <GrowthGraph measurementType={measurementType} />
     </ScrollView>
   )
 }
