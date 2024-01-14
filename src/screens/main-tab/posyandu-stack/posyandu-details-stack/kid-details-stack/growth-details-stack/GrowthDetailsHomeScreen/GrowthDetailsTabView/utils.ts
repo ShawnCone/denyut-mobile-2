@@ -33,7 +33,7 @@ export function getGrowthMeasurementTypeUnit(
 }
 
 // Converts supabase column -> graphql Enum
-export function getPosyanduBEGrowhtTypeFromGrowthMeasurementTypes(
+export function getPosyanduBEGrowthTypeFromGrowthMeasurementTypes(
   inValue: GrowthMeasurementTypes,
 ): GrowthType {
   switch (inValue) {
@@ -63,7 +63,7 @@ export function useGrowthInterpretation(
   } = useProtectedAuthContext()
 
   const growthType =
-    getPosyanduBEGrowhtTypeFromGrowthMeasurementTypes(inMeasurementType)
+    getPosyanduBEGrowthTypeFromGrowthMeasurementTypes(inMeasurementType)
 
   const {
     growthDetails: { recordId },

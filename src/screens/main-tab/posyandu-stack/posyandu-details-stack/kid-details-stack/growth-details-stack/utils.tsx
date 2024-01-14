@@ -1,8 +1,18 @@
 import {
+  GrowthInterpretationResponse,
+  GrowthType,
+  WeightGrowthEvaluationResponse,
+} from '@/client/denyut-posyandu-be/__generated__/graphql'
+import { getGrowthInterpretation } from '@/client/denyut-posyandu-be/queries/get-growth-interpretation'
+import { getWeightEvaluation } from '@/client/denyut-posyandu-be/queries/get-weight-evaluation'
+import {
   GrowthRecordInfo,
   getGrowthRecordDetails,
 } from '@/client/supabase/queries/growth-record'
+import { KidInfo } from '@/client/supabase/queries/kid-info'
+import { PosyanduInfo } from '@/client/supabase/queries/posyandu-info'
 import { Database } from '@/client/supabase/types'
+import { useProtectedAuthContext } from '@/context/AuthContext'
 import { useKidInfoContext } from '@/context/KidInfoContext'
 import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import ErrorIndicator from '@/design-system/ErrorIndicator'
@@ -32,12 +42,113 @@ export function useGrowthDetailsQuery(recordId: string) {
   })
 }
 
-// Print module for growth details home screen
-export function usePrintGrowthData() {
-  const { kidInfo } = useKidInfoContext()
-  const { posyanduInfo } = usePosyanduInfoContext()
-  const { growthDetails } = useGrowthDetailsContext()
+export async function getAllInterpretationData({
+  authToken,
+  recordId,
+}: {
+  authToken: string
+  recordId: string
+}): Promise<
+  | {
+      success: true
+      weightInterpretation: GrowthInterpretationResponse | null | undefined
+      heightInterpretation: GrowthInterpretationResponse | null | undefined
+      headCircInterpretation: GrowthInterpretationResponse | null | undefined
+      armCircInterpretation: GrowthInterpretationResponse | null | undefined
+      weightEvaluation: WeightGrowthEvaluationResponse | null | undefined
+    }
+  | {
+      success: false
+    }
+> {
+  // Concurretly get all interpretation data
+  // Promises for interpretation data
+  const interpretationPromises: [
+    Promise<GrowthInterpretationResponse | null | undefined>,
+    Promise<GrowthInterpretationResponse | null | undefined>,
+    Promise<GrowthInterpretationResponse | null | undefined>,
+    Promise<GrowthInterpretationResponse | null | undefined>,
+    Promise<WeightGrowthEvaluationResponse | null | undefined>,
+  ] = [
+    getGrowthInterpretation({
+      authToken,
+      recordId,
+      growthType: GrowthType.Weight,
+    }),
+    getGrowthInterpretation({
+      authToken,
+      recordId,
+      growthType: GrowthType.Height,
+    }),
+    getGrowthInterpretation({
+      authToken,
+      recordId,
+      growthType: GrowthType.Headcirc,
+    }),
+    getGrowthInterpretation({
+      authToken,
+      recordId,
+      growthType: GrowthType.Armcirc,
+    }),
+    getWeightEvaluation({
+      authToken,
+      recordId,
+    }),
+  ]
 
+  const [
+    weightInterpretation,
+    heightInterpretation,
+    headCircInterpretation,
+    armCircInterpretation,
+    weightEvaluation,
+  ] = await Promise.allSettled(interpretationPromises)
+
+  // If any of these has error, return error as value
+  if (
+    weightInterpretation.status === 'rejected' ||
+    heightInterpretation.status === 'rejected' ||
+    headCircInterpretation.status === 'rejected' ||
+    armCircInterpretation.status === 'rejected' ||
+    weightEvaluation.status === 'rejected'
+  ) {
+    return {
+      success: false,
+    }
+  }
+
+  return {
+    success: true,
+    weightInterpretation: weightInterpretation.value,
+    heightInterpretation: heightInterpretation.value,
+    headCircInterpretation: headCircInterpretation.value,
+    armCircInterpretation: armCircInterpretation.value,
+    weightEvaluation: weightEvaluation.value,
+  }
+}
+
+async function generatePrintStr({
+  kidInfo,
+  posyanduInfo,
+  growthDetails,
+  authToken,
+}: {
+  kidInfo: KidInfo
+  posyanduInfo: PosyanduInfo
+  growthDetails: GrowthRecordInfo
+  authToken: string
+}) {
+  // Get interpretation data
+  const interpretationData = await getAllInterpretationData({
+    authToken,
+    recordId: growthDetails.recordId,
+  })
+
+  if (interpretationData.success === false) {
+    throw new Error('Failed to get interpretation data')
+  }
+
+  // Valid, so produce string here
   const retDataArr: string[] = []
   // Get outpost info
   retDataArr.push(`Nama Posyandu: ${posyanduInfo.name}`)
@@ -56,14 +167,29 @@ export function usePrintGrowthData() {
   )
 
   // Weight
-  retDataArr.push(`Berat Badan: ${growthDetails.weight.toFixed(1)} kg`)
-  // Severity (Interpretation result here)
-  // Weright increase from previous record if available here (And interpretation of it)
+  retDataArr.push(`Berat Berat: ${growthDetails.weight.toFixed(1)} kg`)
+  if (interpretationData.weightInterpretation) {
+    retDataArr.push(
+      `Hasil Interpretasi Berat Badan: ${interpretationData.weightInterpretation.label}`,
+    )
+  }
+  if (interpretationData.weightEvaluation) {
+    retDataArr.push(
+      `Berat Badan Naik Berdasarkan KMS: ${
+        interpretationData.weightEvaluation.isEnough ? 'Naik' : 'Tidak Naik'
+      }`,
+    )
+  }
 
   // Height
   retDataArr.push(`Tinggi Badan: ${growthDetails.height.toFixed(1)} cm`)
-  // Severity (Interpretation result here)
+  if (interpretationData.heightInterpretation) {
+    retDataArr.push(
+      `Hasil Interpretasi Tinggi Badan: ${interpretationData.heightInterpretation.label}`,
+    )
+  }
 
+  // Severity (Interpretation result here)
   // Head Circ
   retDataArr.push(
     `Lingkar Kepala: ${
@@ -72,9 +198,10 @@ export function usePrintGrowthData() {
         : 'Tidak Tersedia'
     }`,
   )
-
-  if (growthDetails.headCirc) {
-    // Severity (Interpretation result here)
+  if (growthDetails.headCirc && interpretationData.headCircInterpretation) {
+    retDataArr.push(
+      `Hasil Interpretasi Linkar Kepala: ${interpretationData.headCircInterpretation.label}`,
+    )
   }
 
   // Arm circ
@@ -86,17 +213,43 @@ export function usePrintGrowthData() {
     }`,
   )
 
-  if (growthDetails.armCirc) {
-    // Severity (Interpretation result here)
+  if (growthDetails.armCirc && interpretationData.armCircInterpretation) {
+    retDataArr.push(
+      `Hasil Interpretasi Linkar Lengan: ${interpretationData.armCircInterpretation.label}`,
+    )
   }
 
   // Print str
   const strToPrint = retDataArr.join('<br/>')
+  return strToPrint
+}
 
-  const printFn = async () =>
-    await printAsync({
-      html: strToPrint,
-    })
+// Print module for growth details home screen
+export function usePrintGrowthData() {
+  const { kidInfo } = useKidInfoContext()
+  const { posyanduInfo } = usePosyanduInfoContext()
+  const { growthDetails } = useGrowthDetailsContext()
+  const {
+    session: { access_token: authToken },
+  } = useProtectedAuthContext()
+
+  const printFn = async () => {
+    try {
+      const strToPrint = await generatePrintStr({
+        kidInfo,
+        posyanduInfo,
+        growthDetails,
+        authToken,
+      })
+
+      await printAsync({
+        html: strToPrint,
+      })
+    } catch (e) {
+      // Add toast here if error
+      console.error(e)
+    }
+  }
 
   return printFn
 }
