@@ -4,13 +4,15 @@ import { z } from 'zod'
 const preprocessNumberInput = (val: unknown) => {
   if (typeof val === 'number') return val
   if (typeof val === 'string') {
+    if (val === '') return undefined
+
     // If val is a valid string number check via regex, does not allow two dots
     if (/^[0-9]+(\.[0-9]{1,})?$/.test(val)) {
       return Number(val)
     }
 
-    // Return undefined
-    return undefined
+    // Return invalid number otherwise
+    return 'invalid_number_placeholder'
   }
 }
 

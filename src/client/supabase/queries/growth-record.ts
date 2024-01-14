@@ -95,3 +95,20 @@ export async function deleteGrowthRecord({ recordId }: { recordId: string }) {
     throw new Error(error.message)
   }
 }
+
+export async function editGrowthRecord({
+  recordId,
+  inGrowthRecord: inUpdateGrowthRecord,
+}: {
+  recordId: string
+  inGrowthRecord: Database['public']['Tables']['KidBodilyGrowth']['Update']
+}) {
+  const { error } = await supabaseClient
+    .from('KidBodilyGrowth')
+    .update(inUpdateGrowthRecord)
+    .eq('recordId', recordId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
