@@ -1,6 +1,7 @@
 import { BaseStackNavigationScreenOptions } from '@/design-system/NavigationScreenOptions'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { KidDetailsStackParamsList } from '../kid-details-stack'
+import EditGrowthDetailsScreen from './EditGrowthDetailsScreen/EditGrowthDetailsScreen'
 import GrowthDetailsHomeScreen from './GrowthDetailsHomeScreen/GrowthDetailsHomeScreen'
 import { GrowthDetailsStack } from './growth-details-stack'
 import { GrowthDetailsContextProvider } from './utils'
@@ -25,6 +26,13 @@ function GrowthDetailsContent({ route }: GrowthDetailsContentProps) {
           options={{
             headerTitle: 'Detail Pertumbuhan',
             headerBackVisible: false,
+          }}
+        />
+        <GrowthDetailsStack.Screen
+          name="editGrowthDetails"
+          component={EditGrowthDetailsScreen}
+          options={{
+            headerTitle: 'Ubah Detail Pertumbuhan',
           }}
         />
       </GrowthDetailsStack.Navigator>

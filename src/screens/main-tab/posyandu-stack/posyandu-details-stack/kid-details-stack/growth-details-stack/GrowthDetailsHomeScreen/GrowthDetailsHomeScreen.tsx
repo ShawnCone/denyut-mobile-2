@@ -73,6 +73,21 @@ function GrowthDetailsHomeScreen({ navigation }: GrowthDetailsHomeScreenProps) {
               color={tokens.colors.primary.normal}
             />
           </Pressable>
+          <Pressable
+            onPress={() => {
+              navigation.navigate('editGrowthDetails')
+            }}
+            android_ripple={{
+              color: tokens.colors.ripple,
+              borderless: true,
+            }}
+          >
+            <MaterialCommunityIcons
+              name="pencil"
+              size={tokens.iconSize.M}
+              color={tokens.colors.primary.normal}
+            />
+          </Pressable>
         </View>
       ),
     })
