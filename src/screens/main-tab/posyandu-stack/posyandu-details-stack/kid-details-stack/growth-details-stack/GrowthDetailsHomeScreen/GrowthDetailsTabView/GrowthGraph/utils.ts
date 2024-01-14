@@ -5,7 +5,7 @@ import { sexSchemaType } from '@/design-system/forms/SexSelectionFormInput'
 import { tokens } from '@/design-system/tokens/tokens'
 import { useQuery } from '@tanstack/react-query'
 import { GrowthMeasurementTypes, useGrowthDetailsContext } from '../../../utils'
-import { getPosyanduBEGrowhtTypeFromGrowthMeasurementTypes } from '../utils'
+import { getPosyanduBEGrowthTypeFromGrowthMeasurementTypes } from '../utils'
 
 export function getSexGraphColor(inSex: sexSchemaType): {
   dark: string
@@ -68,7 +68,7 @@ export function useGrowthGraphData(inMeasurementType: GrowthMeasurementTypes) {
         authToken,
         recordId,
         growthType:
-          getPosyanduBEGrowhtTypeFromGrowthMeasurementTypes(inMeasurementType),
+          getPosyanduBEGrowthTypeFromGrowthMeasurementTypes(inMeasurementType),
       })
     },
   })
