@@ -19,7 +19,7 @@ function PosyanduDetailsKidsListScreen({
   function navigateToKidDetails(kidId: KidInfoSummary['id']) {
     navigation.navigate('KidDetailsStack', {
       kidId,
-      initialRoute: route.params.nextKidDetailsRoute,
+      screen: route.params.nextKidDetailsRoute,
     })
   }
 

@@ -44,7 +44,7 @@ export const PosyanduInfoContextProvider = ({
 
   if (isError) {
     // Show error, maybe clear posyandu ID?
-    return <ErrorIndicator message="Terjadi kesalahan" />
+    return <ErrorIndicator message="Tidak bisa memuat posyandu" />
   }
 
   return (

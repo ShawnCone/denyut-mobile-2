@@ -8,15 +8,24 @@ type ErrorIndicatorProps = {
   fullPage?: boolean
   message?: string
   onRetry?: () => void
+  darkMode?: boolean
 }
 
-function ErrorIndicator({ fullPage, message, onRetry }: ErrorIndicatorProps) {
+function ErrorIndicator({
+  fullPage,
+  message,
+  onRetry,
+  darkMode,
+}: ErrorIndicatorProps) {
   return (
     <View
       style={[
         styles.container,
         {
           flex: fullPage ? 1 : undefined,
+          backgroundColor: darkMode
+            ? tokens.colors.primary.dark
+            : tokens.colors.neutral.white,
         },
       ]}
     >
@@ -32,7 +41,9 @@ function ErrorIndicator({ fullPage, message, onRetry }: ErrorIndicatorProps) {
         }}
         style={{
           textAlign: 'center',
-          color: tokens.colors.neutral.normal,
+          color: darkMode
+            ? tokens.colors.neutral.white
+            : tokens.colors.neutral.normal,
         }}
       >
         Terjadi Kesalahan{message && `: ${message}`}
@@ -47,7 +58,9 @@ function ErrorIndicator({ fullPage, message, onRetry }: ErrorIndicatorProps) {
               },
             },
             style: {
-              color: tokens.colors.primary.normal,
+              color: darkMode
+                ? tokens.colors.neutral.white
+                : tokens.colors.neutral.normal,
             },
           }}
           pressableProps={{

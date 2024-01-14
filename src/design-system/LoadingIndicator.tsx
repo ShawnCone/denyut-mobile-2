@@ -7,11 +7,13 @@ type LoadingIndicatorProps = {
   fullPage?: boolean
   message?: string
   size?: number
+  color?: string
 }
 function LoadingIndicator({
   fullPage = true,
   message,
   size,
+  color,
 }: LoadingIndicatorProps) {
   return (
     <View
@@ -24,7 +26,7 @@ function LoadingIndicator({
     >
       <ActivityIndicator
         size={size ?? 'large'}
-        color={tokens.colors.primary.dark}
+        color={color ?? tokens.colors.primary.dark}
       />
       {message && (
         <Typography

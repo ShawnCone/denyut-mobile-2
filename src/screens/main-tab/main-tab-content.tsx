@@ -7,13 +7,13 @@ import LoadingIndicator from '@/design-system/LoadingIndicator'
 import { fontFamilyNameEnum } from '@/design-system/tokens/font-families'
 import { tokens } from '@/design-system/tokens/tokens'
 import CreateUserInfoScreen from '@/screens/main-tab/CreateUserInfo/CreateUserInfoScreen'
-import HomeScreen from '@/screens/main-tab/HomeScreen'
 import { MainTab } from '@/screens/main-tab/main-tab'
 import ProfileStackContent from '@/screens/main-tab/profile-stack/profile-stack-content'
 import { RootStackParamsList } from '@/screens/root-stack'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useEffect } from 'react'
+import HomeScreen from './HomeScreen/HomeScreen'
 import PosyanduStackContent from './posyandu-stack/posyandu-stack-content'
 
 type MainTabProps = NativeStackScreenProps<RootStackParamsList, 'Main'>
@@ -46,7 +46,7 @@ export function MainTabContent({ navigation }: MainTabProps) {
   return (
     <UserInfoContextProvider value={{ userInfo }}>
       <MainTab.Navigator
-        initialRouteName="Posyandu"
+        initialRouteName="Home"
         screenOptions={() => ({
           tabBarActiveTintColor: tokens.colors.primary.dark,
           tabBarInactiveTintColor: tokens.colors.neutral.light,
