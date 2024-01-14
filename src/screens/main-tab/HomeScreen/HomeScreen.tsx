@@ -10,7 +10,7 @@ import {
 import { Pressable, View } from 'react-native'
 import { MainTabParamsList } from '../main-tab'
 import MyPosyanduListCards from './MyPosyanduListCards'
-import { getGreetings } from './utils'
+import { checkUserInfoComplete, getGreetings } from './utils'
 
 // Hacky way to get status bar color change working
 const HomeStack = createNativeStackNavigator<{
@@ -21,6 +21,8 @@ type HomeScreenProps = NativeStackScreenProps<MainTabParamsList, 'Home'>
 
 function HomeScreen({ navigation }: HomeScreenProps) {
   const { userInfo } = useUserInfoContext()
+
+  const userInfoIsComplete = checkUserInfoComplete(userInfo)
 
   function navigateToPosyanduDetail(posyanduId: string) {
     navigation.navigate('Posyandu', {
@@ -162,70 +164,126 @@ function HomeScreen({ navigation }: HomeScreenProps) {
                 flex: 1,
               }}
             >
-              <Pressable
-                onPress={goToUpdateProfile}
-                style={{
-                  padding: tokens.padding.XL,
-                  paddingVertical: tokens.padding.L,
-                  backgroundColor: tokens.colors.warning.extraLight,
-                  borderRadius: tokens.borderRadius.M,
-                  flexDirection: 'row',
-                  gap: tokens.margin.XL,
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-                android_ripple={{
-                  color: tokens.colors.ripple,
-                }}
-              >
-                <FontAwesome
-                  name="exclamation-triangle"
-                  size={tokens.iconSize.M}
-                  color={tokens.colors.warning.dark}
-                />
-
-                <View
+              {/* Button to update profile */}
+              {!userInfoIsComplete && (
+                <Pressable
+                  onPress={goToUpdateProfile}
                   style={{
-                    flex: 1,
-                    gap: tokens.margin.S,
+                    padding: tokens.padding.XL,
+                    paddingVertical: tokens.padding.L,
+                    backgroundColor: tokens.colors.warning.extraLight,
+                    borderRadius: tokens.borderRadius.M,
+                    flexDirection: 'row',
+                    gap: tokens.margin.XL,
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                  android_ripple={{
+                    color: tokens.colors.ripple,
                   }}
                 >
-                  {/* Incomplete profile card, links to update profile page */}
+                  <FontAwesome
+                    name="exclamation-triangle"
+                    size={tokens.iconSize.M}
+                    color={tokens.colors.warning.dark}
+                  />
+
+                  <View
+                    style={{
+                      flex: 1,
+                      gap: tokens.margin.S,
+                    }}
+                  >
+                    {/* Incomplete profile card, links to update profile page */}
+                    <Typography
+                      variant={{
+                        size: 'paragraphS',
+                        textStyling: {
+                          weight: 'bold',
+                        },
+                      }}
+                    >
+                      Profil anda belum lengkap
+                    </Typography>
+                    <Typography
+                      variant={{
+                        size: 'captionS',
+                      }}
+                    >
+                      Lengkapi data diri anda untuk kenyamanan penggunaan
+                      aplikasi denyut.
+                    </Typography>
+                    <Typography
+                      variant={{
+                        size: 'captionS',
+                      }}
+                      style={{
+                        textDecorationLine: 'underline',
+                      }}
+                    >
+                      Klik di sini untuk melengkapi profil anda
+                    </Typography>
+                  </View>
+                </Pressable>
+              )}
+
+              {/* Tutorial scroller part */}
+              <View
+                style={{
+                  gap: tokens.margin.L,
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
                   <Typography
+                    style={{
+                      color: tokens.colors.neutral.dark,
+                    }}
                     variant={{
-                      size: 'paragraphS',
+                      size: 'paragraph',
                       textStyling: {
                         weight: 'bold',
                       },
                     }}
                   >
-                    Profil anda belum lengkap
+                    Tutorial
                   </Typography>
-                  <Typography
-                    variant={{
-                      size: 'captionS',
-                    }}
-                  >
-                    Lengkapi data diri anda untuk kenyamanan penggunaan aplikasi
-                    denyut.
-                  </Typography>
-                  <Typography
-                    variant={{
-                      size: 'captionS',
-                    }}
+                  <Pressable
                     style={{
-                      textDecorationLine: 'underline',
+                      padding: tokens.padding.S,
+                    }}
+                    android_ripple={{
+                      color: tokens.colors.ripple,
                     }}
                   >
-                    Klik di sini untuk melengkapi profil anda
-                  </Typography>
+                    <Typography
+                      variant={{
+                        size: 'caption',
+                      }}
+                      style={{
+                        color: tokens.colors.neutral.normal,
+                      }}
+                    >
+                      Lihat Semua
+                    </Typography>
+                  </Pressable>
                 </View>
-              </Pressable>
-
-              {/* Tutorial scroller part */}
-              <View>
-                <Typography>Tutorial</Typography>
-                <View>{/* Tutorial cards */}</View>
+                <Typography
+                  variant={{
+                    size: 'caption',
+                  }}
+                  style={{
+                    color: tokens.colors.neutral.dark,
+                    textAlign: 'center',
+                  }}
+                >
+                  Belum ada tutorial yang tersedia
+                </Typography>
               </View>
             </View>
           </View>
