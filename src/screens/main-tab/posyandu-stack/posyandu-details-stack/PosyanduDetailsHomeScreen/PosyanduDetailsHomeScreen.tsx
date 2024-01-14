@@ -33,7 +33,8 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
 
   // Back to posyandu selection
   function goToPosyanduHomeScreen() {
-    navigation.getParent()?.goBack()
+    // MAY BE UNSAFE
+    navigation.getParent()?.navigate('PosyanduHome')
   }
 
   function navigateToPosyanduMembers() {

@@ -1,3 +1,4 @@
+import { NavigatorScreenParams } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { KidDetailsStackParamsList } from './kid-details-stack/kid-details-stack'
 
@@ -7,12 +8,14 @@ export type PosyanduDetailsStackParamsList = {
   PendingPosyanduDetailsMembers: undefined
   PosyanduDetailsMembers: undefined
   PosyanduDetailsKidsList: {
-    nextKidDetailsRoute: keyof KidDetailsStackParamsList
+    nextKidDetailsRoute: Extract<
+      keyof KidDetailsStackParamsList,
+      'kidDetailsHome' | 'createGrowthRecord' | 'growthHistory'
+    >
   }
 
   KidRegistration: undefined
-  KidDetailsStack: {
-    initialRoute: keyof KidDetailsStackParamsList
+  KidDetailsStack: NavigatorScreenParams<KidDetailsStackParamsList> & {
     kidId: string
   }
 }

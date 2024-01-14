@@ -14,7 +14,7 @@ type PosyanduStackContentProps = BottomTabScreenProps<
   'Posyandu'
 >
 
-function PosyanduStackContent(_props: PosyanduStackContentProps) {
+function PosyanduStackContent({ route }: PosyanduStackContentProps) {
   return (
     <PosyanduStack.Navigator
       initialRouteName="PosyanduHome"

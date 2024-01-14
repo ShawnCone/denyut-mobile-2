@@ -50,7 +50,7 @@ function AppContent() {
               name="Verify"
               component={VerifyScreen}
               initialParams={{
-                phoneNumber: '+12179791776',
+                phoneNumber: '',
               }}
             />
           </>

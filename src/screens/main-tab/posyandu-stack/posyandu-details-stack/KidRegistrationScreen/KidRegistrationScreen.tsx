@@ -40,7 +40,7 @@ function KidRegistrationScreen({ navigation }: KidRegistrationScreenProps) {
       // navigate to kid details screen
       navigation.navigate('KidDetailsStack', {
         kidId: newKidId,
-        initialRoute: 'kidDetailsHome',
+        screen: 'kidDetailsHome',
       })
     },
   })

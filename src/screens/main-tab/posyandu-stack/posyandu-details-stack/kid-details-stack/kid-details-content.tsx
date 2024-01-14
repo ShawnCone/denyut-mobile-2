@@ -18,12 +18,12 @@ type KidDetailsContentProps = NativeStackScreenProps<
 >
 
 function KidDetailsContent({ route }: KidDetailsContentProps) {
-  const { initialRoute, kidId } = route.params
+  const { kidId } = route.params
 
   return (
     <KidInfoContextProvider selectedKidId={kidId}>
       <KidDetailsStack.Navigator
-        initialRouteName={initialRoute}
+        initialRouteName="kidDetailsHome"
         screenOptions={BaseStackNavigationScreenOptions}
       >
         <KidDetailsStack.Screen

@@ -12,7 +12,7 @@ type PosyanduHomeScreenProps = NativeStackScreenProps<
 >
 
 // User's posyandu home, containing user posyandu lists
-function PosyanduHomeScreen({ navigation }: PosyanduHomeScreenProps) {
+function PosyanduHomeScreen({ navigation, route }: PosyanduHomeScreenProps) {
   function handleNavigateToNewPosyanduSearch() {
     navigation.navigate('NewPosyanduSearch')
   }
@@ -25,7 +25,6 @@ function PosyanduHomeScreen({ navigation }: PosyanduHomeScreenProps) {
 
   return (
     <View style={StyleSheet.absoluteFill}>
-      {/* Header */}
       <View
         style={{
           backgroundColor: tokens.colors.primary.dark,
