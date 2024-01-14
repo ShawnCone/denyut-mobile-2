@@ -12,6 +12,11 @@ import {
 import ClickableTypography from '@/design-system/ClickableTypography'
 import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
+import { showToast } from '@/design-system/toast/toast'
+import {
+  CANNOT_VERIFY_OTP,
+  OTP_RESENT,
+} from '@/design-system/toast/toast-messages'
 import { tokens } from '@/design-system/tokens/tokens'
 import { RootStackParamsList } from '../../root-stack'
 import { VerifyFormValues, useSendOTP, verifyFormSchema } from '../utils'
@@ -37,8 +42,7 @@ function VerifyScreen({ route }: VerifyScreenProps) {
       console.log('OTP verified')
     },
     onError: () => {
-      // Show toast?
-      console.error("Couldn't verify OTP")
+      showToast(CANNOT_VERIFY_OTP)
     },
   })
 
@@ -53,8 +57,7 @@ function VerifyScreen({ route }: VerifyScreenProps) {
   // Handle resend OTP
   const { mutate: resendOTP, isError } = useSendOTP({
     onSuccess: () => {
-      // Show toast?
-      console.log('OTP resent')
+      showToast(OTP_RESENT)
     },
   })
   function handleResendOTP() {

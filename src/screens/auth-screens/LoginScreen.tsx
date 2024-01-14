@@ -1,6 +1,8 @@
 import DenyutButton from '@/design-system/DenyutButton'
 import Typography from '@/design-system/Typography'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
+import { showToast } from '@/design-system/toast/toast'
+import { CANNOT_SEND_OTP } from '@/design-system/toast/toast-messages'
 import { tokens } from '@/design-system/tokens/tokens'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -39,8 +41,7 @@ function LoginScreen({ navigation }: LoginScreenProps) {
       })
     },
     onError: () => {
-      // Show error message or toast?
-      console.error("Couldn't send OTP")
+      showToast(CANNOT_SEND_OTP)
     },
   })
 

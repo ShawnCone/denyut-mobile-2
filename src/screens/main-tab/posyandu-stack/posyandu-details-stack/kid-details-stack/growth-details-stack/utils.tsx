@@ -18,6 +18,8 @@ import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import ErrorIndicator from '@/design-system/ErrorIndicator'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
 import { getDisplaySexStr } from '@/design-system/forms/SexSelectionFormInput'
+import { showToast } from '@/design-system/toast/toast'
+import { ERROR_PRINTING_GROWTH_RECORD } from '@/design-system/toast/toast-messages'
 import {
   getDisplayDate,
   getDisplayGrowthRecordDate,
@@ -246,8 +248,7 @@ export function usePrintGrowthData() {
         html: strToPrint,
       })
     } catch (e) {
-      // Add toast here if error
-      console.error(e)
+      showToast(ERROR_PRINTING_GROWTH_RECORD)
     }
   }
 
