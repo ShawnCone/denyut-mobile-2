@@ -2,6 +2,11 @@ import { PosyanduInfoWithMembershipStatus } from '@/client/supabase/queries/posy
 import { useProtectedAuthContext } from '@/context/AuthContext'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
 import Typography from '@/design-system/Typography'
+import { showToast } from '@/design-system/toast/toast'
+import {
+  SUCCESSFULLY_JOINED_POSYANDU,
+  UNABLE_TO_JOIN_POSYANDU,
+} from '@/design-system/toast/toast-messages'
 import { tokens } from '@/design-system/tokens/tokens'
 import { Ionicons } from '@expo/vector-icons'
 import { Pressable } from 'react-native'
@@ -25,12 +30,11 @@ function NewPosyanduSearchListMember({
 
   const { isPending: isPendingJoinPosyandu, mutate } = useJoinPosyandu({
     posyanduId,
-    onError: error => {
-      // Toast
-      console.log({ error })
+    onError: () => {
+      showToast(UNABLE_TO_JOIN_POSYANDU)
     },
     onSuccess: () => {
-      // Maybe toast?
+      showToast(SUCCESSFULLY_JOINED_POSYANDU)
     },
   })
 
