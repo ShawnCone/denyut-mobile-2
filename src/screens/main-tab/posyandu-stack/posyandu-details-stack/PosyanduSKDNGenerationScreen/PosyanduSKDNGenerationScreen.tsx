@@ -24,7 +24,7 @@ function PosyanduSKDNGenerationScreen({
   navigation,
 }: PosyanduSKDNGeneationScreenProps) {
   const {
-    posyanduInfo: { id: posyanduId },
+    posyanduInfo: { id: posyanduId, name, rw, kelurahan },
   } = usePosyanduInfoContext()
 
   const { data, isPending, isError, refetch } =
@@ -43,7 +43,15 @@ function PosyanduSKDNGenerationScreen({
     session: { access_token: authToken },
   } = useProtectedAuthContext()
   const onMonthYearCardPress = (monthIdx: number, year: number) => {
-    downloadPosyanduSKDNReport({ authToken, posyanduId, monthIdx, year })
+    downloadPosyanduSKDNReport({
+      authToken,
+      posyanduId,
+      monthIdx,
+      year,
+      posyanduName: name,
+      posyanduRw: rw,
+      posyanduKelurahan: kelurahan,
+    })
   }
 
   if (isPending) return <LoadingIndicator fullPage />

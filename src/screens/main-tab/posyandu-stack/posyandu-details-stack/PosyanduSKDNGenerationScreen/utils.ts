@@ -5,6 +5,7 @@ import { supabaseClient } from '@/client/supabase/supabase'
 import { useProtectedAuthContext } from '@/context/AuthContext'
 import {
   GENERATING_REPORT,
+  SUCCESSFULLY_GENERATED_REPORT,
   SUCCESSFULLY_SAVED_REPORT,
   UNABLE_TO_DOWNLOAD_REPORT,
   UNABLE_TO_SAVE_REPORT,
@@ -111,6 +112,9 @@ type DownloadPosyanduSKDNReportParams = {
   posyanduId: string
   monthIdx: number
   year: number
+  posyanduName: string
+  posyanduRw: string | null
+  posyanduKelurahan: string | null
 }
 
 const FILE_INFO_TIMEOUT = 10000
@@ -120,6 +124,9 @@ async function downloadPosyanduSKDNReport({
   posyanduId,
   monthIdx,
   year,
+  posyanduName,
+  posyanduRw,
+  posyanduKelurahan,
 }: DownloadPosyanduSKDNReportParams) {
   ToastAndroid.show(GENERATING_REPORT, ToastAndroid.SHORT)
 
@@ -136,9 +143,9 @@ async function downloadPosyanduSKDNReport({
     monthsData: data,
     monthIdx,
     year,
-    posyanduName: 'Posyandu',
-    posyanduRw: 'RW',
-    posyanduKelurahan: 'Kelurahan',
+    posyanduName,
+    posyanduRw: posyanduRw ?? '',
+    posyanduKelurahan: posyanduKelurahan ?? '',
   })
 
   // Wait until file exists or timeout of 10 seconds
@@ -172,7 +179,10 @@ export function useDownloadPosyanduSKDNReport({
 }) {
   return useMutation({
     mutationFn: downloadPosyanduSKDNReport,
-    onSuccess,
+    onSuccess: tempDownloadUri => {
+      ToastAndroid.show(SUCCESSFULLY_GENERATED_REPORT, ToastAndroid.SHORT)
+      onSuccess(tempDownloadUri)
+    },
     onError: () => {
       ToastAndroid.show(UNABLE_TO_DOWNLOAD_REPORT, ToastAndroid.SHORT)
     },
