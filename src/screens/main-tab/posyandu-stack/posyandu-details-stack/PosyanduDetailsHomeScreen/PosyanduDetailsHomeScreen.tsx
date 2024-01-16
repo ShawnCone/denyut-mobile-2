@@ -51,6 +51,10 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
     })
   }
 
+  function navigateToSKDNGeneration() {
+    navigation.navigate('PosyanduSKDNGeneration')
+  }
+
   function onAddGrowthRecordPress() {
     closeGrowthBottomSheet()
     navigation.navigate('PosyanduDetailsKidsList', {
@@ -265,9 +269,7 @@ function PosyanduDetailsScreen({ navigation }: PosyanduDetailsScreenProps) {
               }
               title="Laporan"
               description="Unduh laporan SKDN"
-              onPress={() => {
-                // Dowload report page
-              }}
+              onPress={navigateToSKDNGeneration}
             />
             <SingleRegularMenuCard
               icon={

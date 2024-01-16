@@ -4,12 +4,10 @@ import Divider from '@/design-system/Divider'
 import EmptyResultIndicator from '@/design-system/EmptyResultIndicator'
 import ErrorIndicator from '@/design-system/ErrorIndicator'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
-import Typography from '@/design-system/Typography'
+import SingleMonthYearCard from '@/design-system/SIngleMonthYearCard'
 import { tokens } from '@/design-system/tokens/tokens'
-import { MONTHS_LIST_LONG } from '@/utils/dateFormatter'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Pressable, ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { KidDetailsStackParamsList } from '../kid-details-stack'
 import { useGetGrowthHistoryQuery } from './utils'
 
@@ -73,52 +71,12 @@ function GrowthHistoryScreen({ navigation }: GrowthHistoryScreenProps) {
         ({ recordId, outpostRecordMonthIdx, outpostRecordYear }, idx) => (
           <View key={recordId}>
             {idx > 0 && <Divider />}
-            <Pressable
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingHorizontal: tokens.padding.L,
-                paddingVertical: tokens.padding.L,
-              }}
+            <SingleMonthYearCard
+              monthIdx={outpostRecordMonthIdx}
+              year={outpostRecordYear}
               onPress={() => onGrowthRecordPress(recordId)}
-              android_ripple={{
-                color: tokens.colors.ripple,
-              }}
-            >
-              <Typography
-                variant={{
-                  size: 'paragraphS',
-                }}
-              >
-                {MONTHS_LIST_LONG[outpostRecordMonthIdx]} {outpostRecordYear}
-              </Typography>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
-                <Typography
-                  style={{
-                    color: tokens.colors.primary.normal,
-                  }}
-                  variant={{
-                    size: 'paragraphS',
-                    textStyling: {
-                      weight: 'bold',
-                    },
-                  }}
-                >
-                  Tampilkan Data
-                </Typography>
-                <MaterialCommunityIcons
-                  name="chevron-right"
-                  color={tokens.colors.neutral.normal}
-                  size={tokens.iconSize.M}
-                />
-              </View>
-            </Pressable>
+              rightLabel="Tampilkan Data"
+            />
           </View>
         ),
       )}

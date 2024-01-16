@@ -247,11 +247,10 @@ export function usePrintGrowthData() {
       await printAsync({
         html: strToPrint,
       })
-    } catch (e) {
+    } catch {
       showToast(ERROR_PRINTING_GROWTH_RECORD)
     }
   }
-
   return printFn
 }
 

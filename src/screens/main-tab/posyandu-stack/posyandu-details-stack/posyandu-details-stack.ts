@@ -13,6 +13,10 @@ export type PosyanduDetailsStackParamsList = {
       'kidDetailsHome' | 'createGrowthRecord' | 'growthHistory'
     >
   }
+  PosyanduSKDNGeneration: undefined
+  SKDNReportDisplayScreen: {
+    reportLocalUri: string
+  }
 
   KidRegistration: undefined
   KidDetailsStack: NavigatorScreenParams<KidDetailsStackParamsList> & {
