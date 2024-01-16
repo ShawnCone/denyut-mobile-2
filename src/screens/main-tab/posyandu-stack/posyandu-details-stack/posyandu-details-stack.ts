@@ -14,6 +14,9 @@ export type PosyanduDetailsStackParamsList = {
     >
   }
   PosyanduSKDNGeneration: undefined
+  SKDNReportDisplayScreen: {
+    reportLocalUri: string
+  }
 
   KidRegistration: undefined
   KidDetailsStack: NavigatorScreenParams<KidDetailsStackParamsList> & {

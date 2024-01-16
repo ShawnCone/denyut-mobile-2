@@ -9,12 +9,14 @@ type SingleMonthYearCardProps = {
   year: number
   onPress: () => void
   rightLabel: string
+  disabled?: boolean
 }
 function SingleMonthYearCard({
   monthIdx,
   year,
   onPress,
   rightLabel,
+  disabled,
 }: SingleMonthYearCardProps) {
   return (
     <Pressable
@@ -29,8 +31,14 @@ function SingleMonthYearCard({
       android_ripple={{
         color: tokens.colors.ripple,
       }}
+      disabled={disabled}
     >
       <Typography
+        style={{
+          color: disabled
+            ? tokens.colors.neutral.light
+            : tokens.colors.neutral.dark,
+        }}
         variant={{
           size: 'paragraphS',
         }}
@@ -45,7 +53,9 @@ function SingleMonthYearCard({
       >
         <Typography
           style={{
-            color: tokens.colors.primary.normal,
+            color: disabled
+              ? tokens.colors.primary.light
+              : tokens.colors.primary.normal,
           }}
           variant={{
             size: 'paragraphS',

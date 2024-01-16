@@ -10,7 +10,8 @@ import PosyanduDetailsScreen from './PosyanduDetailsHomeScreen/PosyanduDetailsHo
 import PosyanduDetailsKidsListScreen from './PosyanduDetailsKidsScreen/PosyanduDetailsKidsListScreen'
 import ApprovedPosyanduMembersScreen from './PosyanduMembers/ApprovedPosyanduMembers/ApprovedPosyanduMembersScreen'
 import PendingPosyanduMembersScreen from './PosyanduMembers/PendingPosyanduMembers/PendingPosyanduMembersScreen'
-import PosyanduSKDNGeneationScreen from './PosyanduSKDNGenerationScreen/PosyanduSKDNGenerationScreen'
+import PosyanduSKDNGenerationScreen from './PosyanduSKDNGenerationScreen/PosyanduSKDNGenerationScreen'
+import SKDNReportDisplayScreen from './SKDNReportDisplayScreen/SKDNReportDisplayScreen'
 import KidDetailsContent from './kid-details-stack/kid-details-content'
 import { PosyanduDetailsStack } from './posyandu-details-stack'
 
@@ -75,7 +76,14 @@ function PosyanduDetailsContent({ route }: PosyanduDetailsContentProps) {
           options={{
             title: 'Laporan SKDN',
           }}
-          component={PosyanduSKDNGeneationScreen}
+          component={PosyanduSKDNGenerationScreen}
+        />
+        <PosyanduDetailsStack.Screen
+          name="SKDNReportDisplayScreen"
+          options={{
+            title: 'Laporan SKDN',
+          }}
+          component={SKDNReportDisplayScreen}
         />
       </PosyanduDetailsStack.Navigator>
     </PosyanduInfoContextProvider>

@@ -6,6 +6,7 @@ import ErrorIndicator from '@/design-system/ErrorIndicator'
 import LoadingIndicator from '@/design-system/LoadingIndicator'
 import SingleMonthYearCard from '@/design-system/SIngleMonthYearCard'
 import { tokens } from '@/design-system/tokens/tokens'
+import { useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import {
   useDownloadPosyanduSKDNReport,
@@ -20,11 +21,12 @@ function SKDNValidMonthsList() {
   const { data, isPending, isError, refetch } =
     useValidPosyanduSKDNMonths(posyanduId)
 
-  const { mutate: downloadPosyanduSKDNReport } = useDownloadPosyanduSKDNReport({
-    onSuccess: tempDownloadUri => {
-      console.log(tempDownloadUri)
-    },
-  })
+  const { mutate: downloadPosyanduSKDNReport, isPending: isDownloading } =
+    useDownloadPosyanduSKDNReport({
+      onSuccess: tempDownloadUri => {
+        setLocalReportUri(tempDownloadUri)
+      },
+    })
 
   const {
     session: { access_token: authToken },
@@ -32,6 +34,9 @@ function SKDNValidMonthsList() {
   const onMonthYearCardPress = (monthIdx: number, year: number) => {
     downloadPosyanduSKDNReport({ authToken, posyanduId, monthIdx, year })
   }
+
+  // Display report states
+  const [localReportUri, setLocalReportUri] = useState<string | null>(null)
 
   if (isPending) return <LoadingIndicator fullPage />
   if (isError)
@@ -65,6 +70,7 @@ function SKDNValidMonthsList() {
         <View key={`${monthIdx}-${year}`}>
           {idx > 0 && <Divider />}
           <SingleMonthYearCard
+            disabled={isDownloading}
             monthIdx={monthIdx}
             year={year}
             onPress={() => {

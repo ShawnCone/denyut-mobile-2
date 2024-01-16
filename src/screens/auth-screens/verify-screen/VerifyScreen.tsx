@@ -16,6 +16,7 @@ import { showToast } from '@/design-system/toast/toast'
 import {
   CANNOT_VERIFY_OTP,
   OTP_RESENT,
+  SUCCESSFULLY_VERIFIED_OTP,
 } from '@/design-system/toast/toast-messages'
 import { tokens } from '@/design-system/tokens/tokens'
 import { RootStackParamsList } from '../../root-stack'
@@ -39,7 +40,7 @@ function VerifyScreen({ route }: VerifyScreenProps) {
   const { mutate: verifyOTP, isPending: isVerifyingOTP } = useVerifyOTP({
     onSuccess: () => {
       // Navigation manually not needed if the set up in the rootstack is ok
-      console.log('OTP verified')
+      showToast(SUCCESSFULLY_VERIFIED_OTP)
     },
     onError: () => {
       showToast(CANNOT_VERIFY_OTP)

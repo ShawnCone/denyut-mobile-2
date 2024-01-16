@@ -2,6 +2,7 @@
 export const CANNOT_SEND_OTP = 'Tidak dapat mengirim OTP'
 export const CANNOT_VERIFY_OTP = 'Tidak dapat memverifikasi OTP'
 export const OTP_RESENT = 'OTP telah dikirim ulang'
+export const SUCCESSFULLY_VERIFIED_OTP = 'OTP berhasil diverifikasi'
 
 // New posyadu related messages
 export const UNABLE_TO_JOIN_POSYANDU = 'Tidak dapat bergabung dengan posyandu'

@@ -13,6 +13,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   EncodingType,
   documentDirectory,
+  getInfoAsync,
   writeAsStringAsync,
 } from 'expo-file-system'
 import { requestPermissionsAsync, saveToLibraryAsync } from 'expo-media-library'
@@ -112,6 +113,8 @@ type DownloadPosyanduSKDNReportParams = {
   year: number
 }
 
+const FILE_INFO_TIMEOUT = 10000
+
 async function downloadPosyanduSKDNReport({
   authToken,
   posyanduId,
@@ -137,10 +140,26 @@ async function downloadPosyanduSKDNReport({
     posyanduRw: 'RW',
     posyanduKelurahan: 'Kelurahan',
   })
+
+  // Wait until file exists or timeout of 10 seconds
+  const start = Date.now()
+  while (Date.now() - start < FILE_INFO_TIMEOUT) {
+    const { exists } = await getInfoAsync(tempReportLocalUri)
+    if (exists) {
+      break
+    }
+    // Sleep 1 second
+    await new Promise(resolve => setTimeout(resolve, 1000))
+  }
+
   return tempReportLocalUri
 }
 
-async function saveSKDNReportToDevice(tempReportUri: string) {
+async function saveSKDNReportToDevice({
+  tempReportUri,
+}: {
+  tempReportUri: string
+}) {
   await requestPermissionsAsync()
   await saveToLibraryAsync(tempReportUri)
 }
