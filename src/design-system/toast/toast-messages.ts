@@ -9,3 +9,8 @@ export const SUCCESSFULLY_JOINED_POSYANDU = 'Berhasil bergabung dengan posyandu'
 
 // Print related messages
 export const ERROR_PRINTING_GROWTH_RECORD = 'Gagal mencetak data pertumbuhan'
+
+// Report related messages
+export const UNABLE_TO_DOWNLOAD_REPORT = 'Tidak dapat mengunduh laporan'
+export const UNABLE_TO_SAVE_REPORT = 'Tidak dapat menyimpan laporan'
+export const SUCCESSFULLY_SAVED_REPORT = 'Berhasil menyimpan laporan'
