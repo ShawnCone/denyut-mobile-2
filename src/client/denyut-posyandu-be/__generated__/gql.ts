@@ -17,6 +17,10 @@ const documents = {
     types.GetGrowthGraphDataDocument,
   '\n  query GetGrowthInterpretation($recordId: String!, $growthType: GrowthType!) {\n    growthInterpretation(recordId: $recordId, growthType: $growthType) {\n      label\n      severity\n      previousMeasurementData {\n        measurementDate\n        measurementValue\n      }\n    }\n  }\n':
     types.GetGrowthInterpretationDocument,
+  '\n  query GetSingleMonthSKDNData(\n    $posyanduId: String!\n    $recordMonthIdx: Int!\n    $recordYear: Int!\n  ) {\n    singleMeasurementMonthSKDNData(\n      posyanduId: $posyanduId\n      recordMonthIdx: $recordMonthIdx\n      recordYear: $recordYear\n    ) {\n      dCount\n      sCount\n      kCount\n      nCount\n      S36Count\n      LCount\n      goodWeightCount\n      lessWeightCount\n      lowWeightCount\n    }\n  }\n':
+    types.GetSingleMonthSkdnDataDocument,
+  '\n  query GetValidSKDNMonthYear($posyanduId: String!) {\n    validSKDNMonthYear(posyanduId: $posyanduId) {\n      monthIdx\n      year\n    }\n  }\n':
+    types.GetValidSkdnMonthYearDocument,
   '\n  query GetWeightEvaluation($recordId: String!) {\n    weightGrowthEvaluation(recordId: $recordId) {\n      increaseInWeight\n      isEnough\n      targetIncrease\n    }\n  }\n':
     types.GetWeightEvaluationDocument,
 }
@@ -47,6 +51,18 @@ export function graphql(
 export function graphql(
   source: '\n  query GetGrowthInterpretation($recordId: String!, $growthType: GrowthType!) {\n    growthInterpretation(recordId: $recordId, growthType: $growthType) {\n      label\n      severity\n      previousMeasurementData {\n        measurementDate\n        measurementValue\n      }\n    }\n  }\n',
 ): (typeof documents)['\n  query GetGrowthInterpretation($recordId: String!, $growthType: GrowthType!) {\n    growthInterpretation(recordId: $recordId, growthType: $growthType) {\n      label\n      severity\n      previousMeasurementData {\n        measurementDate\n        measurementValue\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetSingleMonthSKDNData(\n    $posyanduId: String!\n    $recordMonthIdx: Int!\n    $recordYear: Int!\n  ) {\n    singleMeasurementMonthSKDNData(\n      posyanduId: $posyanduId\n      recordMonthIdx: $recordMonthIdx\n      recordYear: $recordYear\n    ) {\n      dCount\n      sCount\n      kCount\n      nCount\n      S36Count\n      LCount\n      goodWeightCount\n      lessWeightCount\n      lowWeightCount\n    }\n  }\n',
+): (typeof documents)['\n  query GetSingleMonthSKDNData(\n    $posyanduId: String!\n    $recordMonthIdx: Int!\n    $recordYear: Int!\n  ) {\n    singleMeasurementMonthSKDNData(\n      posyanduId: $posyanduId\n      recordMonthIdx: $recordMonthIdx\n      recordYear: $recordYear\n    ) {\n      dCount\n      sCount\n      kCount\n      nCount\n      S36Count\n      LCount\n      goodWeightCount\n      lessWeightCount\n      lowWeightCount\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetValidSKDNMonthYear($posyanduId: String!) {\n    validSKDNMonthYear(posyanduId: $posyanduId) {\n      monthIdx\n      year\n    }\n  }\n',
+): (typeof documents)['\n  query GetValidSKDNMonthYear($posyanduId: String!) {\n    validSKDNMonthYear(posyanduId: $posyanduId) {\n      monthIdx\n      year\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

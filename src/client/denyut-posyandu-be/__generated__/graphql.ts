@@ -66,6 +66,8 @@ export type Query = {
   __typename?: 'Query'
   growthGraphStandardData?: Maybe<GrowthGraphStandardDataResponse>
   growthInterpretation?: Maybe<GrowthInterpretationResponse>
+  singleMeasurementMonthSKDNData: SingleMeasurementMonthSkdnDataResponse
+  validSKDNMonthYear: Array<SingleMeasurementMonthYear>
   weightGrowthEvaluation?: Maybe<WeightGrowthEvaluationResponse>
 }
 
@@ -79,8 +81,37 @@ export type QueryGrowthInterpretationArgs = {
   recordId: Scalars['String']['input']
 }
 
+export type QuerySingleMeasurementMonthSkdnDataArgs = {
+  posyanduId: Scalars['String']['input']
+  recordMonthIdx: Scalars['Int']['input']
+  recordYear: Scalars['Int']['input']
+}
+
+export type QueryValidSkdnMonthYearArgs = {
+  posyanduId: Scalars['String']['input']
+}
+
 export type QueryWeightGrowthEvaluationArgs = {
   recordId: Scalars['String']['input']
+}
+
+export type SingleMeasurementMonthSkdnDataResponse = {
+  __typename?: 'SingleMeasurementMonthSKDNDataResponse'
+  LCount: Scalars['Int']['output']
+  S36Count: Scalars['Int']['output']
+  dCount: Scalars['Int']['output']
+  goodWeightCount: Scalars['Int']['output']
+  kCount: Scalars['Int']['output']
+  lessWeightCount: Scalars['Int']['output']
+  lowWeightCount: Scalars['Int']['output']
+  nCount: Scalars['Int']['output']
+  sCount: Scalars['Int']['output']
+}
+
+export type SingleMeasurementMonthYear = {
+  __typename?: 'SingleMeasurementMonthYear'
+  monthIdx: Scalars['Int']['output']
+  year: Scalars['Int']['output']
 }
 
 export type SingleMonthGrowthData = {
@@ -144,6 +175,41 @@ export type GetGrowthInterpretationQuery = {
       measurementValue: number
     } | null
   } | null
+}
+
+export type GetSingleMonthSkdnDataQueryVariables = Exact<{
+  posyanduId: Scalars['String']['input']
+  recordMonthIdx: Scalars['Int']['input']
+  recordYear: Scalars['Int']['input']
+}>
+
+export type GetSingleMonthSkdnDataQuery = {
+  __typename?: 'Query'
+  singleMeasurementMonthSKDNData: {
+    __typename?: 'SingleMeasurementMonthSKDNDataResponse'
+    dCount: number
+    sCount: number
+    kCount: number
+    nCount: number
+    S36Count: number
+    LCount: number
+    goodWeightCount: number
+    lessWeightCount: number
+    lowWeightCount: number
+  }
+}
+
+export type GetValidSkdnMonthYearQueryVariables = Exact<{
+  posyanduId: Scalars['String']['input']
+}>
+
+export type GetValidSkdnMonthYearQuery = {
+  __typename?: 'Query'
+  validSKDNMonthYear: Array<{
+    __typename?: 'SingleMeasurementMonthYear'
+    monthIdx: number
+    year: number
+  }>
 }
 
 export type GetWeightEvaluationQueryVariables = Exact<{
@@ -365,6 +431,170 @@ export const GetGrowthInterpretationDocument = {
 } as unknown as DocumentNode<
   GetGrowthInterpretationQuery,
   GetGrowthInterpretationQueryVariables
+>
+export const GetSingleMonthSkdnDataDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetSingleMonthSKDNData' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'posyanduId' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'recordMonthIdx' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'recordYear' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'singleMeasurementMonthSKDNData' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'posyanduId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'posyanduId' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'recordMonthIdx' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'recordMonthIdx' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'recordYear' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'recordYear' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'dCount' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'sCount' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'kCount' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'nCount' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'S36Count' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'LCount' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'goodWeightCount' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'lessWeightCount' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'lowWeightCount' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetSingleMonthSkdnDataQuery,
+  GetSingleMonthSkdnDataQueryVariables
+>
+export const GetValidSkdnMonthYearDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetValidSKDNMonthYear' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'posyanduId' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'validSKDNMonthYear' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'posyanduId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'posyanduId' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'monthIdx' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetValidSkdnMonthYearQuery,
+  GetValidSkdnMonthYearQueryVariables
 >
 export const GetWeightEvaluationDocument = {
   kind: 'Document',
