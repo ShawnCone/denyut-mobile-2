@@ -36,5 +36,8 @@ export async function getValidSKDNMonths({
     throw result.error
   }
 
-  return result.data.validSKDNMonthYear
+  return result.data.validSKDNMonthYear.map(({ monthIdx, year }) => ({
+    monthIdx,
+    year,
+  }))
 }

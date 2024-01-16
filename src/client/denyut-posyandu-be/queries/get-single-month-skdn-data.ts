@@ -38,6 +38,7 @@ export async function getSingleMonthSKDNData({
   recordMonthIdx,
   recordYear,
 }: GetSingleMonthSKDNDataParams) {
+  console.log({ posyanduId, recordMonthIdx, recordYear })
   const result = await DenyutPosyanduBeClient.query({
     query: GET_SINGLE_MONTH_SKDN_DATA,
     variables: {

@@ -4,6 +4,7 @@ import { getValidSKDNMonths } from '@/client/denyut-posyandu-be/queries/get-vali
 import { supabaseClient } from '@/client/supabase/supabase'
 import { useProtectedAuthContext } from '@/context/AuthContext'
 import {
+  GENERATING_REPORT,
   SUCCESSFULLY_SAVED_REPORT,
   UNABLE_TO_DOWNLOAD_REPORT,
   UNABLE_TO_SAVE_REPORT,
@@ -24,12 +25,11 @@ export function useValidPosyanduSKDNMonths(posyanduId: string) {
 
   return useQuery({
     queryKey: ['valid-skdn-months', posyanduId],
-    queryFn: async () => {
+    queryFn: () =>
       getValidSKDNMonths({
         authToken,
         posyanduId,
-      })
-    },
+      }),
   })
 }
 
@@ -118,6 +118,8 @@ async function downloadPosyanduSKDNReport({
   monthIdx,
   year,
 }: DownloadPosyanduSKDNReportParams) {
+  ToastAndroid.show(GENERATING_REPORT, ToastAndroid.SHORT)
+
   // Get the data
   const data = await getSingleMonthSKDNData({
     authToken,
