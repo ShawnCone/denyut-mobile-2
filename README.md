@@ -59,4 +59,16 @@ TBD: Workflow checks for PR are not in place yet. Until then, make sure before e
 
 ## Deployment / Build
 
-TBD: Info to build and upload app to play store
+### Preview / Testing build (.apk)
+
+1. Execute `npm run build:test`, `eas` will handle the rest (make sure [eas](https://expo.dev/eas) client is installed)
+2. Go to eas project `denyut-mobile`, wait for build to finish and download the apk file to android device to test
+
+### Production Build (.aab) and play store deployment
+
+1. For every production build, need to increment `app.json` entry of `expo.android.versionCode` value
+2. Wait for build to finish in eas project `denyut-mobile`
+3. Once build finishes, download the `.aab` file
+4. Go to [denyut posyandu console](https://play.google.com/console/u/0/developers/7095150657835178233/app/4974115026575056198/app-dashboard?timespan=thirtyDays)
+5. Go to production release dashboard, click "Create new release"
+6. Upload downloaded `.aab` file in (3) and follow instructions
