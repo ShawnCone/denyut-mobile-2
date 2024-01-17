@@ -9,11 +9,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
 import { ProfileStackParamsList } from '../profile-stack'
 
-import {
-  getAvatarUrlFromStoragePath,
-  useUploadAvatar,
-} from '@/client/supabase/storage/avatar'
-import { usePickImage } from '@/utils/usePickImage'
+import AvatarPicker from '@/design-system/forms/AvatarPicker'
 import {
   UpdateProfileFormSchema,
   UpdateProfileFormValues,
@@ -28,7 +24,7 @@ type UpdateProfileScreenProps = NativeStackScreenProps<
 function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
   const { userInfo } = useUserInfoContext()
 
-  const { control, handleSubmit } = useForm<UpdateProfileFormValues>({
+  const { control, handleSubmit, setValue } = useForm<UpdateProfileFormValues>({
     resolver: zodResolver(UpdateProfileFormSchema),
     defaultValues: {
       name: userInfo.name,
@@ -53,28 +49,9 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
     })
   }
 
-  const uploadAvatar = useUploadAvatar({
-    onUploadSuccess: storagePath => {
-      // Update avatar picture, maybe handle this inside the avatar display / uploader
-      const avatarUrl = getAvatarUrlFromStoragePath({
-        avatarType: 'user',
-        storagePath,
-      })
-      // When should we upload the avatar? On select or on submit?. Maybe on submit.
-      // Replace the avatar url
-      console.log({ avatarUrl })
-    },
-  })
-
-  const { pickImageFunc } = usePickImage({
-    onImagePicked: localImageUri =>
-      // Maybe change the displayed avatar here.
-      uploadAvatar({
-        avatarType: 'user',
-        id: userInfo.id,
-        localImageUri,
-      }),
-  })
+  const onAvatarChanged = (localImageUri?: string) => {
+    setValue('localAvatarUri', localImageUri)
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -91,6 +68,11 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
             gap: tokens.margin.L,
           }}
         >
+          <AvatarPicker
+            id={userInfo.id}
+            avatarType="user"
+            onAvatarChanged={onAvatarChanged}
+          />
           <Controller
             control={control}
             name="name"
@@ -139,8 +121,6 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
               />
             )}
           />
-
-          <DenyutButton title="Pilih Foto" onPress={pickImageFunc} />
           <DenyutButton
             title="Ubah Akun"
             onPress={handleSubmit(onSubmit)}

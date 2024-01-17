@@ -26,6 +26,21 @@ export function useUpdateProfileMutation({
     }: {
       newUserInfo: UpdateUserInfoType
     }) => {
+      // Upload avatar
+
+      // const uploadAvatar = useUploadAvatar({
+      //   onUploadSuccess: storagePath => {
+      //     // Update avatar picture, maybe handle this inside the avatar display / uploader
+      //     const avatarUrl = getAvatarUrlFromStoragePath({
+      //       avatarType: 'user',
+      //       storagePath,
+      //     })
+      //     // When should we upload the avatar? On select or on submit?. Maybe on submit.
+      //     // Replace the avatar url
+      //     console.log({ avatarUrl })
+      //   },
+      // })
+
       return updateUserInfo({ userIdToUpdate: user.id, newUserInfo })
     },
     onSuccess: () => {
@@ -45,6 +60,7 @@ export const UpdateProfileFormSchema = z.object({
   address: z.string().min(1, {
     message: CANNOT_BE_EMPTY,
   }),
+  localAvatarUri: z.string().optional(),
 })
 
 export type UpdateProfileFormValues = z.infer<typeof UpdateProfileFormSchema>

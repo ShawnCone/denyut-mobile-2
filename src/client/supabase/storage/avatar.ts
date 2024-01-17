@@ -8,7 +8,7 @@ import { supabaseClient } from '../supabase'
 const USER_AVATAR_BUCKET_NAME = 'user-profile-pictures'
 const KID_AVATAR_BUCKET_NAME = 'kid-profile-pictures'
 
-type AvatarType = 'user' | 'kid'
+export type AvatarType = 'user' | 'kid'
 
 function getBucketNameFromAvatarType(avatarType: AvatarType): string {
   return avatarType === 'kid' ? KID_AVATAR_BUCKET_NAME : USER_AVATAR_BUCKET_NAME
@@ -67,7 +67,7 @@ export function useUploadAvatar({ onUploadSuccess }: useUploadAvatarParams) {
 }
 
 // Just returns ID, but might be complicated later.
-export function getStoragePathFromId({ id }: { id: string }): string {
+export function getAvatarStoragePathFromId({ id }: { id: string }): string {
   return id
 }
 
