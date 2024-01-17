@@ -2,9 +2,9 @@
   "expo": {
     "name": "Denyut Mobile",
     "slug": "denyut-mobile",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icons/app-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/images/splash-app.png",
@@ -13,23 +13,31 @@
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/app-icon.png",
         "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "favicon": "./assets/icons/app-icon.png"
+      },
+      "package": "com.denyut.denyutmobile",
+      "versionCode": 20
     },
     "extra": {
       "eas": {
-        "projectId": "5416f631-9b49-48ab-9f7c-0d97b0d83a51"
+        "projectId": "a2b8fc5c-1549-476f-9d09-99d2e4f9e51b"
       }
     },
-    "owner": "shawncone"
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "33.0.0"
+          }
+        }
+      ],
+      "expo-build-properties"
+    ]
   }
 }
