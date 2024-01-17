@@ -3,10 +3,12 @@ import {
   getAvatarStoragePathFromId,
   getAvatarUrlFromStoragePath,
 } from '@/client/supabase/storage/avatar'
+import { DELETED_AVATAR_PLACEHOLDER_VALUE } from '@/screens/main-tab/profile-stack/UpdateProfile/utils'
 import { usePickImage } from '@/utils/usePickImage'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Image } from 'expo-image'
 import { useState } from 'react'
-import { Image, Pressable, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import Typography from '../Typography'
 import { tokens } from '../tokens/tokens'
 
@@ -16,14 +18,20 @@ type AvatarPickerProps = {
   id?: string
   avatarType: AvatarType
   onAvatarChanged?: (localImageUri?: string) => void
+  disabled?: boolean
 }
 
-function AvatarPicker({ id, avatarType, onAvatarChanged }: AvatarPickerProps) {
+function AvatarPicker({
+  id,
+  avatarType,
+  onAvatarChanged,
+  disabled,
+}: AvatarPickerProps) {
   const defaultAvatar = id
-    ? getAvatarUrlFromStoragePath({
+    ? `${getAvatarUrlFromStoragePath({
         avatarType,
         storagePath: getAvatarStoragePathFromId({ id }),
-      })
+      })}?time=${Date.now()}`
     : undefined
 
   const [displayImageUri, setDisplayImageUri] = useState<string | undefined>(
@@ -43,7 +51,7 @@ function AvatarPicker({ id, avatarType, onAvatarChanged }: AvatarPickerProps) {
 
   const onRemoveAvatar = () => {
     setDisplayImageUri(undefined)
-    onAvatarChanged?.(undefined)
+    onAvatarChanged?.(DELETED_AVATAR_PLACEHOLDER_VALUE)
   }
 
   return (
@@ -62,6 +70,7 @@ function AvatarPicker({ id, avatarType, onAvatarChanged }: AvatarPickerProps) {
           overflow: 'hidden',
           borderRadius: tokens.borderRadius.full,
         }}
+        disabled={disabled}
       >
         {typeof displayImageUri === 'undefined' ? (
           <MaterialCommunityIcons
@@ -78,9 +87,10 @@ function AvatarPicker({ id, avatarType, onAvatarChanged }: AvatarPickerProps) {
               flex: 1,
               width: AVATAR_SIZE,
               height: AVATAR_SIZE,
-              resizeMode: 'contain',
             }}
+            contentFit="contain"
             onError={onLoadInitialImgUrlError}
+            placeholder={require('@/../assets/images/loader.gif')}
           />
         )}
       </Pressable>
@@ -102,6 +112,7 @@ function AvatarPicker({ id, avatarType, onAvatarChanged }: AvatarPickerProps) {
             marginTop: tokens.margin.S,
           }}
           onPress={onRemoveAvatar}
+          disabled={disabled}
         >
           <Typography
             variant={{

@@ -1,5 +1,6 @@
 import { usePosyanduInfoContext } from '@/context/PosyanduInfoContext'
 import DenyutButton from '@/design-system/DenyutButton'
+import AvatarPicker from '@/design-system/forms/AvatarPicker'
 import DenyutDateTimePicker from '@/design-system/forms/DatePickers/DenyutDateTimePicker'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
 import ErrorMessageDisplay from '@/design-system/forms/ErrorMessageDisplay'
@@ -24,12 +25,13 @@ type KidRegistrationScreenProps = NativeStackScreenProps<
 function KidRegistrationScreen({ navigation }: KidRegistrationScreenProps) {
   const { posyanduInfo } = usePosyanduInfoContext()
 
-  const { handleSubmit, control } = useForm<KidRegistrationFormValues>({
-    resolver: zodResolver(kidRegistrationFormSchema),
-    defaultValues: {
-      sex: 'male',
-    },
-  })
+  const { handleSubmit, control, setValue } =
+    useForm<KidRegistrationFormValues>({
+      resolver: zodResolver(kidRegistrationFormSchema),
+      defaultValues: {
+        sex: 'male',
+      },
+    })
 
   const {
     mutate: registerKid,
@@ -46,13 +48,21 @@ function KidRegistrationScreen({ navigation }: KidRegistrationScreenProps) {
   })
 
   const onSubmit = (data: KidRegistrationFormValues) => {
+    const newKidInfo = { ...data }
+    delete newKidInfo['localAvatarUri']
+
     registerKid({
       inKidInfo: {
-        ...data,
-        dateOfBirth: data.dateOfBirth.toISOString(),
+        ...newKidInfo,
+        dateOfBirth: newKidInfo.dateOfBirth.toISOString(),
       },
+      localAvatarUri: data.localAvatarUri,
       posyanduId: posyanduInfo.id,
     })
+  }
+
+  const onAvatarChanged = (localImageUri?: string) => {
+    setValue('localAvatarUri', localImageUri)
   }
 
   return (
@@ -70,6 +80,11 @@ function KidRegistrationScreen({ navigation }: KidRegistrationScreenProps) {
             gap: tokens.margin.L,
           }}
         >
+          <AvatarPicker
+            avatarType="kid"
+            onAvatarChanged={onAvatarChanged}
+            disabled={isPending}
+          />
           <Controller
             control={control}
             name="name"

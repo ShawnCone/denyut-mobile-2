@@ -45,6 +45,7 @@ export async function uploadAvatar({
     })
 
   if (error) {
+    console.error({ error })
     throw error
   }
 
@@ -64,6 +65,18 @@ export function useUploadAvatar({ onUploadSuccess }: useUploadAvatarParams) {
       ToastAndroid.show(UNABLE_TO_UPLOAD_AVATAR, ToastAndroid.SHORT)
     }
   }
+}
+
+export async function deleteAvatar({
+  avatarType,
+  storagePath,
+}: {
+  avatarType: AvatarType
+  storagePath: string
+}) {
+  return await supabaseClient.storage
+    .from(getBucketNameFromAvatarType(avatarType))
+    .remove([storagePath])
 }
 
 // Just returns ID, but might be complicated later.

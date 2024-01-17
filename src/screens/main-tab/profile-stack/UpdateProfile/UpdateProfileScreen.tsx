@@ -39,13 +39,19 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
     },
   })
 
-  const onSubmit = ({ name, sex, address }: UpdateProfileFormValues) => {
+  const onSubmit = ({
+    name,
+    sex,
+    address,
+    localAvatarUri,
+  }: UpdateProfileFormValues) => {
     mutate({
       newUserInfo: {
         name,
         sex,
         address,
       },
+      localAvatarUri,
     })
   }
 
@@ -72,6 +78,7 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
             id={userInfo.id}
             avatarType="user"
             onAvatarChanged={onAvatarChanged}
+            disabled={isUpdatingProfile}
           />
           <Controller
             control={control}
