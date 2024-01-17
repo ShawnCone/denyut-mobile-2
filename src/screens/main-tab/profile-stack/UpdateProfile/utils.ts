@@ -14,7 +14,7 @@ type useUpdateProfileParams = {
   onError?: () => void
 }
 
-export function useUpdateProfileQuery({
+export function useUpdateProfileMutation({
   onSuccess,
   onError,
 }: useUpdateProfileParams) {

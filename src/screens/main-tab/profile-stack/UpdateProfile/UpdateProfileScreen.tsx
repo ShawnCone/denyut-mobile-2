@@ -8,10 +8,16 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
 import { ProfileStackParamsList } from '../profile-stack'
+
+import {
+  getAvatarUrlFromStoragePath,
+  useUploadAvatar,
+} from '@/client/supabase/storage/avatar'
+import { usePickImage } from '@/utils/usePickImage'
 import {
   UpdateProfileFormSchema,
   UpdateProfileFormValues,
-  useUpdateProfileQuery,
+  useUpdateProfileMutation,
 } from './utils'
 
 type UpdateProfileScreenProps = NativeStackScreenProps<
@@ -31,7 +37,7 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
     },
   })
 
-  const { mutate, isPending: isUpdatingProfile } = useUpdateProfileQuery({
+  const { mutate, isPending: isUpdatingProfile } = useUpdateProfileMutation({
     onSuccess: () => {
       navigation.goBack()
     },
@@ -46,6 +52,29 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
       },
     })
   }
+
+  const uploadAvatar = useUploadAvatar({
+    onUploadSuccess: storagePath => {
+      // Update avatar picture, maybe handle this inside the avatar display / uploader
+      const avatarUrl = getAvatarUrlFromStoragePath({
+        avatarType: 'user',
+        storagePath,
+      })
+      // When should we upload the avatar? On select or on submit?. Maybe on submit.
+      // Replace the avatar url
+      console.log({ avatarUrl })
+    },
+  })
+
+  const { pickImageFunc } = usePickImage({
+    onImagePicked: localImageUri =>
+      // Maybe change the displayed avatar here.
+      uploadAvatar({
+        avatarType: 'user',
+        id: userInfo.id,
+        localImageUri,
+      }),
+  })
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -111,6 +140,7 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
             )}
           />
 
+          <DenyutButton title="Pilih Foto" onPress={pickImageFunc} />
           <DenyutButton
             title="Ubah Akun"
             onPress={handleSubmit(onSubmit)}
