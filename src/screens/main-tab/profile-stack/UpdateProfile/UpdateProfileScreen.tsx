@@ -8,10 +8,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
 import { ProfileStackParamsList } from '../profile-stack'
+
+import AvatarPicker from '@/design-system/forms/AvatarPicker'
 import {
   UpdateProfileFormSchema,
   UpdateProfileFormValues,
-  useUpdateProfileQuery,
+  useUpdateProfileMutation,
 } from './utils'
 
 type UpdateProfileScreenProps = NativeStackScreenProps<
@@ -22,7 +24,7 @@ type UpdateProfileScreenProps = NativeStackScreenProps<
 function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
   const { userInfo } = useUserInfoContext()
 
-  const { control, handleSubmit } = useForm<UpdateProfileFormValues>({
+  const { control, handleSubmit, setValue } = useForm<UpdateProfileFormValues>({
     resolver: zodResolver(UpdateProfileFormSchema),
     defaultValues: {
       name: userInfo.name,
@@ -31,20 +33,30 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
     },
   })
 
-  const { mutate, isPending: isUpdatingProfile } = useUpdateProfileQuery({
+  const { mutate, isPending: isUpdatingProfile } = useUpdateProfileMutation({
     onSuccess: () => {
       navigation.goBack()
     },
   })
 
-  const onSubmit = ({ name, sex, address }: UpdateProfileFormValues) => {
+  const onSubmit = ({
+    name,
+    sex,
+    address,
+    localAvatarUri,
+  }: UpdateProfileFormValues) => {
     mutate({
       newUserInfo: {
         name,
         sex,
         address,
       },
+      localAvatarUri,
     })
+  }
+
+  const onAvatarChanged = (localImageUri?: string) => {
+    setValue('localAvatarUri', localImageUri)
   }
 
   return (
@@ -62,6 +74,12 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
             gap: tokens.margin.L,
           }}
         >
+          <AvatarPicker
+            id={userInfo.id}
+            avatarType="user"
+            onAvatarChanged={onAvatarChanged}
+            disabled={isUpdatingProfile}
+          />
           <Controller
             control={control}
             name="name"
@@ -110,7 +128,6 @@ function UpdateProfileScreen({ navigation }: UpdateProfileScreenProps) {
               />
             )}
           />
-
           <DenyutButton
             title="Ubah Akun"
             onPress={handleSubmit(onSubmit)}

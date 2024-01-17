@@ -1,4 +1,5 @@
 import DenyutButton from '@/design-system/DenyutButton'
+import AvatarPicker from '@/design-system/forms/AvatarPicker'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
 import ErrorMessageDisplay from '@/design-system/forms/ErrorMessageDisplay'
 import SexSelectionFormInput from '@/design-system/forms/SexSelectionFormInput'
@@ -32,20 +33,32 @@ function CreateUserInfoScreen({ user }: CreateUserInfoScreenProps) {
 
   const nameFieldRef = useRef<TextInput>(null)
 
-  const { control, handleSubmit } = useForm<CreateProfileFormValues>({
+  const { control, handleSubmit, setValue } = useForm<CreateProfileFormValues>({
     resolver: zodResolver(createProfileFormSchema),
     defaultValues: {
       sex: 'male',
     },
   })
 
-  const onSubmit = ({ name, address, sex }: CreateProfileFormValues) => {
+  const onSubmit = ({
+    name,
+    address,
+    sex,
+    localAvatarUri,
+  }: CreateProfileFormValues) => {
     createUserInfo({
-      id: user.id,
-      name,
-      sex,
-      address,
+      newUserInfo: {
+        id: user.id,
+        name,
+        sex,
+        address,
+      },
+      localAvatarUri,
     })
+  }
+
+  const onAvatarChanged = (localImageUri?: string) => {
+    setValue('localAvatarUri', localImageUri)
   }
 
   useEffect(() => {
@@ -67,6 +80,11 @@ function CreateUserInfoScreen({ user }: CreateUserInfoScreenProps) {
             gap: tokens.margin.L,
           }}
         >
+          <AvatarPicker
+            avatarType="user"
+            onAvatarChanged={onAvatarChanged}
+            disabled={isCreatingUserInfo}
+          />
           <Controller
             control={control}
             name="name"

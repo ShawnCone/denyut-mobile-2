@@ -51,6 +51,7 @@ const updateKidProfileFormSchema = z.object({
     message: CANNOT_BE_EMPTY,
   }),
   dateOfBirth: z.date(),
+  localAvatarUri: z.string().optional(),
 })
 
 export type UpdateKidProfileFormValues = z.infer<

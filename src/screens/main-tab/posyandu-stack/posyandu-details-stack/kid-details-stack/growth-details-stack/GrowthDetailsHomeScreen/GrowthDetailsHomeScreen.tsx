@@ -1,9 +1,10 @@
 import { useKidInfoContext } from '@/context/KidInfoContext'
 import Typography from '@/design-system/Typography'
+import AvatarDisplay from '@/design-system/forms/AvatarDisplay'
 import { getDisplaySexStr } from '@/design-system/forms/SexSelectionFormInput'
 import { tokens } from '@/design-system/tokens/tokens'
 import { getDisplayDate, getDisplayDistanceAge } from '@/utils/dateFormatter'
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useEffect } from 'react'
 import { Pressable, View } from 'react-native'
@@ -110,18 +111,11 @@ function GrowthDetailsHomeScreen({ navigation }: GrowthDetailsHomeScreenProps) {
           gap: tokens.margin.L,
         }}
       >
-        {/* Change this to avatar later */}
-        <View
-          style={{
-            paddingHorizontal: tokens.padding.M,
-          }}
-        >
-          <FontAwesome
-            name="child"
-            size={tokens.iconSize.L}
-            color={tokens.colors.primary.dark}
-          />
-        </View>
+        <AvatarDisplay
+          avatarType="kid"
+          id={kidInfo.id}
+          size={tokens.iconSize.XL}
+        />
 
         <View>
           <Typography

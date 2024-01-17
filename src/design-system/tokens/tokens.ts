@@ -44,6 +44,7 @@ export const tokens = {
     S: 16,
     M: 24,
     L: 32,
+    XL: 48,
   },
   // Width tokens
   width: {

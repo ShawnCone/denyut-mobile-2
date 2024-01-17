@@ -1,5 +1,6 @@
 import { useKidInfoContext } from '@/context/KidInfoContext'
 import DenyutButton from '@/design-system/DenyutButton'
+import AvatarPicker from '@/design-system/forms/AvatarPicker'
 import DenyutDateTimePicker from '@/design-system/forms/DatePickers/DenyutDateTimePicker'
 import DenyutTextfield from '@/design-system/forms/DenyutTextfield'
 import ErrorMessageDisplay from '@/design-system/forms/ErrorMessageDisplay'
@@ -21,7 +22,7 @@ type UpdateKidProfileScreenProps = NativeStackScreenProps<
 >
 
 function UpdateKidProfileScreen({ navigation }: UpdateKidProfileScreenProps) {
-  const { control, handleSubmit } = useUpdateKidProfileForm()
+  const { control, handleSubmit, setValue } = useUpdateKidProfileForm()
 
   const { kidInfo } = useKidInfoContext()
 
@@ -32,13 +33,21 @@ function UpdateKidProfileScreen({ navigation }: UpdateKidProfileScreenProps) {
   })
 
   const onSubmit = (data: UpdateKidProfileFormValues) => {
+    const newKidInfo = { ...data }
+    delete newKidInfo['localAvatarUri']
+
     mutate({
       kidId: kidInfo.id,
       inKidInfo: {
-        ...data,
-        dateOfBirth: data.dateOfBirth.toISOString(),
+        ...newKidInfo,
+        dateOfBirth: newKidInfo.dateOfBirth.toISOString(),
       },
+      localAvatarUri: data.localAvatarUri,
     })
+  }
+
+  const onAvatarChanged = (localImageUri?: string) => {
+    setValue('localAvatarUri', localImageUri)
   }
 
   return (
@@ -56,6 +65,11 @@ function UpdateKidProfileScreen({ navigation }: UpdateKidProfileScreenProps) {
             gap: tokens.margin.L,
           }}
         >
+          <AvatarPicker
+            avatarType="kid"
+            onAvatarChanged={onAvatarChanged}
+            disabled={isPending}
+          />
           <Controller
             control={control}
             name="name"

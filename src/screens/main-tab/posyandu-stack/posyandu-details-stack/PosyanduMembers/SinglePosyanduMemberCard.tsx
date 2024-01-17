@@ -1,7 +1,7 @@
 import { Database } from '@/client/supabase/types'
 import Typography from '@/design-system/Typography'
+import AvatarDisplay from '@/design-system/forms/AvatarDisplay'
 import { tokens } from '@/design-system/tokens/tokens'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { ReactNode } from 'react'
 import { View } from 'react-native'
 
@@ -18,6 +18,7 @@ type SinglePosyanduMemberCardProps = {
 } & SinglePosyanduMemberCardMemberInfo
 
 function SinglePosyanduMemberCard({
+  id,
   name,
   phoneNumber,
   rightElement,
@@ -41,12 +42,8 @@ function SinglePosyanduMemberCard({
           paddingHorizontal: tokens.padding.L,
         }}
       >
-        {/* Later change this to avatar */}
-        <MaterialCommunityIcons
-          name="account-circle"
-          size={tokens.iconSize.L}
-          color={tokens.colors.primary.dark}
-        />
+        {/* Avatar */}
+        <AvatarDisplay avatarType="user" id={id} size={tokens.iconSize.L} />
         <View
           style={{
             marginLeft: tokens.margin.L,

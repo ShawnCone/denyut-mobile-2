@@ -1,17 +1,25 @@
 // Register kid also involves adding the kid info to the posyandu - kid relation table.
 // Need to make this to transaction later in the backend, client shouldn't worry about this.
 
+import { DELETED_AVATAR_PLACEHOLDER_VALUE } from '@/screens/main-tab/profile-stack/UpdateProfile/utils'
+import {
+  deleteAvatar,
+  getAvatarStoragePathFromId,
+  uploadAvatar,
+} from '../storage/avatar'
 import { supabaseClient } from '../supabase'
 import { Database } from '../types'
 
 type registerNewKidParams = {
   posyanduId: string
   inKidInfo: Database['public']['Tables']['KidInfo']['Insert']
+  localAvatarUri?: string
 }
 
 export async function registerNewKid({
   posyanduId,
   inKidInfo,
+  localAvatarUri,
 }: registerNewKidParams) {
   const { data: kidInfo, error: insertKidInfoError } = await supabaseClient
     .from('KidInfo')
@@ -33,6 +41,15 @@ export async function registerNewKid({
 
   if (addKidToOutpostError) {
     throw new Error(addKidToOutpostError.details)
+  }
+
+  // Upload avatar
+  if (localAvatarUri && localAvatarUri !== DELETED_AVATAR_PLACEHOLDER_VALUE) {
+    uploadAvatar({
+      avatarType: 'kid',
+      id: kidInfo.id,
+      localImageUri: localAvatarUri,
+    })
   }
 
   return kidInfo.id
@@ -87,10 +104,35 @@ export async function getKidInfo({
 export async function updateKidProfile({
   kidId,
   inKidInfo,
+  localAvatarUri,
 }: {
   kidId: string
   inKidInfo: Database['public']['Tables']['KidInfo']['Update']
+  localAvatarUri?: string
 }) {
+  // Upload avatar
+  if (localAvatarUri) {
+    if (localAvatarUri === DELETED_AVATAR_PLACEHOLDER_VALUE) {
+      // Delete avatar if applicable
+      try {
+        deleteAvatar({
+          avatarType: 'kid',
+          storagePath: getAvatarStoragePathFromId({
+            id: kidId,
+          }),
+        })
+      } catch {
+        console.error('Unable to delete avatar, but ignored')
+      }
+    } else {
+      await uploadAvatar({
+        avatarType: 'kid',
+        id: kidId,
+        localImageUri: localAvatarUri,
+      })
+    }
+  }
+
   const { error } = await supabaseClient
     .from('KidInfo')
     .update(inKidInfo)

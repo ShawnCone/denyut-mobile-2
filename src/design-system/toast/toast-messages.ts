@@ -17,3 +17,6 @@ export const SUCCESSFULLY_GENERATED_REPORT = 'Berhasil membuat laporan'
 export const UNABLE_TO_SAVE_REPORT = 'Tidak dapat menyimpan laporan'
 export const SUCCESSFULLY_SAVED_REPORT = 'Berhasil menyimpan laporan'
 export const GENERATING_REPORT = 'Membuat laporan'
+
+// Avatar related messages
+export const UNABLE_TO_UPLOAD_AVATAR = 'Tidak dapat mengunggah avatar'

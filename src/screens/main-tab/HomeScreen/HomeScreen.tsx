@@ -1,6 +1,7 @@
 import { useUserInfoContext } from '@/context/UserInfoContext'
 import { DarkHeaderStackNavigationScreenOptions } from '@/design-system/NavigationScreenOptions'
 import Typography from '@/design-system/Typography'
+import AvatarDisplay from '@/design-system/forms/AvatarDisplay'
 import { tokens } from '@/design-system/tokens/tokens'
 import { FontAwesome } from '@expo/vector-icons'
 import {
@@ -74,7 +75,11 @@ function HomeScreen({ navigation }: HomeScreenProps) {
                 gap: tokens.margin.L,
               }}
             >
-              <View>
+              <View
+                style={{
+                  gap: tokens.margin.M,
+                }}
+              >
                 {/* Greetings part */}
                 <Typography
                   variant={{
@@ -86,17 +91,30 @@ function HomeScreen({ navigation }: HomeScreenProps) {
                 >
                   {getGreetings()},
                 </Typography>
-                {/* Add avatar later */}
-                <Typography
-                  variant={{
-                    size: 'Heading5',
-                  }}
+                <View
                   style={{
-                    color: tokens.colors.neutral.white,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: tokens.margin.M,
                   }}
                 >
-                  {userInfo.name}
-                </Typography>
+                  <AvatarDisplay
+                    avatarType="user"
+                    id={userInfo.id}
+                    size={tokens.iconSize.L}
+                    hidePlaceholder
+                  />
+                  <Typography
+                    variant={{
+                      size: 'Heading5',
+                    }}
+                    style={{
+                      color: tokens.colors.neutral.white,
+                    }}
+                  >
+                    {userInfo.name}
+                  </Typography>
+                </View>
               </View>
               <View
                 style={{

@@ -1,8 +1,8 @@
 import { KidInfoSummary } from '@/client/supabase/queries/kid-info'
 import Typography from '@/design-system/Typography'
+import AvatarDisplay from '@/design-system/forms/AvatarDisplay'
 import { tokens } from '@/design-system/tokens/tokens'
 import { getDisplayCurrentAge, getDisplayDate } from '@/utils/dateFormatter'
-import { FontAwesome } from '@expo/vector-icons'
 import { Pressable, View } from 'react-native'
 
 type SinglePosyanduKidInfoSummaryCardProps = {
@@ -33,6 +33,7 @@ function SinglePosyanduKidInfoSummaryCard({
           backgroundColor: tokens.colors.neutral.white,
           paddingVertical: tokens.padding.L,
           paddingHorizontal: tokens.padding.L,
+          gap: tokens.margin.L,
         }}
         onPress={onPress}
         android_ripple={{
@@ -41,18 +42,12 @@ function SinglePosyanduKidInfoSummaryCard({
         }}
         disabled={disabled}
       >
-        {/* Change this to avatar later */}
-        <View
-          style={{
-            paddingHorizontal: tokens.padding.M,
-          }}
-        >
-          <FontAwesome
-            name="child"
-            size={tokens.iconSize.L}
-            color={tokens.colors.primary.dark}
-          />
-        </View>
+        {/* Avatar */}
+        <AvatarDisplay
+          avatarType="kid"
+          id={kidInfoSummary.id}
+          size={tokens.iconSize.XL}
+        />
         <View
           style={{
             marginLeft: tokens.margin.L,

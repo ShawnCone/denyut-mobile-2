@@ -32,6 +32,7 @@ export const kidRegistrationFormSchema = z.object({
     message: CANNOT_BE_EMPTY,
   }),
   dateOfBirth: z.date(),
+  localAvatarUri: z.string().optional(),
 })
 
 export type KidRegistrationFormValues = z.infer<

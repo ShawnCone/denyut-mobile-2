@@ -18,7 +18,8 @@ export async function getUserInfo(user: User): Promise<UserInfo | null> {
   return data
 }
 
-type CreateUserInfoType = Database['public']['Tables']['AccountInfo']['Insert']
+export type CreateUserInfoType =
+  Database['public']['Tables']['AccountInfo']['Insert']
 
 export async function createUserInfo(newUserInfo: CreateUserInfoType) {
   const { data, error } = await supabaseClient
