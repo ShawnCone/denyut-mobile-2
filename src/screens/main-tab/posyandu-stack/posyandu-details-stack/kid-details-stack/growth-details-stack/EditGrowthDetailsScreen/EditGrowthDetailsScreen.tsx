@@ -102,7 +102,7 @@ function EditGrowthDetailsScreen({ navigation }: EditGrowthDetailsScreenProps) {
                   onBlur={onBlur}
                   value={value.toString()}
                   onChangeText={onChange}
-                  keyboardType="numeric"
+                  keyboardType="phone-pad"
                   editable={!isPending}
                   required
                 />

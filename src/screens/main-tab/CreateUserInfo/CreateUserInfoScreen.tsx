@@ -110,7 +110,7 @@ function CreateUserInfoScreen({ user }: CreateUserInfoScreenProps) {
               <SexSelectionFormInput
                 onChange={onChange}
                 value={value}
-                disabled={!isCreatingUserInfo}
+                disabled={isCreatingUserInfo}
               />
             )}
           />
