@@ -139,7 +139,7 @@ function CreateGrowthRecordScreen({
                     errorMessage={error?.message}
                     onBlur={onBlur}
                     onChangeText={onChange}
-                    keyboardType="numeric"
+                    keyboardType="phone-pad"
                     editable={!createGrowthRecordIsPending}
                     required
                   />
@@ -160,7 +160,7 @@ function CreateGrowthRecordScreen({
                     errorMessage={error?.message}
                     onBlur={onBlur}
                     onChangeText={onChange}
-                    keyboardType="numeric"
+                    keyboardType="phone-pad"
                     editable={!createGrowthRecordIsPending}
                     required
                   />
@@ -183,7 +183,7 @@ function CreateGrowthRecordScreen({
                     errorMessage={error?.message}
                     onBlur={onBlur}
                     onChangeText={onChange}
-                    keyboardType="numeric"
+                    keyboardType="phone-pad"
                     editable={!createGrowthRecordIsPending}
                   />
                 </SingleFormFieldContainerWithinRow>
@@ -203,7 +203,7 @@ function CreateGrowthRecordScreen({
                     errorMessage={error?.message}
                     onBlur={onBlur}
                     onChangeText={onChange}
-                    keyboardType="numeric"
+                    keyboardType="phone-pad"
                     editable={!createGrowthRecordIsPending}
                   />
                 </SingleFormFieldContainerWithinRow>

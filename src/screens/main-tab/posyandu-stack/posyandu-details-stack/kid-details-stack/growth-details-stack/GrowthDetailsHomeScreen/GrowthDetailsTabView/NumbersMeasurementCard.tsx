@@ -205,7 +205,7 @@ function NumbersMeasurementCardContent({
               }}
             >
               {increaseSincePrevious > 0 && '+'}
-              {increaseSincePrevious} {unit}
+              {increaseSincePrevious.toPrecision(1)} {unit}
             </Typography>
             <Typography
               variant={{

@@ -6,8 +6,10 @@ const preprocessNumberInput = (val: unknown) => {
   if (typeof val === 'string') {
     if (val === '') return undefined
 
-    // If val is a valid string number check via regex, does not allow two dots
-    if (/^[0-9]+(\.[0-9]{1,})?$/.test(val)) {
+    // If val is a valid string number check via regex, allow single dot or single comma.
+    if (/^[0-9]+([.,][0-9]{1,})?$/.test(val)) {
+      // Replace comma with dot
+      val = val.replace(',', '.')
       return Number(val)
     }
 

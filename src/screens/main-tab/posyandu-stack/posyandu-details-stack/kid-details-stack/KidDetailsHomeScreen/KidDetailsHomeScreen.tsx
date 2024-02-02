@@ -23,22 +23,10 @@ function KidDetailsHomeScreen({ navigation }: KidDetailsHomeScreenProps) {
   const { kidInfo } = useKidInfoContext()
 
   function handleCustomGoBack() {
-    // If coming from register, make it go back to posyandu details home, otherwise go back as normal
-    // (Cannot go back to register)
-
-    // Get parent navigation
+    // Always go back to posyandu details home
     const parentNavigation = navigation.getParent() // Should be the posyandu details stack
-
-    const parentRouteStack = parentNavigation?.getState()?.routes
-    const prevParentRouteName =
-      parentRouteStack?.[parentRouteStack.length - 2].name // Gets the previous parent route
-    const parentRouteToAvoid: PosyanduDetailsScreenNames = 'KidRegistration'
-    const fallbackParentRoute: PosyanduDetailsScreenNames =
-      'PosyanduDetailsHome'
-
-    // Make this safe. If unsafe, go back as normal
-    if (parentNavigation && prevParentRouteName === parentRouteToAvoid) {
-      parentNavigation.navigate(fallbackParentRoute)
+    if (parentNavigation) {
+      parentNavigation.navigate('PosyanduDetailsHome')
       return
     }
 
